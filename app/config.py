@@ -26,7 +26,6 @@ class Settings(BaseSettings):
     CONTACT_RECIPIENT_EMAIL: str = ""
 
     # ── API Keys (for future integrations) ───────────────
-    OPENAI_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
 
     # ── Rate Limiting ────────────────────────────────────
