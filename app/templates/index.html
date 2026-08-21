@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buildlyst | Premium AI & Data Engineering</title>
+    
+    <!-- Fonts: Space Grotesk (Display) & DM Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark-theme scroll-locked">
+
+    <!-- Intro Splash Sequence -->
+    <div id="intro-splash" class="intro-splash">
+        <div class="splash-background"></div>
+        <div class="splash-screen-window" id="splash-window">
+            <div class="splash-content">
+                <h2>Scroll to Enter</h2>
+                <div class="scroll-indicator">↓</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-content" style="opacity: 0; transition: opacity 0.5s ease;">
+        
+        <!-- Ambient Background Effects -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        
+        <!-- Pill Navigation -->
+        <nav class="pill-nav">
+            <a href="#" class="logo text-gradient">Buildlyst</a>
+            <div class="pill-links">
+                <a href="#about">About</a>
+                <a href="#services">Capabilities</a>
+                <a href="#work">Work</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <a href="#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section reveal">
+            <!-- Animated Gradient Waves -->
+            <div class="wave-container">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                    <defs>
+                        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00D2FF" />
+                            <stop offset="50%" stop-color="#8A2387" />
+                            <stop offset="100%" stop-color="#3A7BD5" />
+                        </linearGradient>
+                    </defs>
+                    <g class="parallax-waves">
+                        <use xlink:href="#gentle-wave" x="48" y="0" fill="url(#wave-gradient)" opacity="0.05" />
+                        <use xlink:href="#gentle-wave" x="48" y="3" fill="url(#wave-gradient)" opacity="0.1" />
+                        <use xlink:href="#gentle-wave" x="48" y="5" fill="url(#wave-gradient)" opacity="0.15" />
+                        <use xlink:href="#gentle-wave" x="48" y="7" fill="url(#wave-gradient)" opacity="0.25" />
+                    </g>
+                </svg>
+            </div>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="overline highlight">AI & Data Engineering Studio</span>
+                    <h1 class="text-gradient-hero">Intelligence<br>Designed.</h1>
+                    <p class="subtext">We build high-performance AI agents, machine learning pipelines, and data systems that transform how businesses operate. Premium, scalable, and built for the future.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary glow-border-btn">Start a Project</a>
+                        <a href="#work" class="btn btn-secondary glass-btn">View Our Work</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <!-- Automated AI Chat Simulation -->
+                    <div class="chat-simulation-container glass-panel">
+                        <div class="sim-header">
+                            <div class="sim-dots"><span></span><span></span><span></span></div>
+                            <span class="sim-title">Buildlyst AI</span>
+                        </div>
+                        <div class="sim-messages" id="sim-messages">
+                            <!-- Messages injected via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Buildlyst Philosophy (About) Section -->
+        <section id="about" class="philosophy-section reveal">
+            <div class="container">
+                <div class="philosophy-grid">
+                    <div class="philosophy-text">
+                        <span class="overline highlight">Our Philosophy</span>
+                        <h2 class="text-gradient">We engineer. We don't just assemble.</h2>
+                        <p>The traditional agency model is broken. It relies on bloated teams, off-the-shelf templates, and slow iteration cycles. At Buildlyst, we operate as a lean, elite engineering studio.</p>
+                        <p>We don't just wrap ChatGPT APIs. We architect custom RAG systems, fine-tune proprietary models, and deploy scalable data pipelines that act as the central nervous system of your enterprise. Speed, security, and absolute premium quality are our baselines.</p>
+                    </div>
+                    <div class="philosophy-stats glass-panel tilt-card" data-tilt>
+                        <div class="stat-item">
+                            <div class="stat-number text-gradient-hero">10x</div>
+                            <div class="stat-label">Faster Deployment</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-gradient-hero">99.9%</div>
+                            <div class="stat-label">System Uptime</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number text-gradient-hero">0</div>
+                            <div class="stat-label">Templates Used</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section: Accordion Gallery -->
+        <section id="services" class="services-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-heading text-gradient">Capabilities</h2>
+                    <p class="subtext text-center">Cutting-edge solutions engineered for scale.</p>
+                </div>
+                
+                <div class="accordion-gallery">
+                    <div class="accordion-item glass-panel active">
+                        <div class="accordion-title">AI Agents</div>
+                        <div class="accordion-content">
+                            <p>Autonomous systems capable of executing complex multi-step reasoning, integrating with your existing tools, and making autonomous decisions based on real-time data constraints.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-panel">
+                        <div class="accordion-title">Gen AI</div>
+                        <div class="accordion-content">
+                            <p>Custom LLM deployments, fine-tuning, and highly secure RAG architectures tailored entirely to your proprietary enterprise data.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-panel">
+                        <div class="accordion-title">Machine & Deep Learning</div>
+                        <div class="accordion-content">
+                            <p>Advanced predictive modeling, neural networks for computer vision, NLP, and real-time classification systems deployed at scale.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-panel">
+                        <div class="accordion-title">Data Engineering</div>
+                        <div class="accordion-content">
+                            <p>Robust ETL pipelines, data warehousing, and interactive visualization dashboards that turn raw data into strategic assets.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item glass-panel">
+                        <div class="accordion-title">Website Development</div>
+                        <div class="accordion-content">
+                            <p>Premium, high-performance web applications and landing pages built with modern frameworks, deeply integrated with custom AI backends.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Engineering Core Section (Unified Stack & Architecture) -->
+        <section id="architecture" class="architecture-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="overline highlight">Engineering Core</span>
+                    <h2 class="section-heading text-gradient">Enterprise Architecture</h2>
+                    <p class="subtext text-center mx-auto">Built on a foundation of elite frameworks, tailored for specific autonomous use-cases.</p>
+                </div>
+                
+                <!-- Infinite Tech Marquee -->
+                <div class="marquee-container" style="margin-bottom: 48px; border-radius: var(--radius-lg);">
+                    <div class="marquee-content">
+                        <span>Python</span><span>FastAPI</span><span>React</span><span>Next.js</span><span>AWS</span>
+                        <span>Docker</span><span>Kubernetes</span><span>OpenAI</span><span>PyTorch</span><span>TensorFlow</span>
+                        <span>PostgreSQL</span><span>Snowflake</span><span>Pinecone</span><span>LangChain</span><span>Redis</span><span>Celery</span>
+                        <!-- Duplicate for infinite scroll -->
+                        <span>Python</span><span>FastAPI</span><span>React</span><span>Next.js</span><span>AWS</span>
+                        <span>Docker</span><span>Kubernetes</span><span>OpenAI</span><span>PyTorch</span><span>TensorFlow</span>
+                        <span>PostgreSQL</span><span>Snowflake</span><span>Pinecone</span><span>LangChain</span><span>Redis</span><span>Celery</span>
+                    </div>
+                </div>
+
+                <!-- Architecture Tabs -->
+                <div class="arch-tabs">
+                    <button class="arch-tab-btn active" data-target="flow-agents">AI Agents</button>
+                    <button class="arch-tab-btn" data-target="flow-genai">Gen AI</button>
+                    <button class="arch-tab-btn" data-target="flow-ml">Machine Learning</button>
+                    <button class="arch-tab-btn" data-target="flow-data">Data Engineering</button>
+                    <button class="arch-tab-btn" data-target="flow-web">Web Development</button>
+                </div>
+
+                <!-- Dynamic Pipeline Container -->
+                <div class="pipeline-container glass-panel glow-border p-lg">
+                    
+                    <!-- 1. AI Agents Flow -->
+                    <div class="pipeline-flow active" id="flow-agents">
+                        <div class="pipe-node" data-label="User Intent"><div class="pipe-icon">👤</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Reasoning Engine"><div class="pipe-icon">🧠</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Tool Execution"><div class="pipe-icon">⚙️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Vector Memory"><div class="pipe-icon">🗄️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Autonomous Action"><div class="pipe-icon">⚡</div></div>
+                    </div>
+
+                    <!-- 2. Gen AI Flow -->
+                    <div class="pipeline-flow" id="flow-genai">
+                        <div class="pipe-node" data-label="Raw Documents"><div class="pipe-icon">📄</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Embedding Model"><div class="pipe-icon">📉</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Vector Database"><div class="pipe-icon">🗄️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Context Retrieval"><div class="pipe-icon">🔍</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Generated Response"><div class="pipe-icon">💬</div></div>
+                    </div>
+
+                    <!-- 3. Machine Learning Flow -->
+                    <div class="pipeline-flow" id="flow-ml">
+                        <div class="pipe-node" data-label="Raw Data"><div class="pipe-icon">📦</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Preprocessing"><div class="pipe-icon">🧹</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Model Training"><div class="pipe-icon">🖥️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Evaluation"><div class="pipe-icon">📊</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Real-time Inference"><div class="pipe-icon">🎯</div></div>
+                    </div>
+
+                    <!-- 4. Data Engineering Flow -->
+                    <div class="pipeline-flow" id="flow-data">
+                        <div class="pipe-node" data-label="Data Sources"><div class="pipe-icon">🌐</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="ETL Pipeline"><div class="pipe-icon">⚙️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Data Warehouse"><div class="pipe-icon">🏢</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Analytics Engine"><div class="pipe-icon">📈</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Business Intelligence"><div class="pipe-icon">💡</div></div>
+                    </div>
+
+                    <!-- 5. Web Development Flow -->
+                    <div class="pipeline-flow" id="flow-web">
+                        <div class="pipe-node" data-label="User Interface"><div class="pipe-icon">💻</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="API Gateway"><div class="pipe-icon">🚪</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Microservices"><div class="pipe-icon">🧩</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="Cloud Database"><div class="pipe-icon">☁️</div></div>
+                        <div class="pipe-arrow"></div>
+                        <div class="pipe-node" data-label="CDN Delivery"><div class="pipe-icon">🌍</div></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Stack Section (Methodology) -->
+        <section id="methodology" class="scroll-stack-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-heading text-gradient">Methodology</h2>
+                    <p class="subtext">A disciplined, scalable engineering approach.</p>
+                </div>
+                
+                <div class="scroll-stack-container">
+                    
+                    <!-- Phase 1 -->
+                    <div class="stack-card glass-panel" style="top: 100px;">
+                        <div class="stack-card-inner" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                            <div class="stack-content">
+                                <div class="step-number text-gradient" style="font-size: 64px; line-height: 1; font-weight: 700; margin-bottom: 16px;">01</div>
+                                <h3 style="font-size: 28px; margin-bottom: 16px;">Discovery & Architecture</h3>
+                                <p style="color: var(--c-text-secondary); margin-bottom: 24px;">We analyze your data infrastructure and define the technical requirements for success. We architect highly scalable, resilient machine learning pipelines and microservices before writing a single line of code.</p>
+                                <ul class="pricing-features">
+                                    <li>Technical Feasibility Audit</li>
+                                    <li>Cloud Infrastructure Blueprinting</li>
+                                    <li>Security & Compliance Mapping</li>
+                                </ul>
+                            </div>
+                            <div class="stack-visual" style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--c-border); height: 100%; min-height: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <img src="/static/img/method_arch.png" alt="Architecture Blueprint" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="stack-card glass-panel" style="top: 150px;">
+                        <div class="stack-card-inner" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                            <div class="stack-content">
+                                <div class="step-number text-gradient" style="font-size: 64px; line-height: 1; font-weight: 700; margin-bottom: 16px;">02</div>
+                                <h3 style="font-size: 28px; margin-bottom: 16px;">Rigorous Engineering</h3>
+                                <p style="color: var(--c-text-secondary); margin-bottom: 24px;">Implementation through continuous integration and deployment. We don't just build scripts; we build fault-tolerant, production-ready systems using modern CI/CD pipelines.</p>
+                                <ul class="pricing-features">
+                                    <li>Automated Unit & Integration Testing</li>
+                                    <li>Containerization (Docker & Kubernetes)</li>
+                                    <li>Zero-Downtime Deployments</li>
+                                </ul>
+                            </div>
+                            <div class="stack-visual" style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--c-border); height: 100%; min-height: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <img src="/static/img/method_eng.png" alt="Engineering Infrastructure" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="stack-card glass-panel" style="top: 200px;">
+                        <div class="stack-card-inner" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                            <div class="stack-content">
+                                <div class="step-number text-gradient" style="font-size: 64px; line-height: 1; font-weight: 700; margin-bottom: 16px;">03</div>
+                                <h3 style="font-size: 28px; margin-bottom: 16px;">Model Training & Tuning</h3>
+                                <p style="color: var(--c-text-secondary); margin-bottom: 24px;">Training neural networks on custom datasets. We fine-tune foundation models to align perfectly with your specific enterprise vocabulary, rules, and business logic constraints.</p>
+                                <ul class="pricing-features">
+                                    <li>Custom Data Ingestion & Cleaning</li>
+                                    <li>RLHF & LoRA Fine-tuning</li>
+                                    <li>Hallucination Mitigation Architecture</li>
+                                </ul>
+                            </div>
+                            <div class="stack-visual" style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--c-border); height: 100%; min-height: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <img src="/static/img/method_ai.png" alt="Model Training Neural Network" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 4 -->
+                    <div class="stack-card glass-panel" style="top: 250px;">
+                        <div class="stack-card-inner" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                            <div class="stack-content">
+                                <div class="step-number text-gradient" style="font-size: 64px; line-height: 1; font-weight: 700; margin-bottom: 16px;">04</div>
+                                <h3 style="font-size: 28px; margin-bottom: 16px;">Evolution & Scaling</h3>
+                                <p style="color: var(--c-text-secondary); margin-bottom: 24px;">Continuous monitoring, model drift detection, and automated scaling as your data and usage grow. Our systems are built to automatically adjust to new enterprise loads without breaking.</p>
+                                <ul class="pricing-features">
+                                    <li>24/7 Health Monitoring & Alerts</li>
+                                    <li>Automated Serverless Scaling</li>
+                                    <li>Monthly Strategy & Optimization Sprints</li>
+                                </ul>
+                            </div>
+                            <div class="stack-visual" style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--c-border); height: 100%; min-height: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                                <img src="/static/img/method_scale.png" alt="Evolution and Scaling Analytics" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Work Section (Case Studies) -->
+        <section id="work" class="work-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="overline highlight">Proof of Impact</span>
+                    <h2 class="section-heading text-gradient">Featured Case Studies</h2>
+                </div>
+                
+                <div class="projects-carousel">
+                    <div class="carousel-track" id="projects-track">
+                        <!-- Project 1 -->
+                        <div class="project-card glass-panel">
+                            <div class="project-image" style="background-image: url('/static/img/fintech.png'); background-size: cover; background-position: top center;">
+                            </div>
+                            <div class="project-content">
+                                <h3>FinTech Lead Enrichment</h3>
+                                <p class="project-overview"><strong>The Challenge:</strong> A startup was struggling to manually score and route 10,000+ leads weekly, causing a massive sales bottleneck.<br><br><strong>The Solution:</strong> We built an autonomous RAG-based pipeline that instantly enriches leads with external data and routes them via an AI agent.</p>
+                                <div class="project-tags">
+                                    <span class="tag">Python</span>
+                                    <span class="tag">OpenAI</span>
+                                    <span class="tag">Pinecone</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 2 -->
+                        <div class="project-card glass-panel">
+                            <div class="project-image" style="background-image: url('/static/img/healthtech.png'); background-size: cover; background-position: top center;">
+                            </div>
+                            <div class="project-content">
+                                <h3>HealthTech ETL Pipeline</h3>
+                                <p class="project-overview"><strong>The Challenge:</strong> A healthcare provider had unstructured patient data trapped across 5 different legacy systems.<br><br><strong>The Solution:</strong> Engineered a highly secure, HIPAA-compliant data engineering pipeline that normalizes data into a centralized AWS Redshift warehouse.</p>
+                                <div class="project-tags">
+                                    <span class="tag">AWS</span>
+                                    <span class="tag">Airflow</span>
+                                    <span class="tag">Snowflake</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 3 -->
+                        <div class="project-card glass-panel">
+                            <div class="project-image" style="background-image: url('/static/img/ai_support.png'); background-size: cover; background-position: top center;">
+                            </div>
+                            <div class="project-content">
+                                <h3>Autonomous Customer Support</h3>
+                                <p class="project-overview"><strong>The Challenge:</strong> An e-commerce brand was spending $20k/mo on a support team answering repetitive tier-1 questions.<br><br><strong>The Solution:</strong> Deployed a custom autonomous agent that handles 80% of tier-1 tickets instantly with verified, hallucination-free answers.</p>
+                                <div class="project-tags">
+                                    <span class="tag">FastAPI</span>
+                                    <span class="tag">React</span>
+                                    <span class="tag">LangChain</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <button class="carousel-btn glass-btn" id="prev-project">❮</button>
+                        <button class="carousel-btn glass-btn" id="next-project">❯</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo section was replaced by Architecture section above -->
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="overline highlight">Proof</span>
+                    <h2 class="section-heading text-gradient">Client Success</h2>
+                </div>
+                <div class="testimonial-marquee-container">
+                    
+                    <!-- Row 1: Moves Left -->
+                    <div class="testimonial-marquee">
+                        <div class="testimonial-track left">
+                            <!-- Original 5 -->
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Buildlyst engineered an automated property matching agent that completely eliminated manual lead triage. Unbelievable ROI.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Rahul" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Rahul</h4><span>Shivay Realty</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">We needed a robust integration and autonomous lead scoring. Buildlyst deployed a system that scaled our outreach effortlessly.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Ankit" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Ankit</h4><span>Mahadev Properties</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Our latency issues vanished. They didn't just build a solution, they transformed our entire data architecture overnight.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Sarah Jenkins</h4><span>Nexus AI</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">The speed and quality of their engineering is unmatched. We went from proof of concept to a highly secure production deployment in 6 weeks.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="Marcus" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Marcus Thorne</h4><span>FinScale Ltd</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">They delivered a highly secure, RAG-based LLM that acts as our internal brain. The architectural quality is second to none.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Raman" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Raman</h4><span>Azentra Solutions</span></div>
+                                </div>
+                            </div>
+                            <!-- Duplicated 5 for Infinite Scroll -->
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Buildlyst engineered an automated property matching agent that completely eliminated manual lead triage. Unbelievable ROI.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/43.jpg" alt="Rahul" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Rahul</h4><span>Shivay Realty</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">We needed a robust integration and autonomous lead scoring. Buildlyst deployed a system that scaled our outreach effortlessly.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Ankit" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Ankit</h4><span>Mahadev Properties</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Our latency issues vanished. They didn't just build a solution, they transformed our entire data architecture overnight.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Sarah Jenkins</h4><span>Nexus AI</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">The speed and quality of their engineering is unmatched. We went from proof of concept to a highly secure production deployment in 6 weeks.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/66.jpg" alt="Marcus" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Marcus Thorne</h4><span>FinScale Ltd</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">They delivered a highly secure, RAG-based LLM that acts as our internal brain. The architectural quality is second to none.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Raman" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Raman</h4><span>Azentra Solutions</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Moves Right -->
+                    <div class="testimonial-marquee">
+                        <div class="testimonial-track right">
+                            <!-- Original 5 -->
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Our legacy data infrastructure was a mess. Buildlyst modernized our entire ETL pipeline in weeks, not months. Highly recommended.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Ritik" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Ritik</h4><span>Loopsoop</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Buildlyst didn't just build us a wrapper; they completely re-engineered our pipeline and integrated an agent that saves us 40 hours a week.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elena" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Elena Rostova</h4><span>HealthTech Dynamics</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">As a tech company ourselves, we have high standards. Buildlyst exceeded them with an impeccably designed architecture.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Arpit" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Arpit</h4><span>Codaris.in</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Flawless execution from day one. Their understanding of distributed systems and generative AI models is truly world-class.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="James" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>James Wu</h4><span>DataCore Systems</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">An absolute game-changer for our cloud infrastructure. The deployment was seamless and the performance gains are massive.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="David" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>David Okafor</h4><span>CloudMatrix</span></div>
+                                </div>
+                            </div>
+                            <!-- Duplicated 5 for Infinite Scroll -->
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Our legacy data infrastructure was a mess. Buildlyst modernized our entire ETL pipeline in weeks, not months. Highly recommended.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Ritik" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Ritik</h4><span>Loopsoop</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Buildlyst didn't just build us a wrapper; they completely re-engineered our pipeline and integrated an agent that saves us 40 hours a week.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Elena" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Elena Rostova</h4><span>HealthTech Dynamics</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">As a tech company ourselves, we have high standards. Buildlyst exceeded them with an impeccably designed architecture.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Arpit" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>Arpit</h4><span>Codaris.in</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">Flawless execution from day one. Their understanding of distributed systems and generative AI models is truly world-class.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="James" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>James Wu</h4><span>DataCore Systems</span></div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card glass-panel tilt-card" data-tilt>
+                                <p class="quote">An absolute game-changer for our cloud infrastructure. The deployment was seamless and the performance gains are massive.</p>
+                                <div class="client-info mt-auto">
+                                    <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="David" class="client-avatar-img">
+                                    <div class="client-info-text"><h4>David Okafor</h4><span>CloudMatrix</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section (Matrix) -->
+        <section id="pricing" class="pricing-section reveal">
+            <div class="container">
+                <div class="section-header text-center" style="margin-bottom: 48px;">
+                    <span class="overline highlight">Engagement Models</span>
+                    <h2 class="section-heading text-gradient" style="font-size: 32px;">Tailored Pricing Matrix</h2>
+                    <p class="subtext text-center">Select a service category to view our engagement tiers.</p>
+                </div>
+
+                <div class="pricing-matrix" style="display: flex; gap: 48px; margin-bottom: 48px; align-items: stretch;">
+                    
+                    <!-- Left: 5 Services (Vertical Tabs) -->
+                    <div class="pricing-sidebar" style="flex: 0 0 280px; display: flex; flex-direction: column; gap: 12px;">
+                        <button class="pricing-tab active" data-target="web">Web & App Dev</button>
+                        <button class="pricing-tab" data-target="ai">AI Agents & Models</button>
+                        <button class="pricing-tab" data-target="data">Data Engineering</button>
+                        <button class="pricing-tab" data-target="enterprise">Enterprise Core</button>
+                        <button class="pricing-tab" data-target="consulting">Strategy Consulting</button>
+                    </div>
+
+                    <!-- Right: 3 Cards (Dynamic) -->
+                    <div class="pricing-content" style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; transition: opacity 0.3s ease; min-height: 480px;">
+                        
+                        <!-- Tier 1 -->
+                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
+                            <h4 id="tier1-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Starter MVP</h4>
+                            <div class="price" id="tier1-price" style="font-size: 32px; margin-bottom: 24px;">₹30K</div>
+                            <ul class="pricing-features" id="tier1-features" style="min-height: 140px;">
+                                <li>Custom UI/UX Design</li>
+                                <li>Responsive Frontend</li>
+                                <li>Basic Backend API</li>
+                            </ul>
+                            <a href="#contact" class="btn glass-btn w-100">Get Started</a>
+                        </div>
+
+                        <!-- Tier 2 -->
+                        <div class="pricing-card glass-panel featured-pricing tilt-card" data-tilt style="padding: 32px 24px; text-align: left; position: relative;">
+                            <div class="popular-badge" style="top: 0; transform: translateY(-50%); font-size: 10px; padding: 4px 12px;">Most Popular</div>
+                            <h4 id="tier2-title" style="color: var(--c-accent-cyan); margin-bottom: 8px;">Professional App</h4>
+                            <div class="price" id="tier2-price" style="font-size: 32px; margin-bottom: 24px;">₹99K</div>
+                            <ul class="pricing-features" id="tier2-features" style="min-height: 140px;">
+                                <li>Fullstack Architecture</li>
+                                <li>Database Design</li>
+                                <li>Payment Gateway</li>
+                                <li>Admin Dashboard</li>
+                            </ul>
+                            <a href="#contact" class="btn glow-border-btn w-100">Select Pro</a>
+                        </div>
+
+                        <!-- Tier 3 -->
+                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
+                            <h4 id="tier3-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Enterprise Scale</h4>
+                            <div class="price" id="tier3-price" style="font-size: 32px; margin-bottom: 24px;">₹2.5L</div>
+                            <ul class="pricing-features" id="tier3-features" style="min-height: 140px;">
+                                <li>Microservices Architecture</li>
+                                <li>Load Balancing</li>
+                                <li>Advanced Security</li>
+                                <li>Custom Integrations</li>
+                            </ul>
+                            <a href="#contact" class="btn glass-btn w-100">Contact Sales</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom Predictor Banner (Single Line Strip) -->
+                <div class="pricing-predictor-banner glass-panel compact-banner" style="display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-radius: 100px; gap: 24px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,210,255,0.2);">
+                    <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">🔮</span>
+                        <h4 style="margin: 0; font-size: 16px;">AI Predictor</h4>
+                    </div>
+                    
+                    <form id="pricePredictorForm" style="flex: 1; display: flex; gap: 12px; margin: 0;">
+                        <select id="predService" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Web & App</option>
+                            <option value="2">AI Agents</option>
+                            <option value="3">Data Pipeline</option>
+                            <option value="4">Enterprise</option>
+                        </select>
+                        <select id="predComplexity" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Basic MVP</option>
+                            <option value="2">Scalable</option>
+                            <option value="3">Enterprise</option>
+                        </select>
+                        <select id="predTimeline" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Relaxed Timeline</option>
+                            <option value="1.2">Standard Delivery</option>
+                            <option value="1.5">Rush (Fast-Track)</option>
+                        </select>
+                        <button type="button" id="btnPredict" class="btn glow-border-btn" style="padding: 10px 32px; border-radius: 50px; white-space: nowrap;">Run Model</button>
+                    </form>
+
+                    <div id="predictionResult" style="flex: 0 0 140px; text-align: right; display:none;">
+                        <div class="price text-gradient" id="predictedPriceText" style="font-size: 28px; margin: 0; font-weight: bold; line-height: 1;">₹0</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="overline highlight">Knowledge Base</span>
+                    <h2 class="section-heading text-gradient">Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item glass-panel">
+                        <button class="faq-question">What is the typical timeline for an AI integration? <span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>Timelines vary based on complexity. Proof of Concepts (PoCs) and basic RAG architectures take 2-4 weeks. Full-scale autonomous agents and custom model fine-tuning generally take 2-3 months to reach production-ready status.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item glass-panel">
+                        <button class="faq-question">Do you use off-the-shelf templates or tools? <span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>No. We engineer everything custom for your specific use-case. While we utilize state-of-the-art foundation models and cloud infrastructure, the architecture, pipelines, and frontend interfaces are built from scratch to ensure maximum performance and security.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item glass-panel">
+                        <button class="faq-question">Who owns the intellectual property (IP)? <span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>You do. All custom code, fine-tuned models, and architectures developed during our engagement are 100% owned by your company upon project completion and final payment.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item glass-panel">
+                        <button class="faq-question">How do you handle data security and privacy? <span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p>We implement enterprise-grade security protocols, including end-to-end encryption, VPC isolation, and compliance-driven architectures. For highly sensitive data, we can deploy open-source models (like Llama 3) directly onto your on-premise servers so data never leaves your environment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (Conversational UI) -->
+        <section id="contact" class="contact-section reveal">
+            <div class="container">
+                <div class="section-header text-center" style="margin-bottom: 64px;">
+                    <h2 class="text-gradient" style="font-size: clamp(32px, 5vw, 48px); margin-bottom: 16px; line-height: 1.1;">Ready to transform your data into leverage?</h2>
+                    <p class="subtext mx-auto text-center" style="margin: 0 auto;">Join elite companies building the future with Buildlyst.</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-form-wrapper glass-panel glow-border p-lg">
+                        <h2 class="section-heading" style="margin-bottom: 24px; font-size: 28px;">Initiate Project</h2>
+                        
+                        <div class="conversational-ui-container">
+                            <div class="conv-messages" id="conv-messages">
+                                <div class="conv-bubble system">
+                                    <div class="conv-avatar">B</div>
+                                    <div class="conv-text">Hello! I'm the Buildlyst assistant. I'll help you get your project started. First, what is your name?</div>
+                                </div>
+                            </div>
+                            
+                            <div class="conv-input-area" id="conv-input-area">
+                                <input type="text" id="conv-input" class="glass-input" placeholder="Type your name..." autocomplete="off">
+                                <button id="conv-send" class="btn btn-primary glow-border-btn">Send</button>
+                            </div>
+                            <div class="conv-options-area hidden" id="conv-options-area">
+                                <!-- Options injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-block glass-panel">
+                            <span class="overline highlight">Headquarters</span>
+                            <p>Bangalore, India<br>Remote Worldwide</p>
+                        </div>
+                        <div class="info-block glass-panel">
+                            <span class="overline highlight">Also Present In</span>
+                            <p>Hyderabad<br>Noida</p>
+                        </div>
+                        <div class="info-block glass-panel">
+                            <span class="overline highlight">Direct Inquiry</span>
+                            <p><a href="mailto:hello@buildlyst.com" class="text-gradient">hello@buildlyst.com</a></p>
+                        </div>
+                        <div class="info-block glass-panel">
+                            <span class="overline highlight">Socials</span>
+                            <div style="display: flex; gap: 16px; margin-top: 12px;">
+                                <a href="#" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid var(--c-border); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 210, 255, 0.1)'; this.style.borderColor='var(--c-accent-cyan)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='var(--c-border)'">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </a>
+                                <a href="#" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid var(--c-border); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 210, 255, 0.1)'; this.style.borderColor='var(--c-accent-cyan)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='var(--c-border)'">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                </a>
+                                <a href="#" style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1px solid var(--c-border); display: flex; align-items: center; justify-content: center; color: #fff; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(0, 210, 255, 0.1)'; this.style.borderColor='var(--c-accent-cyan)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'; this.style.borderColor='var(--c-border)'">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer (Redesigned) -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="#" class="logo text-gradient">Buildlyst</a>
+                        <p class="footer-tagline">Intelligence Designed. Engineered in Bangalore.</p>
+                    </div>
+                    <div class="footer-links-group">
+                        <div class="footer-links">
+                            <span class="overline">Platform</span>
+                            <a href="#about">About Us</a>
+                            <a href="#services">Capabilities</a>
+                            <a href="#work">Case Studies</a>
+                        </div>
+                        <div class="footer-links">
+                            <span class="overline">Connect</span>
+                            <a href="#contact">Contact</a>
+                            <a href="#pricing">Pricing</a>
+                            <a href="#faq">FAQ</a>
+                        </div>
+                    </div>
+                    <div class="footer-newsletter">
+                        <span class="overline">Studio Insights</span>
+                        <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:16px;">Subscribe for deep-dives into AI engineering and architecture.</p>
+                        <form id="newsletter-form" class="newsletter-form">
+                            <input type="email" id="newsletter-email" name="email" placeholder="Enter your email" required class="glass-input">
+                            <button type="submit" class="btn btn-secondary glass-btn">Join</button>
+                        </form>
+                        <div id="newsletter-status" class="form-status small"></div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Buildlyst. All rights reserved. <span style="margin-left: 20px;"><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></span></p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Chat Widget -->
+        <div class="chat-widget">
+            <button id="chat-toggle" class="chat-toggle glow-border-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </button>
+            <div class="chat-panel glass-panel" id="chat-panel">
+                <div class="chat-header">
+                    <h3>Buildlyst Assistant</h3>
+                    <button id="chat-close" class="chat-close">&times;</button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message assistant">
+                        <div class="message-content">Hello. How can I assist you with your data or AI engineering needs today?</div>
+                    </div>
+                </div>
+                <form id="chat-form" class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message..." required autocomplete="off" class="glass-input">
+                    <button type="submit" class="chat-send">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div> <!-- End Main Content -->
+
+    <!-- Scripts -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
