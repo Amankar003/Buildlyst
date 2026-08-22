@@ -924,30 +924,6 @@ section { padding: var(--space-xl) 0; }
     .chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 85px; }
     .splash-screen-window { width: 85vw; height: 50vh; }
     
-    /* Testimonial Marquee Mobile Loop Fix */
-    .testimonial-marquee-container {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 16px;
-        padding: 12px 0;
-        touch-action: pan-y;
-    }
-    .testimonial-track {
-        gap: 16px;
-        padding-left: 16px;
-    }
-    .testimonial-track.left {
-        animation: scrollLeft 28s linear infinite !important;
-    }
-    .testimonial-track.right {
-        animation: scrollRight 28s linear infinite !important;
-    }
-    .testimonial-card {
-        flex: 0 0 290px !important;
-        height: 230px !important;
-        padding: 18px !important;
-    }
-
     /* Playground Responsiveness */
     .playground-container {
         grid-template-columns: 1fr;
