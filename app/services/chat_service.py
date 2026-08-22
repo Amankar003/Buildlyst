@@ -5,6 +5,9 @@ Chatbot service handling Gemini LLM integration, conversation history, and fallb
 import time
 import logging
 import uuid
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
+
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from app.config import get_settings
