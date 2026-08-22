@@ -13,10 +13,6 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = True
 
-    # ── Database ─────────────────────────────────────────
-    DATABASE_URL: str = "sqlite:///./buildlyst.db"
-    DB_PATH: str = "./buildlyst.db"
-
 
 
     # ── API Keys (for future integrations) ───────────────
