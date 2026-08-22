@@ -13,21 +13,10 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/static/css/style.css?v=1.5">
 </head>
-<body class="dark-theme scroll-locked">
-
-    <!-- Intro Splash Sequence -->
-    <div id="intro-splash" class="intro-splash">
-        <div class="splash-background"></div>
-        <div class="splash-screen-window" id="splash-window">
-            <div class="splash-content">
-                <h2>Scroll to Enter</h2>
-                <div class="scroll-indicator">↓</div>
-            </div>
-        </div>
-    </div>
+<body class="dark-theme">
 
     <!-- Main Content Wrapper -->
-    <div id="main-content" style="opacity: 0; transition: opacity 0.5s ease;">
+    <div id="main-content">
         
         <!-- Ambient Background Effects -->
         <div class="ambient-glow glow-1"></div>
@@ -39,11 +28,19 @@
             <div class="pill-links">
                 <a href="#about">About</a>
                 <a href="#services">Capabilities</a>
+                <a href="#playground">Playground</a>
                 <a href="#work">Work</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#faq">FAQ</a>
             </div>
-            <a href="#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
+            <div class="nav-right">
+                <a href="#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Mobile Navigation">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
         </nav>
 
         <!-- Hero Section -->
@@ -91,6 +88,28 @@
                 </div>
             </div>
         </section>
+
+        <!-- Mobile Navigation Overlay / Drawer -->
+        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+            <div class="mobile-menu-drawer glass-panel">
+                <div class="mobile-menu-header">
+                    <span class="logo text-gradient">Buildlyst</span>
+                    <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
+                </div>
+                <div class="mobile-menu-links">
+                    <a href="#about" class="mobile-nav-link">About</a>
+                    <a href="#services" class="mobile-nav-link">Capabilities</a>
+                    <a href="#playground" class="mobile-nav-link">Live Playground</a>
+                    <a href="#architecture" class="mobile-nav-link">Architecture</a>
+                    <a href="#work" class="mobile-nav-link">Case Studies</a>
+                    <a href="#pricing" class="mobile-nav-link">Pricing & Predictor</a>
+                    <a href="#faq" class="mobile-nav-link">FAQ</a>
+                </div>
+                <div class="mobile-menu-footer">
+                    <a href="#contact" class="btn btn-primary glow-border-btn w-100 mobile-nav-link">Start a Project</a>
+                </div>
+            </div>
+        </div>
 
         <!-- The Buildlyst Philosophy (About) Section -->
         <section id="about" class="philosophy-section reveal">
@@ -157,6 +176,101 @@
                         <div class="accordion-title">Website Development</div>
                         <div class="accordion-content">
                             <p>Premium, high-performance web applications and landing pages built with modern frameworks, deeply integrated with custom AI backends.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live AI Playground Section -->
+        <section id="playground" class="playground-section reveal">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="overline highlight">Live Demo</span>
+                    <h2 class="section-heading text-gradient">Interactive Playground</h2>
+                    <p class="subtext text-center mx-auto">Experience our engineering speed in real-time. Run a simulated data pipeline.</p>
+                </div>
+                
+                <div class="playground-container glass-panel">
+                    <!-- Left: Editor / Controls -->
+                    <div class="playground-editor">
+                        <div class="editor-header">
+                            <div class="sim-dots"><span></span><span></span><span></span></div>
+                            <span class="editor-title" style="font-family: var(--font-body); font-weight: 600; color: #fff;">Pipeline Configurator</span>
+                        </div>
+                        <div class="editor-body">
+                            
+                            <div class="config-group">
+                                <label class="config-label">1. Connect Data Source</label>
+                                <select id="pg-data" class="glass-input pg-select">
+                                    <option value="s3">Amazon S3 (Q3 Sales Data)</option>
+                                    <option value="snowflake">Snowflake (CRM Users)</option>
+                                    <option value="postgres">PostgreSQL (Server Logs)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="config-group">
+                                <label class="config-label">2. Select AI Engine</label>
+                                <select id="pg-model" class="glass-input pg-select">
+                                    <option value="gpt4">GPT-4 Enterprise Edition</option>
+                                    <option value="llama3">Custom Fine-Tuned Llama 3</option>
+                                    <option value="claude">Claude 3.5 Sonnet</option>
+                                </select>
+                            </div>
+                            
+                            <div class="config-group">
+                                <label class="config-label">3. Assign Task</label>
+                                <select id="pg-task" class="glass-input pg-select">
+                                    <option value="sales">Extract Revenue Insights</option>
+                                    <option value="churn">Predict Churn Risk</option>
+                                    <option value="anomaly">Detect Security Anomalies</option>
+                                </select>
+                            </div>
+                            
+                            <div class="config-group">
+                                <label class="config-label">4. Output Format</label>
+                                <select id="pg-format" class="glass-input pg-select">
+                                    <option value="json">JSON (REST API)</option>
+                                    <option value="csv">CSV (Data Warehouse)</option>
+                                    <option value="dashboard">Visual Dashboard</option>
+                                </select>
+                            </div>
+                            
+                            <button id="run-playground-btn" class="btn btn-primary glow-border-btn w-100 pg-btn">
+                                <span class="btn-text">Initialize Pipeline</span>
+                                <div class="btn-loader" style="display: none;"></div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Output Terminal -->
+                    <div class="playground-output">
+                        <!-- Upper Right: Live Generated Code Snippet -->
+                        <div class="live-snippet-container">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 6px;">
+                                <span style="color: var(--c-text-primary); font-size: 11px;">pipeline.py</span>
+                                <span style="color: #27c93f; font-size: 10px; letter-spacing: 1px;">AUTO-GENERATED</span>
+                            </div>
+                            <div id="live-code-snippet">
+                                <span style="color:#ff7b72">from</span> buildlyst <span style="color:#ff7b72">import</span> AIAgent<br>
+                                agent = AIAgent(model=<span style="color:#a5d6ff">"gpt-4-enterprise"</span>)<br>
+                                data = agent.analyze_dataset(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;source=<span style="color:#a5d6ff">"s3://raw-data/q3"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;task=<span style="color:#a5d6ff">"extract_insights"</span>,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;format=<span style="color:#a5d6ff">"json"</span><br>
+                                )
+                            </div>
+                        </div>
+
+                        <!-- Lower Right: Terminal Output -->
+                        <div class="terminal-wrapper">
+                            <div class="output-header">
+                                <span>TERMINAL OUTPUT</span>
+                                <span class="status-indicator">STANDBY</span>
+                            </div>
+                            <div class="output-body" id="playground-terminal">
+                                <div class="terminal-line comment">&gt; Ready to execute pipeline...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -423,6 +537,136 @@
         <!-- Demo section was replaced by Architecture section above -->
 
         <!-- Testimonials Section -->
+        <!-- Pricing Section (Matrix) -->
+        <section id="pricing" class="pricing-section reveal">
+            <div class="container">
+                <div class="section-header text-center" style="margin-bottom: 48px;">
+                    <span class="overline highlight">Engagement Models</span>
+                    <h2 class="section-heading text-gradient" style="font-size: 32px;">Tailored Pricing Matrix</h2>
+                    <p class="subtext text-center">Select a service category to view our engagement tiers.</p>
+                </div>
+
+                <div class="pricing-matrix" style="display: flex; gap: 48px; margin-bottom: 48px; align-items: stretch;">
+                    
+                    <!-- Left: 5 Services (Vertical Tabs) -->
+                    <div class="pricing-sidebar" style="flex: 0 0 280px; display: flex; flex-direction: column; gap: 12px;">
+                        <button class="pricing-tab active" data-target="web">Web & App Dev</button>
+                        <button class="pricing-tab" data-target="ai">AI Agents & Models</button>
+                        <button class="pricing-tab" data-target="data">Data Engineering</button>
+                        <button class="pricing-tab" data-target="enterprise">Enterprise Core</button>
+                        <button class="pricing-tab" data-target="consulting">Strategy Consulting</button>
+                    </div>
+
+                    <!-- Right: 3 Cards (Dynamic) -->
+                    <div class="pricing-content" style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; transition: opacity 0.3s ease; min-height: 480px;">
+                        
+                        <!-- Tier 1 -->
+                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
+                            <h4 id="tier1-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Starter MVP</h4>
+                            <div class="price" id="tier1-price" style="font-size: 32px; margin-bottom: 24px;">₹30K</div>
+                            <ul class="pricing-features" id="tier1-features" style="min-height: 140px;">
+                                <li>Custom UI/UX Design</li>
+                                <li>Responsive Frontend</li>
+                                <li>Basic Backend API</li>
+                            </ul>
+                            <a href="#contact" class="btn glass-btn w-100">Get Started</a>
+                        </div>
+
+                        <!-- Tier 2 -->
+                        <div class="pricing-card glass-panel featured-pricing tilt-card" data-tilt style="padding: 32px 24px; text-align: left; position: relative;">
+                            <div class="popular-badge" style="top: 0; transform: translateY(-50%); font-size: 10px; padding: 4px 12px;">Most Popular</div>
+                            <h4 id="tier2-title" style="color: var(--c-accent-cyan); margin-bottom: 8px;">Professional App</h4>
+                            <div class="price" id="tier2-price" style="font-size: 32px; margin-bottom: 24px;">₹99K</div>
+                            <ul class="pricing-features" id="tier2-features" style="min-height: 140px;">
+                                <li>Fullstack Architecture</li>
+                                <li>Database Design</li>
+                                <li>Payment Gateway</li>
+                                <li>Admin Dashboard</li>
+                            </ul>
+                            <a href="#contact" class="btn glow-border-btn w-100">Select Pro</a>
+                        </div>
+
+                        <!-- Tier 3 -->
+                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
+                            <h4 id="tier3-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Enterprise Scale</h4>
+                            <div class="price" id="tier3-price" style="font-size: 32px; margin-bottom: 24px;">₹2.5L</div>
+                            <ul class="pricing-features" id="tier3-features" style="min-height: 140px;">
+                                <li>Microservices Architecture</li>
+                                <li>Load Balancing</li>
+                                <li>Advanced Security</li>
+                                <li>Custom Integrations</li>
+                            </ul>
+                            <a href="#contact" class="btn glass-btn w-100">Contact Sales</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bottom Predictor Banner (Single Line Strip) -->
+                <div class="pricing-predictor-banner glass-panel compact-banner" style="display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-radius: 100px; gap: 24px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,210,255,0.2);">
+                    <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 24px;">🔮</span>
+                        <h4 style="margin: 0; font-size: 16px;">AI Predictor</h4>
+                    </div>
+                    
+                    <form id="pricePredictorForm" style="flex: 1; display: flex; gap: 12px; margin: 0;">
+                        <select id="predService" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Web & App</option>
+                            <option value="2">AI Agents</option>
+                            <option value="3">Data Pipeline</option>
+                            <option value="4">Enterprise</option>
+                        </select>
+                        <select id="predComplexity" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Basic MVP</option>
+                            <option value="2">Scalable</option>
+                            <option value="3">Enterprise</option>
+                        </select>
+                        <select id="predTimeline" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
+                            <option value="1">Relaxed Timeline</option>
+                            <option value="1.2">Standard Delivery</option>
+                            <option value="1.5">Rush (Fast-Track)</option>
+                        </select>
+                        <button type="button" id="btnPredict" class="btn glow-border-btn" style="padding: 10px 32px; border-radius: 50px; white-space: nowrap;">Run Model</button>
+                    </form>
+
+                    <div id="predictionResult" style="flex: 0 0 140px; text-align: right; display:none;">
+                        <div class="price text-gradient" id="predictedPriceText" style="font-size: 28px; margin: 0; font-weight: bold; line-height: 1;">₹0</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Global Scale Section (Cobe Globe) -->
+        <section id="global-scale" class="global-section reveal">
+            <div class="container">
+                <div class="global-card">
+                    <!-- Left Content -->
+                    <div class="global-content">
+                        <span class="overline highlight" style="margin-bottom: 16px;">Global Reach</span>
+                        <h2 class="global-title">Enterprise Data Infrastructure</h2>
+                        <p class="global-desc">Buildlyst architects and deploys robust ETL pipelines and intelligent AI agents that process massive datasets seamlessly across global networks. We modernize your legacy systems for scale.</p>
+                        
+                        <div class="global-stats">
+                            <div class="stat-item">
+                                <h3 class="text-gradient">40+ Hrs</h3>
+                                <p>Saved per week for our clients by automating complex data workflows with custom AI agents.</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3 class="text-gradient">100%</h3>
+                                <p>Bespoke architecture designed specifically to handle your unique enterprise data requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Globe Canvas -->
+                    <div class="global-globe-wrapper" id="three-globe-container">
+                        <!-- Three.js canvas will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="testimonials" class="testimonials-section reveal">
             <div class="container">
                 <div class="section-header text-center">
@@ -580,113 +824,38 @@
                             <div class="testimonial-card glass-panel tilt-card" data-tilt>
                                 <p class="quote">An absolute game-changer for our cloud infrastructure. The deployment was seamless and the performance gains are massive.</p>
                                 <div class="client-info mt-auto">
-                                    <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="David" class="client-avatar-img">
-                                    <div class="client-info-text"><h4>David Okafor</h4><span>CloudMatrix</span></div>
+                            <div class="project-content">
+                                <h3>HealthTech ETL Pipeline</h3>
+                                <p class="project-overview"><strong>The Challenge:</strong> A healthcare provider had unstructured patient data trapped across 5 different legacy systems.<br><br><strong>The Solution:</strong> Engineered a highly secure, HIPAA-compliant data engineering pipeline that normalizes data into a centralized AWS Redshift warehouse.</p>
+                                <div class="project-tags">
+                                    <span class="tag">AWS</span>
+                                    <span class="tag">Airflow</span>
+                                    <span class="tag">Snowflake</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Project 3 -->
+                        <div class="project-card glass-panel">
+                            <div class="project-image" style="background-image: url('/static/img/ai_support.png'); background-size: cover; background-position: top center;">
+                            </div>
+                            <div class="project-content">
+                                <h3>Autonomous Customer Support</h3>
+                                <p class="project-overview"><strong>The Challenge:</strong> An e-commerce brand was spending $20k/mo on a support team answering repetitive tier-1 questions.<br><br><strong>The Solution:</strong> Deployed a custom autonomous agent that handles 80% of tier-1 tickets instantly with verified, hallucination-free answers.</p>
+                                <div class="project-tags">
+                                    <span class="tag">FastAPI</span>
+                                    <span class="tag">React</span>
+                                    <span class="tag">LangChain</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing Section (Matrix) -->
-        <section id="pricing" class="pricing-section reveal">
-            <div class="container">
-                <div class="section-header text-center" style="margin-bottom: 48px;">
-                    <span class="overline highlight">Engagement Models</span>
-                    <h2 class="section-heading text-gradient" style="font-size: 32px;">Tailored Pricing Matrix</h2>
-                    <p class="subtext text-center">Select a service category to view our engagement tiers.</p>
-                </div>
-
-                <div class="pricing-matrix" style="display: flex; gap: 48px; margin-bottom: 48px; align-items: stretch;">
                     
-                    <!-- Left: 5 Services (Vertical Tabs) -->
-                    <div class="pricing-sidebar" style="flex: 0 0 280px; display: flex; flex-direction: column; gap: 12px;">
-                        <button class="pricing-tab active" data-target="web">Web & App Dev</button>
-                        <button class="pricing-tab" data-target="ai">AI Agents & Models</button>
-                        <button class="pricing-tab" data-target="data">Data Engineering</button>
-                        <button class="pricing-tab" data-target="enterprise">Enterprise Core</button>
-                        <button class="pricing-tab" data-target="consulting">Strategy Consulting</button>
-                    </div>
-
-                    <!-- Right: 3 Cards (Dynamic) -->
-                    <div class="pricing-content" style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; transition: opacity 0.3s ease; min-height: 480px;">
-                        
-                        <!-- Tier 1 -->
-                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
-                            <h4 id="tier1-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Starter MVP</h4>
-                            <div class="price" id="tier1-price" style="font-size: 32px; margin-bottom: 24px;">₹30K</div>
-                            <ul class="pricing-features" id="tier1-features" style="min-height: 140px;">
-                                <li>Custom UI/UX Design</li>
-                                <li>Responsive Frontend</li>
-                                <li>Basic Backend API</li>
-                            </ul>
-                            <a href="#contact" class="btn glass-btn w-100">Get Started</a>
-                        </div>
-
-                        <!-- Tier 2 -->
-                        <div class="pricing-card glass-panel featured-pricing tilt-card" data-tilt style="padding: 32px 24px; text-align: left; position: relative;">
-                            <div class="popular-badge" style="top: 0; transform: translateY(-50%); font-size: 10px; padding: 4px 12px;">Most Popular</div>
-                            <h4 id="tier2-title" style="color: var(--c-accent-cyan); margin-bottom: 8px;">Professional App</h4>
-                            <div class="price" id="tier2-price" style="font-size: 32px; margin-bottom: 24px;">₹99K</div>
-                            <ul class="pricing-features" id="tier2-features" style="min-height: 140px;">
-                                <li>Fullstack Architecture</li>
-                                <li>Database Design</li>
-                                <li>Payment Gateway</li>
-                                <li>Admin Dashboard</li>
-                            </ul>
-                            <a href="#contact" class="btn glow-border-btn w-100">Select Pro</a>
-                        </div>
-
-                        <!-- Tier 3 -->
-                        <div class="pricing-card glass-panel tilt-card" data-tilt style="padding: 32px 24px; text-align: left;">
-                            <h4 id="tier3-title" style="color: var(--c-text-secondary); margin-bottom: 8px;">Enterprise Scale</h4>
-                            <div class="price" id="tier3-price" style="font-size: 32px; margin-bottom: 24px;">₹2.5L</div>
-                            <ul class="pricing-features" id="tier3-features" style="min-height: 140px;">
-                                <li>Microservices Architecture</li>
-                                <li>Load Balancing</li>
-                                <li>Advanced Security</li>
-                                <li>Custom Integrations</li>
-                            </ul>
-                            <a href="#contact" class="btn glass-btn w-100">Contact Sales</a>
-                        </div>
-
+                    <div class="carousel-controls">
+                        <button class="carousel-btn glass-btn" id="prev-project">❮</button>
+                        <button class="carousel-btn glass-btn" id="next-project">❯</button>
                     </div>
                 </div>
-
-                <!-- Bottom Predictor Banner (Single Line Strip) -->
-                <div class="pricing-predictor-banner glass-panel compact-banner" style="display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-radius: 100px; gap: 24px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,210,255,0.2);">
-                    <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 24px;">🔮</span>
-                        <h4 style="margin: 0; font-size: 16px;">AI Predictor</h4>
-                    </div>
-                    
-                    <form id="pricePredictorForm" style="flex: 1; display: flex; gap: 12px; margin: 0;">
-                        <select id="predService" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
-                            <option value="1">Web & App</option>
-                            <option value="2">AI Agents</option>
-                            <option value="3">Data Pipeline</option>
-                            <option value="4">Enterprise</option>
-                        </select>
-                        <select id="predComplexity" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
-                            <option value="1">Basic MVP</option>
-                            <option value="2">Scalable</option>
-                            <option value="3">Enterprise</option>
-                        </select>
-                        <select id="predTimeline" class="glass-input" style="flex: 1; padding: 10px 16px; border-radius: 50px; background: #fff; color: #000; border: none; outline: none; font-weight: 500;">
-                            <option value="1">Relaxed Timeline</option>
-                            <option value="1.2">Standard Delivery</option>
-                            <option value="1.5">Rush (Fast-Track)</option>
-                        </select>
-                        <button type="button" id="btnPredict" class="btn glow-border-btn" style="padding: 10px 32px; border-radius: 50px; white-space: nowrap;">Run Model</button>
-                    </form>
-
-                    <div id="predictionResult" style="flex: 0 0 140px; text-align: right; display:none;">
-                        <div class="price text-gradient" id="predictedPriceText" style="font-size: 28px; margin: 0; font-weight: bold; line-height: 1;">₹0</div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
@@ -765,7 +934,7 @@
                         </div>
                         <div class="info-block glass-panel">
                             <span class="overline highlight">Direct Inquiry</span>
-                            <p><a href="mailto:amankar125@gmail.com" class="text-gradient">amankar125@gmail.com</a></p>
+                            <p><a href="mailto:info.buildlyst@gmail.com" class="text-gradient">info.buildlyst@gmail.com</a></p>
                         </div>
                         <div class="info-block glass-panel">
                             <span class="overline highlight">Socials</span>
@@ -826,7 +995,8 @@
 
         <!-- Chat Widget -->
         <div class="chat-widget">
-            <button id="chat-toggle" class="chat-toggle glow-border-btn">
+            <div class="chat-tooltip glass-panel">Chat with Buildlyst AI 👋</div>
+            <button id="chat-toggle" class="chat-toggle glow-border-btn pulse-anim">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
@@ -856,6 +1026,15 @@
     </div> <!-- End Main Content -->
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
     <script src="/static/js/main.js"></script>
 </body>
 </html>

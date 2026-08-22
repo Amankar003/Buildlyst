@@ -1,58 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0. Intro Splash Sequence
-    const splash = document.getElementById('intro-splash');
-    const splashWindow = document.getElementById('splash-window');
-    const mainContent = document.getElementById('main-content');
-    
-    let splashScale = 1;
-    let splashCompleted = false;
-
-    if (splash && splashWindow) {
-        window.addEventListener('wheel', handleSplashScroll, { passive: false });
-        window.addEventListener('touchmove', handleSplashScroll, { passive: false });
-        window.addEventListener('keydown', (e) => {
-            if (!splashCompleted && ['ArrowDown', 'ArrowUp', 'Space', 'PageDown'].includes(e.code)) {
-                e.preventDefault();
-                handleSplashScroll({ deltaY: e.code === 'ArrowUp' ? -100 : 100, preventDefault: () => {} });
-            }
-        }, { passive: false });
-    } else {
-        document.body.classList.remove('scroll-locked');
-        if (mainContent) mainContent.style.opacity = 1;
-        initHeroChat();
-    }
-
-    function handleSplashScroll(e) {
-        if (splashCompleted) return;
-        if (e.preventDefault) e.preventDefault();
-        const delta = e.deltaY || 10;
-        
-        if (delta > 0) {
-            splashScale += 0.15;
-        } else if (delta < 0 && splashScale > 1) {
-            splashScale -= 0.15;
-        }
-
-        splashWindow.style.transform = `scale(${splashScale})`;
-
-        if (splashScale > 20) {
-            splashCompleted = true;
-            splash.style.transition = 'opacity 0.8s ease';
-            splash.style.opacity = 0;
-            
-            document.body.classList.remove('scroll-locked');
-            mainContent.style.opacity = 1;
-            
-            window.removeEventListener('wheel', handleSplashScroll);
-            window.removeEventListener('touchmove', handleSplashScroll);
-            
-            setTimeout(() => {
-                splash.style.display = 'none';
-                initHeroChat();
-            }, 800);
-        }
-    }
+    initHeroChat();
 
     // 0.5 Hero Chat Simulation
     const chatScenarios = [
@@ -151,21 +99,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400); // Wait 0.4s before showing typing indicator
     }
 
-    // 1. Scroll Reveal System
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { root: null, threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-    revealElements.forEach(el => revealObserver.observe(el));
-    setTimeout(() => {
+    // 1. Smooth Scrolling & Premium Animations (Lenis + GSAP)
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Load Animation
+        const tlHero = gsap.timeline({ defaults: { ease: "power3.out", duration: 1.2 } });
         const hero = document.getElementById('hero');
-        if (hero) hero.classList.add('active');
-    }, 100);
+        if (hero) hero.style.opacity = 1; // Prevent CSS from keeping it hidden
+        
+        tlHero.from('.pill-nav', { y: -50, opacity: 0, duration: 1 })
+              .from('.hero-content h1', { y: 30, opacity: 0, stagger: 0.1 }, "-=0.6")
+              .from('.hero-content .subtitle', { y: 20, opacity: 0 }, "-=0.8")
+              .from('.hero-content .btn-group', { y: 20, opacity: 0 }, "-=0.8")
+              .from('.chat-simulation-wrapper', { scale: 0.95, y: 40, opacity: 0 }, "-=0.8");
+
+        // Generic Section Reveals (Fades & Slides Up)
+        gsap.utils.toArray('.reveal').forEach(el => {
+            if (el.id === 'hero') return; 
+            gsap.fromTo(el, 
+                { y: 60, opacity: 0 },
+                { 
+                    scrollTrigger: { 
+                        trigger: el, 
+                        start: "top 85%", 
+                        toggleActions: "play none none reverse" 
+                    },
+                    y: 0, opacity: 1, duration: 1, ease: "power3.out"
+                }
+            );
+        });
+
+        // Advanced Staggers (Philosophy Cards)
+        gsap.utils.toArray('.philosophy-card').forEach(card => {
+            gsap.fromTo(card,
+                { y: 50, opacity: 0 },
+                {
+                    scrollTrigger: { trigger: card, start: "top 90%", toggleActions: "play none none reverse" },
+                    y: 0, opacity: 1, duration: 0.8, ease: "power2.out"
+                }
+            );
+        });
+
+        // Pricing Matrix (Bounce in)
+        if(document.querySelector('.pricing-card')) {
+            gsap.fromTo('.pricing-card', 
+                { scale: 0.95, opacity: 0 },
+                {
+                    scrollTrigger: { trigger: '.pricing-matrix', start: "top 75%", toggleActions: "play none none reverse" },
+                    scale: 1, opacity: 1, duration: 0.8, stagger: 0.1, ease: "back.out(1.2)"
+                }
+            );
+        }
+
+        // Testimonials (Smooth slide stagger)
+        if(document.querySelector('.testimonial-card')) {
+            gsap.fromTo('.testimonial-card',
+                { opacity: 0, scale: 0.9 },
+                {
+                    scrollTrigger: { trigger: '.testimonials-section', start: "top 70%", toggleActions: "play none none reverse" },
+                    opacity: 1, scale: 1, duration: 0.6, stagger: 0.05, ease: "power2.out"
+                }
+            );
+        }
+    }
 
     // 2. Navigation Active State
     const sections = document.querySelectorAll('section');
@@ -623,5 +620,417 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         });
     }
+
+    // Initialize Cobe Globe
+    // Initialize Refined Custom Three.js Globe with Bloom & Real Continents
+    function initGlobe() {
+        const container = document.getElementById("three-globe-container");
+        if (!container || typeof THREE === 'undefined') return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.z = 15;
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, preserveDrawingBuffer: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x000000, 0); // Transparent background for bloom
+        container.appendChild(renderer.domElement);
+
+        // Setup Post-Processing (Bloom)
+        let composer = null;
+        if (typeof THREE.EffectComposer !== 'undefined') {
+            const renderScene = new THREE.RenderPass(scene, camera);
+            const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(container.clientWidth, container.clientHeight), 1.2, 0.4, 0.85);
+            bloomPass.threshold = 0.0; // Lower threshold so everything glows
+            bloomPass.strength = 4.0; // Massive brightness boost
+            bloomPass.radius = 1.0;
+
+            composer = new THREE.EffectComposer(renderer);
+            composer.addPass(renderScene);
+            composer.addPass(bloomPass);
+        }
+
+        const globeGroup = new THREE.Group();
+        scene.add(globeGroup);
+        globeGroup.rotation.z = 23.5 * Math.PI / 180;
+
+        // 1. The Glass Sphere
+        const sphereGeo = new THREE.SphereGeometry(4.8, 64, 64);
+        const glassMat = new THREE.MeshPhysicalMaterial({
+            color: 0x050505,
+            transparent: true,
+            opacity: 0.0, // Set to 0 to remove the dark "black background" core
+            roughness: 0.1,
+            transmission: 0.9,
+            thickness: 0.5,
+        });
+        globeGroup.add(new THREE.Mesh(sphereGeo, glassMat));
+
+        // 2. Atmospheric Rim Light
+        const rimMat = new THREE.ShaderMaterial({
+            uniforms: {
+                color: { value: new THREE.Color(0x00d2ff) }
+            },
+            vertexShader: `
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 color;
+                varying vec3 vNormal;
+                void main() {
+                    float intensity = pow(0.65 - dot(vNormal, vec3(0, 0, 1.0)), 4.0);
+                    gl_FragColor = vec4(color, intensity * 0.4);
+                }
+            `,
+            blending: THREE.AdditiveBlending,
+            side: THREE.BackSide,
+            transparent: true
+        });
+        globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(5.05, 64, 64), rimMat));
+
+        // 3. Real Continents (Texture Sampling)
+        const dotsGeo = new THREE.BufferGeometry();
+        const dotsMat = new THREE.ShaderMaterial({
+            uniforms: {
+                time: { value: 0 },
+                color: { value: new THREE.Color(0xffffff) } // Pure white for maximum brightness
+            },
+            vertexShader: `
+                attribute float aOpacity;
+                varying float vOpacity;
+                varying vec3 vNormal;
+                void main() {
+                    vOpacity = aOpacity;
+                    vNormal = normalize(normalMatrix * position);
+                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    gl_PointSize = (12.0 / -mvPosition.z);
+                    gl_Position = projectionMatrix * mvPosition;
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform vec3 color;
+                varying float vOpacity;
+                varying vec3 vNormal;
+                void main() {
+                    float dist = length(gl_PointCoord - vec2(0.5));
+                    if (dist > 0.5) discard;
+                    
+                    // Facing ratio for opacity: Front=100%, Edge=80%, Back=50%
+                    float facing = dot(vNormal, vec3(0.0, 0.0, 1.0));
+                    float angleOpacity = smoothstep(-1.0, 1.0, facing);
+                    float finalAngleOpacity = mix(0.5, 1.0, angleOpacity); // 0.5 min on the back so it's much brighter
+
+                    // Micro-shimmer
+                    float shimmer = (sin(time * 3.0 + vOpacity * 20.0) * 0.2) + 0.8;
+                    float alpha = finalAngleOpacity * shimmer; // Removed distance dimming for massively brighter dots
+                    
+                    // Boost final color output to force intense bloom
+                    gl_FragColor = vec4(color * 1.5, alpha);
+                }
+            `,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        // Load map and generate points
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.src = "https://unpkg.com/three-globe/example/img/earth-water.png";
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+            const posArray = [];
+            const opacities = [];
+            const R = 4.81;
+            const LAT_RES = 100;
+            const LNG_RES = 200;
+
+            for(let lat=0; lat<LAT_RES; lat++) {
+                for(let lng=0; lng<LNG_RES; lng++) {
+                    const latMap = (lat / LAT_RES) * 180 - 90;
+                    const lngMap = (lng / LNG_RES) * 360 - 180;
+                    
+                    const px = Math.floor((lngMap + 180) / 360 * canvas.width);
+                    const py = Math.floor((90 - latMap) / 180 * canvas.height);
+                    
+                    const idx = (py * canvas.width + px) * 4;
+                    // earth-water.png usually has dark for water, bright for land, or vice-versa.
+                    // Actually, three-globe uses earth-water.png where water is black (0) and land is white (255) for elevation.
+                    // We assume land is bright (value > 128)
+                    const isLand = imgData[idx] > 128; 
+
+                    if(isLand) {
+                        const phi = (90 - latMap) * (Math.PI / 180);
+                        const theta = (lngMap + 180) * (Math.PI / 180);
+                        
+                        posArray.push(
+                            -(R * Math.sin(phi) * Math.cos(theta)),
+                            R * Math.cos(phi),
+                            R * Math.sin(phi) * Math.sin(theta)
+                        );
+                        opacities.push(Math.random());
+                    }
+                }
+            }
+
+            dotsGeo.setAttribute('position', new THREE.Float32BufferAttribute(posArray, 3));
+            dotsGeo.setAttribute('aOpacity', new THREE.Float32BufferAttribute(opacities, 1));
+            const dotMesh = new THREE.Points(dotsGeo, dotsMat);
+            globeGroup.add(dotMesh);
+        };
+
+        // 4. Floating Particles (Dust)
+        const starGeo = new THREE.BufferGeometry();
+        const starPos = new Float32Array(400 * 3);
+        for(let i = 0; i < 1200; i++) starPos[i] = (Math.random() - 0.5) * 35;
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        const starMesh = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x88ffcc, size: 0.05, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending }));
+        scene.add(starMesh);
+
+        // 5. Accent Nodes (Teal)
+        const nodes = [];
+        for(let i=0; i<5; i++) {
+            const nodeGroup = new THREE.Group();
+            const node = new THREE.Mesh(
+                new THREE.SphereGeometry(0.08, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0x00d2ff, transparent: true, opacity: 1.0 })
+            );
+            nodeGroup.add(node);
+            
+            const halo = new THREE.Mesh(
+                new THREE.SphereGeometry(0.18, 16, 16),
+                new THREE.MeshBasicMaterial({ color: 0x00d2ff, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending })
+            );
+            nodeGroup.add(halo);
+            
+            globeGroup.add(nodeGroup);
+            nodes.push({ 
+                mesh: nodeGroup, 
+                phiOffset: Math.random() * Math.PI, 
+                thetaOffset: Math.random() * Math.PI, 
+                speed: 0.1 + Math.random() * 0.2 
+            });
+        }
+
+        // Lighting
+        scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+        
+        const dirLight = new THREE.DirectionalLight(0x00d2ff, 1.5); // Boosted and recolored light
+        dirLight.position.set(-5, 5, -5);
+        scene.add(dirLight);
+
+        // Animation
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            
+            // 1 rot / 25s
+            globeGroup.rotation.y += (Math.PI * 2) / (25 * 60);
+            
+            starMesh.rotation.y += 0.0003;
+            dotsMat.uniforms.time.value = time;
+            
+            nodes.forEach(n => {
+                const t = time * n.speed;
+                const phi = Math.sin(t) * 0.5 + n.phiOffset;
+                const theta = t + n.thetaOffset;
+                n.mesh.position.set(
+                    -(4.85 * Math.sin(phi) * Math.cos(theta)),
+                    4.85 * Math.cos(phi),
+                    4.85 * Math.sin(phi) * Math.sin(theta)
+                );
+            });
+            
+            if (composer) {
+                composer.render();
+            } else {
+                renderer.render(scene, camera);
+            }
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            if (!container) return;
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            if (composer) composer.setSize(container.clientWidth, container.clientHeight);
+        });
+    }
+
+    setTimeout(initGlobe, 100);
+
+    // 9. Interactive AI Playground Logic
+    const runBtn = document.getElementById('run-playground-btn');
+    const terminal = document.getElementById('playground-terminal');
+    const statusInd = document.querySelector('.status-indicator');
+    
+    const dataSelect = document.getElementById('pg-data');
+    const modelSelect = document.getElementById('pg-model');
+    const taskSelect = document.getElementById('pg-task');
+    const formatSelect = document.getElementById('pg-format');
+    const codeSnippet = document.getElementById('live-code-snippet');
+    
+    function updateCodeSnippet() {
+        if (!codeSnippet) return;
+        const modelMap = {
+            'gpt4': 'gpt-4-enterprise',
+            'llama3': 'llama-3-custom',
+            'claude': 'claude-3.5-sonnet'
+        };
+        const dataMap = {
+            's3': 's3://raw-data/q3',
+            'snowflake': 'snowflake://crm/users',
+            'postgres': 'postgresql://server/logs'
+        };
+        const taskMap = {
+            'sales': 'extract_insights',
+            'churn': 'predict_churn',
+            'anomaly': 'detect_anomalies'
+        };
+        const formatValue = formatSelect ? formatSelect.value : "json";
+        
+        codeSnippet.innerHTML = `
+            <span style="color:#ff7b72">from</span> buildlyst <span style="color:#ff7b72">import</span> AIAgent<br>
+            agent = AIAgent(model=<span style="color:#a5d6ff">"${modelMap[modelSelect.value]}"</span>)<br>
+            data = agent.analyze_dataset(<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;source=<span style="color:#a5d6ff">"${dataMap[dataSelect.value]}"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;task=<span style="color:#a5d6ff">"${taskMap[taskSelect.value]}"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;format=<span style="color:#a5d6ff">"${formatValue}"</span><br>
+            )
+        `;
+    }
+
+    if (dataSelect) dataSelect.addEventListener('change', updateCodeSnippet);
+    if (modelSelect) modelSelect.addEventListener('change', updateCodeSnippet);
+    if (taskSelect) taskSelect.addEventListener('change', updateCodeSnippet);
+    if (formatSelect) formatSelect.addEventListener('change', updateCodeSnippet);
+
+    if (runBtn) {
+        runBtn.addEventListener('click', () => {
+            const dataSelect = document.getElementById('pg-data');
+            const modelSelect = document.getElementById('pg-model');
+            const taskSelect = document.getElementById('pg-task');
+            const formatSelect = document.getElementById('pg-format');
+            
+            const dataSource = dataSelect.options[dataSelect.selectedIndex].text;
+            const modelName = modelSelect.options[modelSelect.selectedIndex].text;
+            const activeTask = taskSelect.value;
+            const activeFormat = formatSelect ? formatSelect.value : "json";
+            
+            const loader = runBtn.querySelector('.btn-loader');
+            const btnText = runBtn.querySelector('.btn-text');
+            
+            // Set loading state
+            loader.style.display = 'block';
+            btnText.style.display = 'none';
+            statusInd.textContent = 'RUNNING';
+            statusInd.classList.add('running');
+            
+            terminal.innerHTML = '<div class="terminal-line comment">&gt; Initializing ' + modelName + '...</div>';
+            terminal.scrollTop = terminal.scrollHeight;
+            
+            setTimeout(() => {
+                terminal.innerHTML += '<div class="terminal-line comment">&gt; Connecting to ' + dataSource + '... [CONNECTED]</div>';
+                terminal.scrollTop = terminal.scrollHeight;
+                
+                setTimeout(() => {
+                    terminal.innerHTML += '<div class="terminal-line comment">&gt; Executing pipeline task: ' + taskSelect.options[taskSelect.selectedIndex].text + '...</div>';
+                    terminal.scrollTop = terminal.scrollHeight;
+                    
+                    setTimeout(() => {
+                        // Reset button
+                        loader.style.display = 'none';
+                        btnText.style.display = 'block';
+                        statusInd.textContent = 'COMPLETED';
+                        statusInd.classList.remove('running');
+                        
+                        let resultText = "";
+                        if (activeTask === 'sales') {
+                            resultText = '{\n  "status": "success",\n  "insights": [\n    "Q3 Revenue: $4.2M (+24% YoY)",\n    "Top Region: APAC",\n    "Anomaly: Unusually high CAC in Week 4"\n  ]\n}';
+                        } else if (activeTask === 'churn') {
+                            resultText = '{\n  "status": "success",\n  "risk_score": 0.84,\n  "flagged_accounts": 12,\n  "primary_factors": [\n    "Low product engagement (30d)",\n    "Unresolved support tickets > 48h"\n  ]\n}';
+                        } else {
+                            resultText = '{\n  "status": "alert",\n  "threat_level": "High",\n  "anomalies_detected": 3,\n  "details": "Multiple failed login attempts from IP 192.168.1.45 targeting admin endpoints."\n}';
+                        }
+                        
+                        const resultDiv = document.createElement('div');
+                        resultDiv.className = 'terminal-line success';
+                        terminal.appendChild(resultDiv);
+                        
+                        let i = 0;
+                        function typeWriter() {
+                            if (i < resultText.length) {
+                                resultDiv.innerHTML += resultText.charAt(i);
+                                i++;
+                                terminal.scrollTop = terminal.scrollHeight;
+                                setTimeout(typeWriter, 15);
+                            } else {
+                                terminal.innerHTML += '<br><div class="terminal-line comment">&gt; Ready.</div>';
+                                terminal.scrollTop = terminal.scrollHeight;
+                            }
+                        }
+                        typeWriter();
+                        
+                    }, 1000);
+                }, 800);
+            }, 600);
+        });
+    }
+
+    // 10. Mobile Navigation Menu Toggle Logic
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    function openMobileMenu() {
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.add('active');
+            document.body.classList.add('scroll-locked');
+        }
+    }
+
+    function closeMobileMenu() {
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('active');
+            document.body.classList.remove('scroll-locked');
+        }
+    }
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+    }
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileMenuOverlay) {
+                closeMobileMenu();
+            }
+        });
+    }
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeMobileMenu();
+        });
+    });
 
 });
