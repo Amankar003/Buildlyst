@@ -16,7 +16,6 @@ class Settings(BaseSettings):
 
 
     # ── API Keys (for future integrations) ───────────────
-    GEMINI_API_KEY: str = ""
     GROQ_API_KEY: str = ""
 
     # ── SMTP Configuration ───────────────────────────────────

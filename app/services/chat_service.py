@@ -8,15 +8,14 @@ import uuid
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-import google.generativeai as genai
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from groq import Groq
 from app.config import get_settings
 
 logger = logging.getLogger("buildlyst.chat_service")
 
 # ── In-Memory Store ──────────────────────────────────────────
 # Dictionary mapping conversation_id -> list of message dicts (role, parts)
-# Example message: {"role": "user", "parts": [{"text": "Hello"}]}
+# Example message: {"role": "user", "content": "Hello"}
 _conversations: dict[str, list[dict]] = {}
 _last_activity: dict[str, float] = {}
 
@@ -96,13 +95,13 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
             "regarding Buildlyst's AI & Data Engineering services, architecture capabilities, and scheduling "
             "project consultations. How can we assist with your project needs?"
         )
-        _conversations[conversation_id].append({"role": "user", "parts": [{"text": message}]})
-        _conversations[conversation_id].append({"role": "model", "parts": [{"text": reply_text}]})
+        _conversations[conversation_id].append({"role": "user", "content": message})
+        _conversations[conversation_id].append({"role": "assistant", "content": reply_text})
         return reply_text, conversation_id
 
     # 3. Add user message to history
     history = _conversations[conversation_id]
-    history.append({"role": "user", "parts": [{"text": message}]})
+    history.append({"role": "user", "content": message})
     
     # Cap history length
     max_hist = settings.CHAT_MAX_HISTORY
@@ -111,36 +110,34 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
         _conversations[conversation_id] = history
 
     # 4. Try LLM Call with Strict System Prompt
-    api_key = settings.GEMINI_API_KEY
+    api_key = settings.GROQ_API_KEY
     if api_key:
         try:
-            genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-2.0-flash', system_instruction=SYSTEM_PROMPT)
+            client = Groq(api_key=api_key)
             
-            previous_history = history[:-1]
-            chat_session = model.start_chat(history=previous_history)
+            messages = [{"role": "system", "content": SYSTEM_PROMPT}] + history
             
-            response = chat_session.send_message(
-                message,
-                safety_settings={
-                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-                }
+            completion = client.chat.completions.create(
+                model="llama3-8b-8192",
+                messages=messages,
+                temperature=0.3,
+                max_tokens=1024,
+                top_p=1,
+                stream=False,
+                stop=None,
             )
             
-            reply_text = response.text
+            reply_text = completion.choices[0].message.content
 
             # Post-check output for secret leaks
             if _is_security_violation(reply_text):
                 reply_text = "I can only share information related to Buildlyst's public services and capabilities."
 
-            history.append({"role": "model", "parts": [{"text": reply_text}]})
+            history.append({"role": "assistant", "content": reply_text})
             return reply_text, conversation_id
             
         except Exception as e:
-            logger.error(f"Gemini API error: {e}")
+            logger.error(f"Groq API error: {e}")
             # Fall through to fallback logic below
     
     # 5. Fallback Keyword Logic (Company-Only Guardrailed)
@@ -185,5 +182,5 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
             "engineering capabilities, or scheduling a consultation. How can we help with your project needs?"
         )
     
-    history.append({"role": "model", "parts": [{"text": reply_text}]})
+    history.append({"role": "assistant", "content": reply_text})
     return reply_text, conversation_id
