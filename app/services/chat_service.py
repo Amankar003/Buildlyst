@@ -113,12 +113,15 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
     api_key = settings.GROQ_API_KEY
     if api_key:
         try:
+            import re
             client = Groq(api_key=api_key)
             
             messages = [{"role": "system", "content": SYSTEM_PROMPT}] + history
             
+            logger.info("Calling Groq API with model=openai/gpt-oss-120b, messages=%d", len(messages))
+            
             completion = client.chat.completions.create(
-                model="llama3-8b-8192",
+                model="openai/gpt-oss-120b",
                 messages=messages,
                 temperature=0.3,
                 max_tokens=1024,
@@ -128,6 +131,12 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
             )
             
             reply_text = completion.choices[0].message.content
+            
+            # Strip any <think>...</think> reasoning blocks (some models emit these)
+            if reply_text:
+                reply_text = re.sub(r'<think>.*?</think>', '', reply_text, flags=re.DOTALL).strip()
+            
+            logger.info("Groq API returned response successfully (length=%d)", len(reply_text) if reply_text else 0)
 
             # Post-check output for secret leaks
             if _is_security_violation(reply_text):
@@ -137,10 +146,12 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
             return reply_text, conversation_id
             
         except Exception as e:
-            logger.error(f"Groq API error: {e}")
+            logger.error("Groq API call FAILED — falling back to keyword responses. Error type: %s, Details: %s", type(e).__name__, e)
             # Fall through to fallback logic below
     
     # 5. Fallback Keyword Logic (Company-Only Guardrailed)
+    # NOTE: This code should only execute when the Groq API is unavailable or fails.
+    logger.warning("Using FALLBACK keyword logic for message: '%s'", message[:80])
     msg_lower = message.lower()
     if any(kw in msg_lower for kw in ["agent", "ai agent", "automation"]):
         reply_text = (

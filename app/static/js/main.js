@@ -505,7 +505,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (id) div.id = id;
         const contentDiv = document.createElement('div');
         contentDiv.className = 'message-content';
-        contentDiv.textContent = content;
+        if (sender === 'user') {
+            // User messages: use textContent for safety
+            contentDiv.textContent = content;
+        } else {
+            // Assistant messages: render formatted LLM responses
+            let formatted = content
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') // Escape HTML
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  // **bold**
+                .replace(/\n/g, '<br>');  // Newlines → line breaks
+            contentDiv.innerHTML = formatted;
+        }
         div.appendChild(contentDiv);
         chatMessages.appendChild(div);
         chatMessages.scrollTop = chatMessages.scrollHeight;
