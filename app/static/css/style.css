@@ -371,9 +371,10 @@ section { padding: var(--space-xl) 0; }
 @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* 6. Scroll Stack */
-.scroll-stack-section { padding: var(--space-xl) 0 200px 0; }
-.scroll-stack-container { position: relative; display: flex; flex-direction: column; align-items: center; }
-.stack-card { position: sticky; width: 100%; max-width: 800px; padding: var(--space-lg); border-top: 1px solid var(--c-border); margin-bottom: 40px; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
+.scroll-stack-section { padding: var(--space-xl) 0 160px 0; }
+.scroll-stack-section .section-header { text-align: center; margin-bottom: 48px; }
+.scroll-stack-container { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
+.stack-card { position: sticky; width: 100%; max-width: 850px; margin: 0 auto 40px auto; padding: var(--space-lg); border-top: 1px solid var(--c-border); box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
 .stack-card .step-number { font-family: var(--font-display); font-size: 48px; font-weight: 700; margin-bottom: 16px; line-height: 1; }
 
 /* 7. Architecture Pipeline & Tabs */
