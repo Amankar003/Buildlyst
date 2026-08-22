@@ -17,7 +17,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
 from app.config import get_settings
-from app.database import init_db
 from app.models.schemas import HealthResponse
 from app.routers import contact, demo, chat
 
@@ -39,8 +38,6 @@ async def lifespan(app: FastAPI):
     """Startup / shutdown lifecycle."""
     settings = get_settings()
     logger.info("🚀 Starting %s v%s", settings.APP_NAME, settings.APP_VERSION)
-    init_db()
-    logger.info("✅ Database initialized")
     yield
     logger.info("👋 Shutting down %s", settings.APP_NAME)
 

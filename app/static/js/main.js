@@ -333,15 +333,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 if (step === 0) {
+                    if (val.length < 2) {
+                        addConvBubble(`Please enter a valid name (at least 2 characters).`, 'system');
+                        return;
+                    }
                     formData.name = val;
                     addConvBubble(`Great to meet you, ${val}. What is your email address?`, 'system');
                     step++;
                 } else if (step === 1) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(val)) {
+                        addConvBubble(`That doesn't look like a valid email. Please try again.`, 'system');
+                        return;
+                    }
                     formData.email = val;
                     addConvBubble(`Thanks! What area do you need help with?`, 'system');
                     showOptions(['AI Agents', 'Gen AI', 'Machine Learning', 'Data Engineering', 'Web Development']);
                     step++;
                 } else if (step === 3) {
+                    if (val.length < 10) {
+                        addConvBubble(`Please provide a bit more detail (at least 10 characters).`, 'system');
+                        return;
+                    }
                     formData.message = val;
                     addConvBubble(`Got it. Here is what I have:<br><br><b>Name:</b> ${formData.name}<br><b>Email:</b> ${formData.email}<br><b>Type:</b> ${formData.project_type}<br><b>Details:</b> ${formData.message}<br><br>Does this look correct?`, 'system');
                     showOptions(['Yes, send inquiry', 'No, start over']);
@@ -391,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         async function submitForm() {
             try {
+                // Submit to our secure backend route which holds the access keys
                 const response = await fetch('/api/contact', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -402,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 if (response.ok) {
-                    addConvBubble(`Success! Your inquiry has been sent to our engineering team. We will be in touch shortly.`, 'system');
+                    addConvBubble(`Success! Your inquiry has been securely sent directly to our team. We will be in touch shortly.`, 'system');
                 } else {
                     throw new Error('Failed to send');
                 }
@@ -410,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (convMessages.lastChild.querySelector('.typing-indicator')) {
                     convMessages.lastChild.remove();
                 }
-                addConvBubble(`Sorry, there was an error submitting your request. Please try emailing us directly at hello@buildlyst.com.`, 'system');
+                addConvBubble(`Sorry, there was an error submitting your request. Please try emailing us directly at amankar125@gmail.com.`, 'system');
             }
         }
 

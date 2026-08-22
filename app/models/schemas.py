@@ -16,6 +16,7 @@ class ProjectType(str, Enum):
     ML = "Machine Learning"
     DEEP_LEARNING = "Deep Learning"
     DATA_ANALYSIS = "Data Analysis"
+    DATA_ENGINEERING = "Data Engineering"
     WEB_DEV = "Web Development"
     OTHER = "Other"
 

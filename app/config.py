@@ -17,16 +17,16 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./buildlyst.db"
     DB_PATH: str = "./buildlyst.db"
 
-    # ── SMTP / Email ─────────────────────────────────────
-    SMTP_HOST: str = "smtp.gmail.com"
-    SMTP_PORT: int = 587
-    SMTP_USERNAME: str = ""
-    SMTP_PASSWORD: str = ""
-    SMTP_FROM_EMAIL: str = ""
-    CONTACT_RECIPIENT_EMAIL: str = ""
+
 
     # ── API Keys (for future integrations) ───────────────
     GEMINI_API_KEY: str = ""
+
+    # ── SMTP Configuration ───────────────────────────────────
+    SMTP_SERVER: str = ""
+    SMTP_PORT: int = 465
+    SMTP_USERNAME: str = ""
+    SMTP_PASSWORD: str = ""
 
     # ── Rate Limiting ────────────────────────────────────
     RATE_LIMIT_MAX_REQUESTS: int = 5
