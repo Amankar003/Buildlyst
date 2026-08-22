@@ -926,6 +926,8 @@ section { padding: var(--space-xl) 0; }
     
     /* Testimonial Marquee Mobile Loop Fix */
     .testimonial-marquee-container {
+        display: flex !important;
+        flex-direction: column !important;
         gap: 16px;
         padding: 12px 0;
         touch-action: pan-y;

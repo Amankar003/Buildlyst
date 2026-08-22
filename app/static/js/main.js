@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const data = await response.json();
                     conversationId = data.conversation_id;
-                    addChatMessage(data.response, 'assistant');
+                    addChatMessage(data.reply, 'assistant');
                 } else {
                     addChatMessage('Sorry, I encountered an error.', 'assistant');
                 }
