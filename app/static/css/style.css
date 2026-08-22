@@ -454,13 +454,13 @@ section { padding: var(--space-xl) 0; }
 .testimonials-section { padding-top: var(--space-xl); padding-bottom: var(--space-lg); overflow: hidden; }
 .testimonial-marquee-container { display: flex; flex-direction: column; gap: 24px; overflow: hidden; width: 100vw; margin-left: calc(-50vw + 50%); padding: 20px 0; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
 .testimonial-marquee { width: max-content; }
-.testimonial-track { display: flex; gap: 24px; padding-left: 24px; }
-.testimonial-track.left { animation: scrollLeft 45s linear infinite; }
-.testimonial-track.right { animation: scrollRight 45s linear infinite; }
+.testimonial-track { display: flex; gap: 24px; padding-left: 24px; will-change: transform; }
+.testimonial-track.left { animation: scrollLeft 40s linear infinite; }
+.testimonial-track.right { animation: scrollRight 40s linear infinite; }
 .testimonial-track:hover { animation-play-state: paused; }
 
-@keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
-@keyframes scrollRight { 0% { transform: translateX(calc(-50% - 12px)); } 100% { transform: translateX(0); } }
+@keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
 .testimonial-card { flex: 0 0 350px; height: 260px; padding: 24px; border: 1px solid var(--c-border); background: rgba(255,255,255,0.02); border-radius: var(--radius-md); position: relative; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
 .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 210, 255, 0.1); border-color: rgba(0, 210, 255, 0.3); }
@@ -780,22 +780,26 @@ section { padding: var(--space-xl) 0; }
     .philosophy-grid { grid-template-columns: 1fr; gap: 40px; }
     .tech-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    /* Capabilities Interactive Tap Accordion on Mobile */
     .accordion-gallery {
         display: flex !important;
         flex-direction: column !important;
         height: auto !important;
-        gap: 16px !important;
+        gap: 12px !important;
     }
     .accordion-item {
         display: flex !important;
         flex-direction: column !important;
         align-items: flex-start !important;
         justify-content: flex-start !important;
-        padding: 24px !important;
+        padding: 16px 20px !important;
         width: 100% !important;
         height: auto !important;
+        border-radius: var(--radius-md) !important;
         background: rgba(255, 255, 255, 0.03) !important;
         border: 1px solid var(--c-border) !important;
+        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        cursor: pointer !important;
     }
     .accordion-item:hover, .accordion-item.active {
         flex: none !important;
@@ -808,27 +812,49 @@ section { padding: var(--space-xl) 0; }
         left: 0 !important;
         writing-mode: horizontal-tb !important;
         transform: none !important;
-        font-size: 22px !important;
-        color: var(--c-accent-cyan) !important;
-        margin-bottom: 12px !important;
-        display: block !important;
+        font-size: 20px !important;
+        color: #ffffff !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         width: 100% !important;
+        transition: color 0.3s ease !important;
     }
-    .accordion-item:hover .accordion-title, .accordion-item.active .accordion-title {
-        top: 0 !important;
-        left: 0 !important;
+    .accordion-item.active .accordion-title {
+        color: var(--c-accent-cyan) !important;
+    }
+    .accordion-icon {
         font-size: 22px !important;
+        font-weight: 300 !important;
+        color: var(--c-text-secondary) !important;
+        transition: transform 0.35s ease, color 0.3s ease !important;
+        display: inline-block !important;
+    }
+    .accordion-item.active .accordion-icon {
+        transform: rotate(45deg) !important;
+        color: var(--c-accent-cyan) !important;
     }
     .accordion-content {
         display: block !important;
-        opacity: 1 !important;
-        transform: none !important;
+        max-height: 0 !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+        transform: translateY(-8px) !important;
+        transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, transform 0.3s ease, padding 0.3s ease !important;
         max-width: 100% !important;
         width: 100% !important;
         font-size: 15px !important;
         line-height: 1.6 !important;
         color: var(--c-text-secondary) !important;
         padding: 0 !important;
+        margin: 0 !important;
+    }
+    .accordion-item.active .accordion-content {
+        max-height: 250px !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        padding-top: 12px !important;
     }
 
     /* Contact Section Mobile Overflow Fix */
@@ -898,6 +924,28 @@ section { padding: var(--space-xl) 0; }
     .chat-panel { width: calc(100vw - 32px); right: 16px; bottom: 85px; }
     .splash-screen-window { width: 85vw; height: 50vh; }
     
+    /* Testimonial Marquee Mobile Loop Fix */
+    .testimonial-marquee-container {
+        gap: 16px;
+        padding: 12px 0;
+        touch-action: pan-y;
+    }
+    .testimonial-track {
+        gap: 16px;
+        padding-left: 16px;
+    }
+    .testimonial-track.left {
+        animation: scrollLeft 28s linear infinite !important;
+    }
+    .testimonial-track.right {
+        animation: scrollRight 28s linear infinite !important;
+    }
+    .testimonial-card {
+        flex: 0 0 290px !important;
+        height: 230px !important;
+        padding: 18px !important;
+    }
+
     /* Playground Responsiveness */
     .playground-container {
         grid-template-columns: 1fr;

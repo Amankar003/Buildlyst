@@ -1033,4 +1033,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 11. Interactive Accordion Gallery (Capabilities) Logic
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    accordionItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            accordionItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            // Toggle selected item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
 });
