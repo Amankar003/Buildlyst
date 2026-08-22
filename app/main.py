@@ -87,7 +87,11 @@ async def log_requests(request: Request, call_next):
 
 
 # ── Static Files & Templates ────────────────────────────────
-app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+try:
+    app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+except RuntimeError as e:
+    logger.warning("StaticFiles mount skipped (directory not found). Vercel edge network will serve static files.")
+    
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 
