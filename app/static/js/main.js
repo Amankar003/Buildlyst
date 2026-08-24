@@ -1312,22 +1312,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startAutoPlay();
 
-    // Case Studies Carousel Controls
+        // Case Studies Carousel Controls (2 Cards Per View)
     const prevProjBtn = document.getElementById('prev-project');
     const nextProjBtn = document.getElementById('next-project');
     const projTrack = document.getElementById('projects-track');
 
     if (prevProjBtn && projTrack) {
         prevProjBtn.addEventListener('click', () => {
-            const cardWidth = projTrack.firstElementChild ? projTrack.firstElementChild.clientWidth + 24 : 380;
-            projTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            projTrack.scrollBy({ left: -projTrack.clientWidth, behavior: 'smooth' });
         });
     }
 
     if (nextProjBtn && projTrack) {
         nextProjBtn.addEventListener('click', () => {
-            const cardWidth = projTrack.firstElementChild ? projTrack.firstElementChild.clientWidth + 24 : 380;
-            projTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            projTrack.scrollBy({ left: projTrack.clientWidth, behavior: 'smooth' });
         });
     }
 });
