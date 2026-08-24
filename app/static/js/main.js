@@ -1312,20 +1312,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startAutoPlay();
 
-        // Case Studies Carousel Controls (2 Cards Per View)
+            // Case Studies Carousel Controls (1 Horizontal Line Track)
     const prevProjBtn = document.getElementById('prev-project');
     const nextProjBtn = document.getElementById('next-project');
     const projTrack = document.getElementById('projects-track');
 
     if (prevProjBtn && projTrack) {
         prevProjBtn.addEventListener('click', () => {
-            projTrack.scrollBy({ left: -projTrack.clientWidth, behavior: 'smooth' });
+            projTrack.scrollBy({ left: -404, behavior: 'smooth' });
         });
     }
 
     if (nextProjBtn && projTrack) {
         nextProjBtn.addEventListener('click', () => {
-            projTrack.scrollBy({ left: projTrack.clientWidth, behavior: 'smooth' });
+            projTrack.scrollBy({ left: 404, behavior: 'smooth' });
         });
     }
 });

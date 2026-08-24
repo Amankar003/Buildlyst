@@ -337,15 +337,26 @@ section { padding: var(--space-xl) 0; }
 .accordion-content { opacity: 0; transform: translateY(20px); transition: all 0.4s ease; transition-delay: 0s; max-width: 400px; color: #fff; }
 .accordion-item:hover .accordion-content, .accordion-item.active .accordion-content { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
 
-/* 4. Projects Carousel (Case Studies - 1 Focused Card Visible at a Time) */
+/* 4. Projects Carousel (Case Studies - All 6 Cards in 1 Continuous Horizontal Line) */
 .section-header { margin-bottom: var(--space-lg); }
 .section-header .subtext { margin-top: -1.5rem; }
-.projects-carousel { position: relative; max-width: 850px; margin: 0 auto; overflow: hidden; padding: 10px 0; }
-.carousel-track { display: flex; gap: 0; overflow-x: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; padding: 10px 0; }
+.projects-carousel { position: relative; width: 100%; max-width: 1320px; margin: 0 auto; overflow: hidden; padding: 10px 0; }
+.carousel-track { 
+    display: flex !important; 
+    flex-wrap: nowrap !important; 
+    gap: 24px !important; 
+    overflow-x: auto !important; 
+    scroll-snap-type: x mandatory; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    scroll-behavior: smooth; 
+    padding: 10px 4px 20px 4px; 
+}
 .carousel-track::-webkit-scrollbar { display: none; }
 .project-card { 
-    flex: 0 0 100%; 
-    max-width: 100%; 
+    flex: 0 0 380px !important; 
+    min-width: 380px !important; 
+    max-width: 380px !important; 
     scroll-snap-align: start; 
     display: flex; 
     flex-direction: column; 
@@ -355,17 +366,21 @@ section { padding: var(--space-xl) 0; }
     border: 1px solid rgba(255, 255, 255, 0.1); 
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
 }
-.project-card:hover { transform: translateY(-4px); border-color: var(--c-accent-cyan); box-shadow: 0 15px 35px rgba(0, 210, 255, 0.15); }
-.project-image { height: 260px; width: 100%; background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.project-content { padding: 28px 28px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-.project-content h3 { font-size: 24px; color: #ffffff; margin-bottom: 12px; font-family: var(--font-display); }
-.project-overview { font-size: 14.5px; line-height: 1.6; color: var(--c-text-secondary); margin-bottom: 20px; flex: 1; }
+.project-card:hover { transform: translateY(-6px); border-color: var(--c-accent-cyan); box-shadow: 0 15px 35px rgba(0, 210, 255, 0.2); }
+.project-image { height: 200px; width: 100%; background-size: cover; background-position: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.project-content { padding: 22px 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.project-content h3 { font-size: 20px; color: #ffffff; margin-bottom: 10px; font-family: var(--font-display); }
+.project-overview { font-size: 13.5px; line-height: 1.55; color: var(--c-text-secondary); margin-bottom: 16px; flex: 1; }
 .project-overview strong { color: #fff; }
-.project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
-.tag { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--c-accent-cyan); }
+.project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+.tag { font-size: 10.5px; font-weight: 600; padding: 3px 10px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--c-accent-cyan); }
 .carousel-controls { display: flex; justify-content: center; gap: 16px; margin-top: 24px; }
 .carousel-btn { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 20px; color: #fff; background: rgba(255,255,255,0.06); border: 1px solid var(--c-border); }
 .carousel-btn:hover { background: rgba(0,210,255,0.2); color: var(--c-accent-cyan); border-color: var(--c-accent-cyan); box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); transform: scale(1.05); }
+
+@media (max-width: 576px) {
+    .project-card { flex: 0 0 300px !important; min-width: 300px !important; max-width: 300px !important; }
+}
 
 /* 5. Tech Stack Marquee (NEW) */
 .tech-section { padding-top: var(--space-xl); padding-bottom: var(--space-xl); overflow: hidden; }
