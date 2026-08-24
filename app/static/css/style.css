@@ -418,6 +418,7 @@ section { padding: var(--space-xl) 0; }
 .work-link { display: inline-block; margin-top: var(--space-sm); color: var(--c-accent-cyan); font-weight: 600; }
 .work-link:hover { text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
 
+.pricing-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); align-items: stretch; max-width: 1200px; margin: 0 auto; }
 .pricing-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); align-items: stretch; max-width: 1200px; margin: 0 auto; }
 .pricing-card { 
     padding: var(--space-lg) var(--space-md); 
@@ -947,4 +948,207 @@ section { padding: var(--space-xl) 0; }
     .hero-actions .btn { width: 100%; }
     .global-stats { grid-template-columns: 1fr; }
     .chat-simulation-container { max-width: 100%; }
+}
+
+
+
+
+/* Philosophy 4-Layer Bridge Design */
+.bridge-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.bridge-track { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 0.3; stroke-linecap: round; }
+.bridge-pulse { fill: none; stroke: var(--c-accent-cyan); stroke-width: 0.6; stroke-dasharray: 4 20; animation: bridgeFlow 2.5s linear infinite; opacity: 0.7; }
+.terminal-dot { fill: rgba(255,255,255,0.4); }
+@keyframes bridgeFlow { to { stroke-dashoffset: -24; } }
+
+.bridge-col { display: flex; flex-direction: column; justify-content: space-around; z-index: 2; height: 100%; }
+.bridge-col-1 { align-items: flex-start; }
+.bridge-col-2 { align-items: center; justify-content: center; }
+.bridge-col-3 { align-items: center; }
+.bridge-col-4 { align-items: flex-end; }
+
+.bridge-node { padding: 8px 12px; display: flex; align-items: center; gap: 12px; font-family: var(--font-display); background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 160px; color: #fff; position: relative; }
+.highlight-node { border-color: rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.8); background: rgba(20,20,25,0.9); }
+.node-icon { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(255,255,255,0.03); border-radius: 6px; color: var(--c-accent-cyan); font-size: 14px; flex-shrink: 0; }
+.node-content { display: flex; flex-direction: column; gap: 2px; }
+.node-title { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #e0e0e0; }
+.node-sub { font-size: 10px; color: var(--c-text-secondary); font-family: var(--font-body); }
+
+.bridge-center-node { padding: 24px 32px; background: rgba(0,0,0,0.9); border: 1px solid var(--c-accent-cyan); border-radius: var(--radius-md); box-shadow: 0 0 50px rgba(0, 210, 255, 0.2); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+.bridge-center-node::after { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: calc(var(--radius-md) + 2px); background: linear-gradient(135deg, var(--c-accent-cyan), transparent, var(--c-accent-purple)); z-index: -1; opacity: 0.8; filter: blur(6px); }
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .bridge-svg { display: none; }
+    .bridge-viz-container { height: auto; flex-direction: column; align-items: center; gap: 24px; padding: 0; margin-bottom: 32px; }
+    .bridge-col { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 12px; width: 100%; height: auto; }
+    .bridge-node { width: auto; min-width: 140px; justify-content: flex-start; }
+    .bridge-col-2 { padding: 24px 0; }
+}
+
+/* Bento Grid Layout (V3) */
+.bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 280px); gap: 24px; }
+.bento-item { border-radius: 24px; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; border: 1px solid rgba(255,255,255,0.05); }
+.bento-item:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0, 210, 255, 0.1); border-color: rgba(0,210,255,0.2); }
+.bento-hero { grid-column: span 2; grid-row: span 2; justify-content: flex-start; }
+.bento-stat { grid-column: span 1; grid-row: span 1; justify-content: center; align-items: center; text-align: center; }
+.bento-feature { grid-column: span 1; grid-row: span 1; justify-content: flex-end; }
+.stat-big { font-size: 72px; font-weight: 700; line-height: 1; margin-bottom: 12px; font-family: var(--font-display); }
+.stat-label { font-size: 13px; color: var(--c-text-secondary); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+.bento-orb { position: absolute; bottom: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,210,255,0.2) 0%, transparent 70%); border-radius: 50%; filter: blur(30px); z-index: 0; pointer-events: none; }
+.bento-item > * { position: relative; z-index: 1; }
+
+@media (max-width: 992px) {
+    .bento-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .bento-hero { grid-column: span 2; grid-row: auto; min-height: 350px; }
+    .bento-stat, .bento-feature { min-height: 250px; }
+}
+@media (max-width: 576px) {
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-hero, .bento-stat, .bento-feature { grid-column: span 1; }
+}
+
+/* Philosophy Transformation Diagram */
+.compact-node { 
+    padding: 10px 16px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    font-family: var(--font-display); 
+    background: rgba(8, 8, 12, 0.9); 
+    border: 1px solid rgba(255,255,255,0.12); 
+    border-radius: 8px; 
+    font-size: 13px; 
+    font-weight: 600; 
+    letter-spacing: 0.3px; 
+    color: #ffffff; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6); 
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+.compact-node:hover {
+    transform: translateY(-2px);
+    border-color: var(--c-accent-cyan);
+}
+.compact-node .icon { font-size: 16px; }
+.highlight-cyan { border-color: rgba(0,210,255,0.3); color: var(--c-accent-cyan); }
+.highlight-green { border-color: rgba(39,201,63,0.3); color: #27c93f; }
+.highlight-gold { border-color: rgba(255,189,46,0.3); color: #ffbd2e; }
+
+/* Realistic 3D Pipe Styling */
+.real-pipe-track {
+    fill: none;
+    stroke: rgba(0, 210, 255, 0.15);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+}
+.real-pipe-pulse {
+    fill: none;
+    stroke: url(#pipeGrad);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 18;
+    animation: pipeLiquid 2s linear infinite;
+}
+@keyframes pipeLiquid {
+    to { stroke-dashoffset: -24; }
+}
+
+.pipe-joint {
+    fill: #030305;
+    stroke: var(--c-accent-cyan);
+    stroke-width: 0.8;
+}
+.pipe-joint-center {
+    fill: var(--c-accent-cyan);
+    stroke: #ffffff;
+    stroke-width: 0.6;
+}
+.highlight-purple {
+    border-color: rgba(138, 35, 137, 0.4) !important;
+    color: #e077ff !important;
+}
+
+
+@media (max-width: 992px) {
+    .scenario-cta-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+}
+
+
+/* Scenario Engine Upgraded UI */
+.chip-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--c-text-secondary);
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+.chip-btn:hover, .chip-btn.active {
+    background: rgba(0, 210, 255, 0.15);
+    border-color: var(--c-accent-cyan);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.phase-card-animate {
+    animation: phaseSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes phaseSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ==========================================================================
+   Comprehensive Mobile & Tablet Responsiveness Rules
+   ========================================================================== */
+@media (max-width: 992px) {
+    .split-layout {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+    #philosophy-v2 {
+        min-height: auto !important;
+        padding: 60px 0 !important;
+    }
+    #transformation-cta {
+        min-height: auto !important;
+        padding: 60px 0 !important;
+    }
+    .scenario-cta-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    h1, .text-gradient-hero {
+        font-size: clamp(28px, 7vw, 40px) !important;
+    }
+    h2 {
+        font-size: clamp(24px, 6vw, 32px) !important;
+    }
+    .compact-node {
+        font-size: 11px !important;
+        padding: 8px 12px !important;
+    }
+    .scenario-engine-card {
+        padding: 20px !important;
+        min-height: auto !important;
+    }
+    .chip-btn {
+        font-size: 10px !important;
+        padding: 3px 10px !important;
+    }
+    .glass-panel {
+        padding: 20px !important;
+    }
 }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080810"/>
+      <stop offset="100%" stop-color="#030305"/>
+    </linearGradient>
+    <linearGradient id="bGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D2FF"/>
+      <stop offset="50%" stop-color="#8A2387"/>
+      <stop offset="100%" stop-color="#3A7BD5"/>
+    </linearGradient>
+    <filter id="bGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" stroke="rgba(0, 210, 255, 0.4)" stroke-width="12"/>
+  <!-- Glowing B Logo -->
+  <path filter="url(#bGlow)" fill="url(#bGrad)" d="M140 100 H270 C330 100 370 130 370 180 C370 215 345 240 310 250 C355 262 385 292 385 335 C385 395 335 412 270 412 H140 V100 Z M210 160 V225 H260 C285 225 305 212 305 192 C305 172 285 160 260 160 H210 Z M210 280 V352 H270 C298 352 320 338 320 316 C320 294 298 280 270 280 H210 Z"/>
+</svg>
