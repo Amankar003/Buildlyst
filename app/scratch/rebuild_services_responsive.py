@@ -320,7 +320,7 @@ def generate_service_page(service):
             <div class="split-layout" class="responsive-service-grid responsive-service-grid-deliverables">
                 <div>
                     <span class="overline highlight" style="font-size: 11px;">Production Deliverables</span>
-                    <h2 class="section-heading text-gradient" style="margin-bottom: 20px; font-size: 30px;">Exactly what we build.</h2>
+                    <h2 class="section-heading text-gradient" style="margin-bottom: 20px; font-size: clamp(32px, 4vw, 42px);">Exactly what we build.</h2>
                     <p style="color: var(--c-text-secondary); font-size: 15px; margin-bottom: 24px; line-height:1.6;">We don't sell generic advice; we deliver production-ready codebases. Our standard engineering deployments include:</p>
                     <ul style="list-style: none; padding: 0;">
                         {build_items_html}
@@ -339,7 +339,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 28px;">
                 <span class="overline highlight" style="font-size: 11px;">Developer Sandbox</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Live Execution Telemetry</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">Live Execution Telemetry</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Real-time code inspection, live log streaming, and dynamic metric counters for {service['title']}.</p>
             </div>
 
@@ -395,7 +395,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 24px;">
                 <span class="overline highlight" style="font-size: 11px;">Interactive Blueprint</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">3D System Architecture Model</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">3D System Architecture Model</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14.5px; max-width: 640px;">
                     An interactive 3D blueprint built for both executive CTOs and business leaders. Click any floating 3D microservice node to inspect its real-world function and technical specs.
                 </p>
@@ -478,7 +478,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center">
                 <span class="overline highlight" style="font-size: 11px;">Transparent Investment</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">Tailored Pricing Tiers</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">Tailored Pricing Tiers</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14.5px; max-width: 600px;">Select the engagement level that fits your business scale for {service['title']}.</p>
             </div>
             
@@ -492,7 +492,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Core Specs</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">6 Core Capabilities</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">6 Core Capabilities</h2>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 {caps_html}
@@ -505,7 +505,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 28px;">
                 <span class="overline highlight" style="font-size: 11px;">Comparison Matrix</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Technical Specifications</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">Technical Specifications</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Compare technical benchmarks across Launch, Build, and Scale engagement tiers.</p>
             </div>
 
@@ -532,7 +532,7 @@ def generate_service_page(service):
         <div class="container" style="max-width: 800px;">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Got Questions?</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">Frequently Asked Questions</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">Frequently Asked Questions</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Clear answers regarding deployment timelines, code IP ownership, and data privacy.</p>
             </div>
 
@@ -545,7 +545,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Business Outcomes</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Measurable Impact</h2>
+                <h2 class="section-heading text-gradient" style="font-size: clamp(32px, 4vw, 42px);">Measurable Impact</h2>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 {transform_html}

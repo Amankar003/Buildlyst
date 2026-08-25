@@ -167,44 +167,6 @@ layout_html = """{% extends 'base.html' %}
         100% { opacity: 0.2; height: 40px; }
     }
 
-    /* FAQ Accordion Styling */
-    .faq-accordion-item {
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        margin-bottom: 12px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    .faq-accordion-header {
-        padding: 18px 24px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 700;
-        font-size: 15px;
-        color: #fff;
-    }
-    .faq-accordion-header:hover {
-        background: rgba(0, 210, 255, 0.05);
-        color: var(--c-accent-cyan);
-    }
-    .faq-accordion-body {
-        padding: 0 24px 18px 24px;
-        color: var(--c-text-secondary);
-        font-size: 14px;
-        line-height: 1.6;
-        display: none;
-    }
-    .faq-accordion-item.active .faq-accordion-body {
-        display: block;
-    }
-    .faq-accordion-item.active {
-        border-color: rgba(0, 210, 255, 0.3);
-        background: rgba(0, 210, 255, 0.03);
-    }
-
     /* 3 Pricing Cards Grid */
     .pricing-grid-3 {
         display: grid;
@@ -317,7 +279,144 @@ layout_html = """{% extends 'base.html' %}
         background: rgba(0, 210, 255, 0.02);
         color: #fff;
     }
+
+    /* ==========================================
+       Comprehensive Responsive Grid & Layout Rules
+       ========================================== */
+    .responsive-grid { display: grid; }
+    .grid-overview { grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: center; }
+    .grid-deliverables { grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .grid-telemetry { grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .grid-3d { grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; margin-top: 30px; }
+
+    /* Overview Highlights Grid */
+    .overview-highlights-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    /* Deliverables Glass Panel Image Wrapper */
+    .deliverables-img-card {
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        min-height: 400px;
+        height: 100%;
+    }
+
+    /* Telemetry Metrics Container */
+    .telemetry-metrics-bar {
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: monospace;
+        font-size: 10px;
+        color: #888;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* 3D CTO Inspector Tech Grid */
+    .cto-tech-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    /* Technical Specs Table Overflow */
+    .specs-table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    .specs-table {
+        min-width: 640px;
+    }
+
+    /* Service Navigation Bar */
+    .service-nav-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        justify-content: center;
+    }
+
+    /* Tablet & Mobile Media Queries (< 992px) */
+    @media (max-width: 992px) {
+        .grid-overview, .grid-deliverables, .grid-telemetry, .grid-3d {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+        }
+        
+        /* Proper Mobile Reading Order: Text first (Order 1), Diagram second (Order 2) */
+        .grid-overview > div:first-child { order: 1 !important; margin-top: 0 !important; }
+        .grid-overview > div:last-child { order: 2 !important; margin-top: 16px !important; }
+        
+        .deliverables-img-card {
+            min-height: 240px !important;
+            height: 280px !important;
+        }
+        
+        .arch-3d-wrapper {
+            min-height: 320px !important;
+            padding: 10px 0 !important;
+        }
+        .arch-3d-stage {
+            transform: scale(0.6) rotateX(50deg) rotateZ(-30deg) !important;
+        }
+        .arch-3d-wrapper.flat-view .arch-3d-stage {
+            transform: scale(0.75) rotateX(0deg) rotateZ(0deg) !important;
+        }
+
+        .hero-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
+            gap: 12px;
+        }
+        .overview-buttons-container {
+            flex-direction: column;
+            width: 100%;
+            display: flex;
+            gap: 12px;
+        }
+        .overview-buttons-container a {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Small Mobile Media Queries (< 576px) */
+    @media (max-width: 576px) {
+        .overview-highlights-grid {
+            grid-template-columns: 1fr !important;
+        }
+        .cto-tech-grid {
+            grid-template-columns: 1fr !important;
+        }
+        .telemetry-metrics-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .arch-3d-stage {
+            transform: scale(0.5) rotateX(50deg) rotateZ(-30deg) !important;
+        }
+        .arch-3d-wrapper {
+            min-height: 280px !important;
+        }
+    }
 </style>
+
 
 <!-- EXACT HOME-STYLE SPLIT HERO SECTION (.hero-section + .hero-container + .hero-content + .hero-visual) -->
 <section id="hero" class="hero-section reveal" style="padding-top: 100px;">
@@ -353,15 +452,14 @@ layout_html = """{% extends 'base.html' %}
 <section id="contact" class="contact-section reveal" style="padding: 80px 0; border-top: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at bottom center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);">
     <div class="container">
         <div class="section-header text-center" style="margin-bottom: 24px;">
-            <h2 class="text-gradient"
-                style="font-size: clamp(32px, 5vw, 48px); margin-bottom: 16px; line-height: 1.1;">Ready to
+            <h2 class="section-heading text-gradient">Ready to
                 transform your data into leverage?</h2>
             <p class="subtext mx-auto text-center" style="margin: 0 auto;">Join elite companies building the
                 future with Buildlyst.</p>
         </div>
         <div class="contact-grid">
             <div class="contact-form-wrapper glass-panel glow-border p-lg">
-                <h2 class="section-heading" style="margin-bottom: 24px; font-size: 28px;">Initiate Project</h2>
+                <h2 class=\"section-heading\">Initiate Project</h2>
 
                 <div class="conversational-ui-container">
                     <div class="conv-messages" id="conv-messages">
@@ -517,20 +615,18 @@ def generate_service_page(service):
     </tr>
     ''' for feature, mvp, pro, ent in service["specs_table"]])
 
-    # FAQ Accordion HTML
+    # FAQ HTML (Matches Home Page Exactly)
     faqs = service.get("faqs", [])
-    faqs_html = ""
+    faqs_html = '<div class="faq-container">\n'
     for idx, (question, answer) in enumerate(faqs):
         faqs_html += f'''
-        <div class="faq-accordion-item" onclick="toggleFaq(this)">
-            <div class="faq-accordion-header">
-                <span>{question}</span>
-                <span style="color: var(--c-accent-cyan); font-size: 18px;">+</span>
-            </div>
-            <div class="faq-accordion-body">
-                {answer}
-            </div>
-        </div>'''
+                    <div class="faq-item glass-panel">
+                        <button class="faq-question">{question} <span class="faq-icon">+</span></button>
+                        <div class="faq-answer">
+                            <p style="margin-bottom: 0;">{answer}</p>
+                        </div>
+                    </div>'''
+    faqs_html += '\n                </div>'
 
     # 3 Pricing Cards
     tier1 = service["pricing_tiers"][0]
@@ -658,7 +754,7 @@ def generate_service_page(service):
     <!-- 1. COMPACT ABOVE-THE-FOLD DETAILED SERVICE OVERVIEW WITH VERTICAL SYSTEM ARCHITECTURE BLUEPRINT -->
     <section class="reveal" style="padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
-            <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: center;">
+            <div class="responsive-grid grid-overview">
                 
                 <!-- LEFT SIDE: RICH SERVICE OVERVIEW CONTENT -->
                 <div>
@@ -666,7 +762,7 @@ def generate_service_page(service):
                         <span class="overline highlight" style="font-size: 11px;">Service Overview</span>
                         <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px;">
                             <span style="font-size: 38px;">{service["icon"]}</span>
-                            <h2 class="text-gradient" style="font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; margin: 0; line-height: 1.15;">
+                            <h2 class="section-heading text-gradient">
                                 {service["title"]}
                             </h2>
                         </div>
@@ -682,11 +778,11 @@ def generate_service_page(service):
                     </p>
 
                     <!-- 4 RICH SERVICE HIGHLIGHT BADGES -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                    <div class="overview-highlights-grid">
                         {highlights_html}
                     </div>
 
-                    <div style="display: flex; gap: 10px; align-items: center;">
+                    <div class="overview-buttons-container">
                         <a href="/#contact" class="btn glow-border-btn" style="padding: 10px 22px; font-size: 13px;">Build Custom Solution</a>
                         <a href="#telemetry" class="btn glass-btn" style="padding: 10px 20px; font-size: 13px;">View Live Telemetry ↓</a>
                     </div>
@@ -711,16 +807,16 @@ def generate_service_page(service):
     <!-- 2. What We Build (Deliverables) -->
     <section class="reveal" style="padding: 70px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
-            <div class="split-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+            <div class="responsive-grid grid-deliverables">
                 <div>
                     <span class="overline highlight" style="font-size: 11px;">Production Deliverables</span>
-                    <h2 class="section-heading text-gradient" style="margin-bottom: 20px; font-size: 30px;">Exactly what we build.</h2>
+                    <h2 class=\"section-heading text-gradient\">Exactly what we build.</h2>
                     <p style="color: var(--c-text-secondary); font-size: 15px; margin-bottom: 24px; line-height:1.6;">We don't sell generic advice; we deliver production-ready codebases. Our standard engineering deployments include:</p>
                     <ul style="list-style: none; padding: 0;">
                         {build_items_html}
                     </ul>
                 </div>
-                <div class="glass-panel" style="border-radius: 16px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+                <div class="glass-panel deliverables-img-card">
                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #00D2FF, #8A2387);"></div>
                     <img src="{service["image"]}" alt="{service['title']}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: contrast(1.1); display: block;">
                 </div>
@@ -733,11 +829,11 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 28px;">
                 <span class="overline highlight" style="font-size: 11px;">Developer Sandbox</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Live Execution Telemetry</h2>
+                <h2 class=\"section-heading text-gradient\">Live Execution Telemetry</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Real-time code inspection, live log streaming, and dynamic metric counters for {service['title']}.</p>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch;">
+            <div class="responsive-grid grid-telemetry">
                 
                 <!-- CODE VIEW PORTAL -->
                 <div class="glass-panel" style="padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); background: #070b14; display: flex; flex-direction: column; justify-content: space-between;">
@@ -773,7 +869,7 @@ def generate_service_page(service):
                     </div>
 
                     <!-- REAL-TIME FLUCTUATING METRICS BAR -->
-                    <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-size: 10px; color: #888;">
+                    <div class="telemetry-metrics-bar">
                         <span>LATENCY: <strong id="live-latency-val" style="color: #00d2ff;">8.4ms</strong></span>
                         <span>MEMORY: <strong id="live-mem-val" style="color: #27c93f;">42.1 MB</strong></span>
                         <span>THROUGHPUT: <strong id="live-tps-val" style="color: #fff;">4,200 req/s</strong></span>
@@ -789,7 +885,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 24px;">
                 <span class="overline highlight" style="font-size: 11px;">Interactive Blueprint</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">3D System Architecture Model</h2>
+                <h2 class=\"section-heading text-gradient\">3D System Architecture Model</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14.5px; max-width: 640px;">
                     An interactive 3D blueprint built for both executive CTOs and business leaders. Click any floating 3D microservice node to inspect its real-world function and technical specs.
                 </p>
@@ -799,7 +895,7 @@ def generate_service_page(service):
             </div>
 
             <!-- 3D GRID LAYOUT CONTAINER -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; margin-top: 30px;">
+            <div class="responsive-grid grid-3d">
                 
                 <!-- LEFT SIDE: 3D ISOMETRIC ANIMATED STAGE -->
                 <div class="arch-3d-wrapper" id="arch-3d-wrapper">
@@ -844,7 +940,7 @@ def generate_service_page(service):
                     </div>
 
                     <!-- Tech Specs Grid for Engineers & CTOs -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;">
+                    <div class="cto-tech-grid">
                         <div style="padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
                             <span style="font-size: 10px; color: #888; display: block; font-weight: 600;">TECH STACK</span>
                             <span id="cto-spec-tech" style="font-size: 13px; color: #00d2ff; font-weight: bold;">{cto_nodes[0]['tech'] if cto_nodes else 'FastAPI / TLS'}</span>
@@ -872,7 +968,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center">
                 <span class="overline highlight" style="font-size: 11px;">Transparent Investment</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">Tailored Pricing Tiers</h2>
+                <h2 class=\"section-heading text-gradient\">Tailored Pricing Tiers</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14.5px; max-width: 600px;">Select the engagement level that fits your business scale for {service['title']}.</p>
             </div>
             
@@ -886,7 +982,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Core Specs</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">6 Core Capabilities</h2>
+                <h2 class=\"section-heading text-gradient\">6 Core Capabilities</h2>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 {caps_html}
@@ -899,7 +995,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 28px;">
                 <span class="overline highlight" style="font-size: 11px;">Comparison Matrix</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Technical Specifications</h2>
+                <h2 class=\"section-heading text-gradient\">Technical Specifications</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Compare technical benchmarks across Launch, Build, and Scale engagement tiers.</p>
             </div>
 
@@ -926,7 +1022,7 @@ def generate_service_page(service):
         <div class="container" style="max-width: 800px;">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Got Questions?</span>
-                <h2 class="section-heading text-gradient" style="font-size: 32px;">Frequently Asked Questions</h2>
+                <h2 class=\"section-heading text-gradient\">Frequently Asked Questions</h2>
                 <p class="subtext text-center mx-auto" style="font-size: 14px;">Clear answers regarding deployment timelines, code IP ownership, and data privacy.</p>
             </div>
 
@@ -939,7 +1035,7 @@ def generate_service_page(service):
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Business Outcomes</span>
-                <h2 class="section-heading text-gradient" style="font-size: 30px;">Measurable Impact</h2>
+                <h2 class=\"section-heading text-gradient\">Measurable Impact</h2>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                 {transform_html}
@@ -951,15 +1047,6 @@ def generate_service_page(service):
 
 <!-- DYNAMIC SCRIPTS -->
 <script>
-// FAQ Accordion Toggle Script
-function toggleFaq(item) {{
-    const isActive = item.classList.contains('active');
-    document.querySelectorAll('.faq-accordion-item').forEach(el => el.classList.remove('active'));
-    if (!isActive) {{
-        item.classList.add('active');
-    }}
-}}
-
 // 3D Architecture Data Store
 const ctoNodesData = {service.get("cto_nodes_json", "[]")};
 

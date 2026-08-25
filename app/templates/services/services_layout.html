@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
 
-{% block back_button %}
-<!-- Floating back button removed. Sticky Back CTA is cleanly placed in the main pill-nav bar. -->
-{% endblock %}
-
 {% block content %}
 <style>
+    /* Service Navigation Buttons Header */
+    .service-nav-btn {
+        padding: 10px 20px;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--c-text-secondary);
+        font-weight: 600;
+        font-size: 13px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .service-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border-color: rgba(0, 210, 255, 0.4);
+        transform: translateY(-2px);
+    }
+    .service-nav-btn.active {
+        background: rgba(0, 210, 255, 0.14);
+        border-color: var(--c-accent-cyan);
+        color: #fff;
+        box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+    }
+    .service-nav-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+    }
+
     /* Project Architecture Blueprint Card */
     .project-blueprint-card {
         padding: 24px 26px;
@@ -130,44 +161,6 @@
         100% { opacity: 0.2; height: 40px; }
     }
 
-    /* FAQ Accordion Styling */
-    .faq-accordion-item {
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        margin-bottom: 12px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    .faq-accordion-header {
-        padding: 18px 24px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 700;
-        font-size: 15px;
-        color: #fff;
-    }
-    .faq-accordion-header:hover {
-        background: rgba(0, 210, 255, 0.05);
-        color: var(--c-accent-cyan);
-    }
-    .faq-accordion-body {
-        padding: 0 24px 18px 24px;
-        color: var(--c-text-secondary);
-        font-size: 14px;
-        line-height: 1.6;
-        display: none;
-    }
-    .faq-accordion-item.active .faq-accordion-body {
-        display: block;
-    }
-    .faq-accordion-item.active {
-        border-color: rgba(0, 210, 255, 0.3);
-        background: rgba(0, 210, 255, 0.03);
-    }
-
     /* 3 Pricing Cards Grid */
     .pricing-grid-3 {
         display: grid;
@@ -182,8 +175,6 @@
             max-width: 480px;
             margin-left: auto;
             margin-right: auto;
-            gap: 48px;
-            padding-top: 20px;
         }
     }
     .service-pricing-card {
@@ -209,10 +200,10 @@
         box-shadow: 0 0 35px rgba(0, 210, 255, 0.15);
     }
     .service-pricing-card .popular-badge {
-        position: relative;
-        display: inline-block;
-        margin: 0 auto 16px auto;
-        align-self: center;
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
         font-size: 10px;
         font-weight: 800;
         padding: 5px 16px;
@@ -282,10 +273,147 @@
         background: rgba(0, 210, 255, 0.02);
         color: #fff;
     }
+
+    /* ==========================================
+       Comprehensive Responsive Grid & Layout Rules
+       ========================================== */
+    .responsive-grid { display: grid; }
+    .grid-overview { grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: center; }
+    .grid-deliverables { grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .grid-telemetry { grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .grid-3d { grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; margin-top: 30px; }
+
+    /* Overview Highlights Grid */
+    .overview-highlights-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    /* Deliverables Glass Panel Image Wrapper */
+    .deliverables-img-card {
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        min-height: 400px;
+        height: 100%;
+    }
+
+    /* Telemetry Metrics Container */
+    .telemetry-metrics-bar {
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: monospace;
+        font-size: 10px;
+        color: #888;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    /* 3D CTO Inspector Tech Grid */
+    .cto-tech-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    /* Technical Specs Table Overflow */
+    .specs-table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    .specs-table {
+        min-width: 640px;
+    }
+
+    /* Service Navigation Bar */
+    .service-nav-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        justify-content: center;
+    }
+
+    /* Tablet & Mobile Media Queries (< 992px) */
+    @media (max-width: 992px) {
+        .grid-overview, .grid-deliverables, .grid-telemetry, .grid-3d {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+        }
+        
+        /* Proper Mobile Reading Order: Text first (Order 1), Diagram second (Order 2) */
+        .grid-overview > div:first-child { order: 1 !important; margin-top: 0 !important; }
+        .grid-overview > div:last-child { order: 2 !important; margin-top: 16px !important; }
+        
+        .deliverables-img-card {
+            min-height: 240px !important;
+            height: 280px !important;
+        }
+        
+        .arch-3d-wrapper {
+            min-height: 320px !important;
+            padding: 10px 0 !important;
+        }
+        .arch-3d-stage {
+            transform: scale(0.6) rotateX(50deg) rotateZ(-30deg) !important;
+        }
+        .arch-3d-wrapper.flat-view .arch-3d-stage {
+            transform: scale(0.75) rotateX(0deg) rotateZ(0deg) !important;
+        }
+
+        .hero-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+            display: flex;
+            gap: 12px;
+        }
+        .overview-buttons-container {
+            flex-direction: column;
+            width: 100%;
+            display: flex;
+            gap: 12px;
+        }
+        .overview-buttons-container a {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Small Mobile Media Queries (< 576px) */
+    @media (max-width: 576px) {
+        .overview-highlights-grid {
+            grid-template-columns: 1fr !important;
+        }
+        .cto-tech-grid {
+            grid-template-columns: 1fr !important;
+        }
+        .telemetry-metrics-bar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .arch-3d-stage {
+            transform: scale(0.5) rotateX(50deg) rotateZ(-30deg) !important;
+        }
+        .arch-3d-wrapper {
+            min-height: 280px !important;
+        }
+    }
 </style>
 
+
 <!-- EXACT HOME-STYLE SPLIT HERO SECTION (.hero-section + .hero-container + .hero-content + .hero-visual) -->
-<section id="hero" class="hero-section reveal">
+<section id="hero" class="hero-section reveal" style="padding-top: 100px;">
     <!-- Animated Gradient Waves (Identical to Home Page) -->
     <div class="wave-container">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -318,15 +446,14 @@
 <section id="contact" class="contact-section reveal" style="padding: 80px 0; border-top: 1px solid rgba(255,255,255,0.05); background: radial-gradient(circle at bottom center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);">
     <div class="container">
         <div class="section-header text-center" style="margin-bottom: 24px;">
-            <h2 class="text-gradient"
-                style="font-size: clamp(32px, 5vw, 48px); margin-bottom: 16px; line-height: 1.1;">Ready to
+            <h2 class="section-heading text-gradient">Ready to
                 transform your data into leverage?</h2>
             <p class="subtext mx-auto text-center" style="margin: 0 auto;">Join elite companies building the
                 future with Buildlyst.</p>
         </div>
         <div class="contact-grid">
             <div class="contact-form-wrapper glass-panel glow-border p-lg">
-                <h2 class="section-heading" style="margin-bottom: 24px; font-size: 28px;">Initiate Project</h2>
+                <h2 class="section-heading">Initiate Project</h2>
 
                 <div class="conversational-ui-container">
                     <div class="conv-messages" id="conv-messages">
