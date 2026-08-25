@@ -1,136 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buildlyst | Premium AI & Data Engineering</title>
-
-    <!-- Fonts: Space Grotesk (Display) & DM Sans (Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
-
-    <!-- Advanced SEO & Search Engine Optimization Tags -->
-    <meta name="keywords"
-        content="AI Agency, Data Engineering Studio, Custom AI Agents, GenAI Development, Machine Learning Pipelines, Python FastAPI Developers, RAG Systems, Enterprise AI Solutions India, AI Agency Bhopal Delhi Bangalore">
-    <meta name="author" content="Buildlyst Studio">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <link rel="canonical" href="https://buildlyst.in/">
-
-    <!-- Geo Targeting Meta Tags -->
-    <meta name="geo.region" content="IN">
-    <meta name="geo.placename" content="India">
-
-    <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Buildlyst",
-      "image": "https://buildlyst.in/static/img/og-preview.svg",
-      "@id": "https://buildlyst.in/#organization",
-      "url": "https://buildlyst.in/",
-      "telephone": "+91-0000000000",
-      "priceRange": "₹35,000 - ₹2,50,000+",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 23.2599,
-        "longitude": 77.4126
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday"
-        ],
-        "opens": "09:00",
-        "closes": "20:00"
-      },
-      "sameAs": [
-        "https://twitter.com/buildlyst",
-        "https://linkedin.com/company/buildlyst",
-        "https://github.com/buildlyst"
-      ],
-      "knowsAbout": [
-        "AI Agents",
-        "Generative AI",
-        "Data Engineering Pipelines",
-        "Machine Learning",
-        "RAG Architectures",
-        "Full-Stack Web Engineering"
-      ],
-      "description": "Buildlyst is an elite AI & Data Engineering studio architecting custom AI agents, machine learning pipelines, and scalable enterprise data systems."
-    }
-    </script>
-
-    <!-- Primary Meta Tags -->
-    <meta name="title" content="Buildlyst | Premium AI & Data Engineering Studio">
-    <meta name="description"
-        content="We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.">
-
-    <!-- Open Graph / Facebook / WhatsApp / LinkedIn Card Preview -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://buildlyst.in/">
-    <meta property="og:title" content="Buildlyst | Premium AI & Data Engineering Studio">
-    <meta property="og:description"
-        content="We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.">
-    <meta property="og:image" content="https://buildlyst.vercel.app/static/img/og-preview.svg">
-
-    <!-- Twitter / X Card Preview -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://buildlyst.in/">
-    <meta name="twitter:title" content="Buildlyst | Premium AI & Data Engineering Studio">
-    <meta name="twitter:description"
-        content="We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.">
-    <meta name="twitter:image" content="https://buildlyst.vercel.app/static/img/og-preview.svg">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="/static/css/style.css?v=1.5">
-</head>
-
-<body class="dark-theme">
-
-    <!-- Main Content Wrapper -->
-    <div id="main-content">
-
-        <!-- Ambient Background Effects -->
-        <div class="ambient-glow glow-1"></div>
-        <div class="ambient-glow glow-2"></div>
-
-        <!-- Pill Navigation -->
-        <nav class="pill-nav">
-            <a href="#" class="logo text-gradient">Buildlyst</a>
-            <div class="pill-links">
-                <a href="#about">About</a>
-                <a href="#services">Capabilities</a>
-                <a href="#playground">Playground</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
-            </div>
-            <div class="nav-right">
-                <a href="#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
-                <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Mobile Navigation">
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                </button>
-            </div>
-        </nav>
-
+{% block content %}
         <!-- Hero Section -->
         <section id="hero" class="hero-section reveal">
             <!-- Animated Gradient Waves -->
@@ -178,29 +48,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Mobile Navigation Overlay / Drawer -->
-        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
-            <div class="mobile-menu-drawer glass-panel">
-                <div class="mobile-menu-header">
-                    <span class="logo text-gradient">Buildlyst</span>
-                    <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
-                </div>
-                <div class="mobile-menu-links">
-                    <a href="#about" class="mobile-nav-link">About</a>
-                    <a href="#services" class="mobile-nav-link">Capabilities</a>
-                    <a href="#playground" class="mobile-nav-link">Live Playground</a>
-                    <a href="#architecture" class="mobile-nav-link">Architecture</a>
-                    <a href="#pricing" class="mobile-nav-link">Pricing & Predictor</a>
-                    <a href="#faq" class="mobile-nav-link">FAQ</a>
-                </div>
-                <div class="mobile-menu-footer">
-                    <a href="#contact" class="btn btn-primary glow-border-btn w-100 mobile-nav-link">Start a Project</a>
-                </div>
-            </div>
-        </div>
-
-
 
         <!-- The Buildlyst Philosophy (About) Section -->
         <section id="about" class="philosophy-section reveal">
@@ -254,6 +101,7 @@
                             <p>Autonomous systems capable of executing complex multi-step reasoning, integrating with
                                 your existing tools, and making autonomous decisions based on real-time data
                                 constraints.</p>
+                            <a href="/services/ai-agents" class="btn btn-secondary glass-btn" style="margin-top: 16px; font-size: 14px; display: inline-block;">Explore Deep Dive &rarr;</a>
                         </div>
                     </div>
                     <div class="accordion-item glass-panel">
@@ -264,6 +112,7 @@
                         <div class="accordion-content">
                             <p>Custom LLM deployments, fine-tuning, and highly secure RAG architectures tailored
                                 entirely to your proprietary enterprise data.</p>
+                            <a href="/services/gen-ai" class="btn btn-secondary glass-btn" style="margin-top: 16px; font-size: 14px; display: inline-block;">Explore Deep Dive &rarr;</a>
                         </div>
                     </div>
                     <div class="accordion-item glass-panel">
@@ -274,6 +123,7 @@
                         <div class="accordion-content">
                             <p>Advanced predictive modeling, neural networks for computer vision, NLP, and real-time
                                 classification systems deployed at scale.</p>
+                            <a href="/services/machine-learning" class="btn btn-secondary glass-btn" style="margin-top: 16px; font-size: 14px; display: inline-block;">Explore Deep Dive &rarr;</a>
                         </div>
                     </div>
                     <div class="accordion-item glass-panel">
@@ -284,6 +134,7 @@
                         <div class="accordion-content">
                             <p>Robust ETL pipelines, data warehousing, and interactive visualization dashboards that
                                 turn raw data into strategic assets.</p>
+                            <a href="/services/data-engineering" class="btn btn-secondary glass-btn" style="margin-top: 16px; font-size: 14px; display: inline-block;">Explore Deep Dive &rarr;</a>
                         </div>
                     </div>
                     <div class="accordion-item glass-panel">
@@ -294,6 +145,7 @@
                         <div class="accordion-content">
                             <p>Premium, high-performance web applications and landing pages built with modern
                                 frameworks, deeply integrated with custom AI backends.</p>
+                            <a href="/services/web-development" class="btn btn-secondary glass-btn" style="margin-top: 16px; font-size: 14px; display: inline-block;">Explore Deep Dive &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -593,6 +445,9 @@
                     <h2 class="section-heading text-gradient">Enterprise Architecture</h2>
                     <p class="subtext text-center mx-auto">Built on a foundation of elite frameworks, tailored for
                         specific autonomous use-cases.</p>
+                    <div style="margin-top: 24px;">
+                        <a href="#services" class="btn btn-secondary glass-btn">View Full Service Technical Specs &rarr;</a>
+                    </div>
                 </div>
 
                 <!-- Infinite Tech Marquee -->
@@ -1700,92 +1555,4 @@
             </div>
         </section>
 
-        <!-- Footer (Redesigned) -->
-        <footer class="main-footer">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-brand">
-                        <a href="#" class="logo text-gradient">Buildlyst</a>
-                        <p class="footer-tagline">Intelligence Designed. Engineered in Bangalore.</p>
-                    </div>
-                    <div class="footer-links-group">
-                        <div class="footer-links">
-                            <span class="overline">Platform</span>
-                            <a href="#about">About Us</a>
-                            <a href="#services">Capabilities</a>
-                        </div>
-                        <div class="footer-links">
-                            <span class="overline">Connect</span>
-                            <a href="#contact">Contact</a>
-                            <a href="#pricing">Pricing</a>
-                            <a href="#faq">FAQ</a>
-                        </div>
-                    </div>
-                    <div class="footer-newsletter">
-                        <span class="overline">Studio Insights</span>
-                        <p style="color:var(--c-text-secondary);font-size:14px;margin-bottom:16px;">Subscribe for
-                            deep-dives into AI engineering and architecture.</p>
-                        <form id="newsletter-form" class="newsletter-form">
-                            <input type="email" id="newsletter-email" name="email" placeholder="Enter your email"
-                                required class="glass-input">
-                            <button type="submit" class="btn btn-secondary glass-btn">Join</button>
-                        </form>
-                        <div id="newsletter-status" class="form-status small"></div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2026 Buildlyst. All rights reserved. <span style="margin-left: 20px;"><a href="#">Privacy
-                                Policy</a> | <a href="#">Terms of Service</a></span></p>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Chat Widget -->
-        <div class="chat-widget">
-            <div class="chat-tooltip glass-panel">Chat with Buildlyst AI 👋</div>
-            <button id="chat-toggle" class="chat-toggle glow-border-btn pulse-anim">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-            </button>
-            <div class="chat-panel glass-panel" id="chat-panel">
-                <div class="chat-header">
-                    <h3>Buildlyst Assistant</h3>
-                    <button id="chat-close" class="chat-close">&times;</button>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message assistant">
-                        <div class="message-content">Hello. How can I assist you with your data or AI engineering needs
-                            today?</div>
-                    </div>
-                </div>
-                <form id="chat-form" class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Type a message..." required autocomplete="off"
-                        class="glass-input">
-                    <button type="submit" class="chat-send">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-    </div> <!-- End Main Content -->
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="/static/js/main.js"></script>
-</body>
-
-</html>
+{% endblock %}

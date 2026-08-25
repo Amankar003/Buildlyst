@@ -1228,3 +1228,37 @@ section { padding: var(--space-xl) 0; }
     }
 }
 
+
+
+/* Accordion Gallery Mobile Responsiveness */
+@media (max-width: 900px) {
+    .accordion-gallery {
+        flex-direction: column;
+        height: auto;
+        min-height: 600px;
+    }
+    .accordion-item {
+        min-height: 80px;
+        padding: 20px;
+        align-items: flex-start;
+        justify-content: flex-end;
+    }
+    .accordion-title {
+        writing-mode: horizontal-tb;
+        transform: none;
+        top: 24px;
+        left: 24px;
+        font-size: 20px;
+    }
+    .accordion-item:hover .accordion-title, .accordion-item.active .accordion-title {
+        writing-mode: horizontal-tb;
+        transform: none;
+        top: 24px;
+        left: 24px;
+        font-size: 24px;
+    }
+    .accordion-content {
+        max-width: 100%;
+        margin-top: 50px;
+    }
+}

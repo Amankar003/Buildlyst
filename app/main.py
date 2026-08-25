@@ -108,6 +108,28 @@ async def serve_index(request: Request):
     return templates.TemplateResponse(name="index.html", request=request)
 
 
+# ── Service Pages ────────────────────────────────────────────
+@app.get("/services/ai-agents", response_class=HTMLResponse, include_in_schema=False)
+async def service_ai_agents(request: Request):
+    return templates.TemplateResponse(name="services/ai_agents.html", request=request)
+
+@app.get("/services/gen-ai", response_class=HTMLResponse, include_in_schema=False)
+async def service_gen_ai(request: Request):
+    return templates.TemplateResponse(name="services/gen_ai.html", request=request)
+
+@app.get("/services/machine-learning", response_class=HTMLResponse, include_in_schema=False)
+async def service_ml(request: Request):
+    return templates.TemplateResponse(name="services/machine_learning.html", request=request)
+
+@app.get("/services/data-engineering", response_class=HTMLResponse, include_in_schema=False)
+async def service_data_eng(request: Request):
+    return templates.TemplateResponse(name="services/data_engineering.html", request=request)
+
+@app.get("/services/web-development", response_class=HTMLResponse, include_in_schema=False)
+async def service_web_dev(request: Request):
+    return templates.TemplateResponse(name="services/website_development.html", request=request)
+
+
 # ── Health Check ─────────────────────────────────────────────
 @app.get(
     "/health",
