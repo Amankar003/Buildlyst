@@ -5,47 +5,33 @@
     <div class="hero-container">
         <!-- LEFT SIDE: HERO CONTENT (EXACT HOME PAGE STYLE) -->
         <div class="hero-content">
-            <!-- BACK BUTTON TO HOME PAGE -->
-            <div style="margin-bottom: 16px;">
-                <a href="/" class="btn glass-btn" style="padding: 6px 16px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; border-radius: 50px; border: 1px solid rgba(0, 210, 255, 0.3); background: rgba(0, 210, 255, 0.06); color: #fff;">
-                    <span style="color: var(--c-accent-cyan); font-weight: bold;">&larr;</span> Back to Home Page
-                </a>
-            </div>
+            <!-- BACK BUTTON TO HOME PAGE (Removed duplicate) -->
 
             <span class="overline highlight">Buildlyst Engineering Studio</span>
             <h1 class="text-gradient-hero" style="font-size: clamp(34px, 4.4vw, 54px); line-height: 1.15; margin-bottom: 16px;">
-                Website<br>Development.
+                <span style="display: block;">Website</span>
+                <span style="display: block;">Development.</span>
             </h1>
             <p class="subtext">
                 We engineer sub-second Next.js 19 multi-tenant SaaS applications and high-converting glassmorphic portals deeply integrated with Python FastAPI backends.
             </p>
 
-            <div class="hero-actions" style="margin-bottom: 20px;">
-                <a href="/#contact" class="btn btn-primary glow-border-btn">Start a Project</a>
-                <a href="#telemetry" class="btn btn-secondary glass-btn">Explore Live Sandbox</a>
-            </div>
-
-            <!-- 5 CATEGORY SWITCHER PILLS -->
-            <div class="service-nav-container">
-                <a href="/services/ai-agents" class="service-nav-btn {% if request.url.path == '/services/ai-agents' %}active{% endif %}">🤖 AI Agents</a>
-                <a href="/services/gen-ai" class="service-nav-btn {% if request.url.path == '/services/gen-ai' %}active{% endif %}">🧠 Gen AI</a>
-                <a href="/services/machine-learning" class="service-nav-btn {% if request.url.path == '/services/machine-learning' %}active{% endif %}">🔬 Machine Learning</a>
-                <a href="/services/data-engineering" class="service-nav-btn {% if request.url.path == '/services/data-engineering' %}active{% endif %}">🗄️ Data Engineering</a>
-                <a href="/services/web-development" class="service-nav-btn {% if request.url.path == '/services/web-development' %}active{% endif %}">⚡ Web Development</a>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary glow-border-btn">Start a Project</a>
             </div>
         </div>
 
         <!-- RIGHT SIDE: HERO VISUAL (GLASS CARD PREVIEW) -->
         <div class="hero-visual">
-            <div class="chat-simulation-container glass-panel tilt-card" data-tilt style="border: 1px solid rgba(0, 210, 255, 0.3); box-shadow: 0 0 35px rgba(0, 210, 255, 0.15);">
+            <div class="chat-simulation-container glass-panel tilt-card" data-tilt>
                 <div class="sim-header">
                     <div class="sim-dots"><span></span><span></span><span></span></div>
-                    <span class="sim-title" style="color: var(--c-accent-cyan); font-weight: bold;">Buildlyst // Web Development</span>
+                    <span class="sim-title">Buildlyst AI</span>
                 </div>
-                <div style="padding: 24px; color: #fff; font-family: monospace; font-size: 13px; line-height: 1.8;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px;">
-                        <span style="color: #27c93f;">● PRODUCTION READY</span>
-                        <span style="color: #888;">LATENCY: < 80ms TTFB</span>
+                <div style="padding: 16px; color: #fff; font-family: monospace; font-size: 13px; line-height: 1.8;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                        <span style="color: #27c93f; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">● PRODUCTION READY</span>
+                        <span style="color: #888; white-space: nowrap;">LATENCY: &lt; 80ms TTFB</span>
                     </div>
                     <div style="margin-bottom: 12px; color: #e0e0e0;">
                         <span style="color: var(--c-accent-cyan);">&gt; ARCHITECTURE:</span> Next.js 19 SSR + Vercel Edge
@@ -70,7 +56,7 @@
 <div style="min-height: 100vh;">
 
     <!-- 1. COMPACT ABOVE-THE-FOLD DETAILED SERVICE OVERVIEW WITH VERTICAL SYSTEM ARCHITECTURE BLUEPRINT -->
-    <section class="reveal" style="padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <section id="about" class="reveal" style="padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container">
             <div class="responsive-grid grid-overview">
                 
@@ -121,8 +107,8 @@
                     </div>
 
                     <div class="overview-buttons-container">
-                        <a href="/#contact" class="btn glow-border-btn" style="padding: 10px 22px; font-size: 13px;">Build Custom Solution</a>
-                        <a href="#telemetry" class="btn glass-btn" style="padding: 10px 20px; font-size: 13px;">View Live Telemetry ↓</a>
+                        <a href="#contact" class="btn glow-border-btn" style="padding: 10px 22px; font-size: 13px;">Build Custom Solution</a>
+                        <a href="#playground" class="btn glass-btn" style="padding: 10px 20px; font-size: 13px;">View Live Telemetry ↓</a>
                     </div>
                 </div>
 
@@ -206,7 +192,7 @@
     </section>
 
     <!-- 3. DYNAMIC LIVE EXECUTION TELEMETRY SIMULATOR -->
-    <section id="telemetry" class="reveal" style="padding: 70px 0; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.25);">
+    <section id="playground" class="reveal" style="padding: 70px 0; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.25);">
         <div class="container">
             <div class="section-header text-center" style="margin-bottom: 28px;">
                 <span class="overline highlight" style="font-size: 11px;">Developer Sandbox</span>
@@ -384,7 +370,7 @@ async def get_analytics(user=Depends(verify_jwt_session)):
     </section>
 
     <!-- 5. TAILORED 3 TIER PRICING SECTION -->
-    <section class="reveal" style="padding: 80px 0; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0, 210, 255, 0.015);">
+    <section id="pricing" class="reveal" style="padding: 80px 0; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0, 210, 255, 0.015);">
         <div class="container">
             <div class="section-header text-center">
                 <span class="overline highlight" style="font-size: 11px;">Transparent Investment</span>
@@ -403,7 +389,7 @@ async def get_analytics(user=Depends(verify_jwt_session)):
                     <li><span>✓</span> High-Converting Product Landing Page</li><li><span>✓</span> Bespoke Glassmorphic UI/UX Design</li><li><span>✓</span> Responsive Mobile & Desktop Layout</li><li><span>✓</span> FastAPI Contact Form Integration</li><li><span>✓</span> Vercel Global Edge Deployment</li>
                 </ul>
             </div>
-            <a href="/#contact" class="btn glass-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Get Started</a>
+            <a href="#contact" class="btn glass-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Get Started</a>
         </div>
 
         <!-- Tier 2: Build (Featured / Most Popular) -->
@@ -416,7 +402,7 @@ async def get_analytics(user=Depends(verify_jwt_session)):
                     <li><span>✓</span> Full-Stack SaaS Web Application</li><li><span>✓</span> Next.js + FastAPI + Postgres Tech Stack</li><li><span>✓</span> User Authentication & Admin Dashboard</li><li><span>✓</span> Stripe / Razorpay Payment Gateway</li><li><span>✓</span> Embedded AI Chatbot / Search</li><li><span>✓</span> SEO & Speed Performance Optimization</li>
                 </ul>
             </div>
-            <a href="/#contact" class="btn glow-border-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Select Pro</a>
+            <a href="#contact" class="btn glow-border-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Select Pro</a>
         </div>
 
         <!-- Tier 3: Scale -->
@@ -428,7 +414,7 @@ async def get_analytics(user=Depends(verify_jwt_session)):
                     <li><span>✓</span> Enterprise Multi-Tenant SaaS Portal</li><li><span>✓</span> Microservices Architecture Setup</li><li><span>✓</span> Interactive 3D Three.js Visuals</li><li><span>✓</span> Redis Caching & High-Scale Load Balancing</li><li><span>✓</span> Dedicated SLA & Maintenance</li><li><span>✓</span> Full Ownership & IP Transfer</li>
                 </ul>
             </div>
-            <a href="/#contact" class="btn glass-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Contact Sales</a>
+            <a href="#contact" class="btn glass-btn w-100" style="padding: 12px; text-align: center; font-size: 14px;">Contact Sales</a>
         </div>
     </div>
     
@@ -512,7 +498,7 @@ async def get_analytics(user=Depends(verify_jwt_session)):
     </section>
 
     <!-- 8. SERVICE OBJECTIONS FAQ ACCORDION -->
-    <section class="reveal" style="padding: 80px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <section id="faq" class="reveal" style="padding: 80px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="container" style="max-width: 800px;">
             <div class="section-header text-center" style="margin-bottom: 36px;">
                 <span class="overline highlight" style="font-size: 11px;">Got Questions?</span>

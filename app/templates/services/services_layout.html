@@ -33,8 +33,15 @@
     .service-nav-container {
         display: flex;
         gap: 10px;
-        flex-wrap: wrap;
         margin-top: 24px;
+        /* Mobile UX: Horizontal scroll instead of wrap */
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .service-nav-container::-webkit-scrollbar {
+        display: none;
     }
 
     /* Project Architecture Blueprint Card */
@@ -161,27 +168,20 @@
         100% { opacity: 0.2; height: 40px; }
     }
 
-    /* 3 Pricing Cards Grid */
+    /* 3 Pricing Cards Grid - Fluid Responsive */
     .pricing-grid-3 {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 24px;
         align-items: stretch;
         margin-top: 36px;
-    }
-    @media (max-width: 992px) {
-        .pricing-grid-3 {
-            grid-template-columns: 1fr;
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
-        }
     }
     .service-pricing-card {
         padding: 32px 24px;
         border-radius: 20px;
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: visible !important;
         text-align: left;
         display: flex;
         flex-direction: column;
@@ -335,13 +335,17 @@
         min-width: 640px;
     }
 
-    /* Service Navigation Bar */
+    /* Service Navigation Bar - Override previous just in case */
     .service-nav-container {
         display: flex;
         gap: 10px;
-        flex-wrap: wrap;
         margin-top: 24px;
-        justify-content: center;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+    .service-nav-btn {
+        scroll-snap-align: start;
     }
 
     /* Tablet & Mobile Media Queries (< 992px) */
@@ -403,10 +407,28 @@
             gap: 6px;
         }
         .arch-3d-stage {
-            transform: scale(0.5) rotateX(50deg) rotateZ(-30deg) !important;
+            transform: scale(0.4) rotateX(50deg) rotateZ(-30deg) !important;
         }
         .arch-3d-wrapper {
-            min-height: 280px !important;
+            min-height: 240px !important;
+        }
+        .project-blueprint-card {
+            padding: 20px 16px;
+        }
+        .blueprint-step-node {
+            padding: 10px 12px;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+        .blueprint-step-icon {
+            margin-bottom: 8px;
+        }
+        .blueprint-step-node > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
     }
 </style>

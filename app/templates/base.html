@@ -79,40 +79,84 @@
     <link rel="stylesheet" href="/static/css/style.css?v=10.0">
 
     <style>
-        /* Compact Responsive Header/Navbar specifically for the 5 Service Sections */
-        .service-nav-pill {
-            gap: 16px !important;
-            padding: 6px 12px 6px 24px !important;
-            max-width: 95% !important;
+        /* Mobile Navigation Overlay */
+        
+        /* Desktop Capabilities Dropdown */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
         }
-        .service-nav-pill .pill-links {
-            gap: 8px !important;
+        .nav-dropdown .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(4, 8, 20, 0.95);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 210, 255, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
-        .service-nav-pill .pill-links a {
-            font-size: 11px !important;
-            font-weight: 700 !important;
-            padding: 6px 10px !important;
-            letter-spacing: 0.2px !important;
-            border-radius: 30px !important;
-            transition: all 0.25s ease !important;
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
-        .service-nav-pill .pill-links a:hover, 
-        .service-nav-pill .pill-links a.active {
-            background: rgba(0, 210, 255, 0.08) !important;
-            color: #00d2ff !important;
-            box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.1) !important;
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: #d0d0d0;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
-        .service-nav-pill .nav-right .pill-cta {
-            padding: 8px 14px !important;
-            font-size: 11px !important;
-            font-weight: 700 !important;
+        .dropdown-menu a:hover, .dropdown-menu a.active {
+            background: rgba(0, 210, 255, 0.08);
+            color: #00d2ff;
+        }
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dropdown-toggle .caret {
+            font-size: 9px;
+            transition: transform 0.3s ease;
+        }
+        .nav-dropdown:hover .dropdown-toggle .caret {
+            transform: rotate(180deg);
         }
 
-        /* Responsive Mobile adjustment for service nav inside pill-nav */
-        @media (max-width: 992px) {
-            .service-nav-pill .pill-links {
-                display: none !important; /* Hide links on tablet/mobile and let mobile drawer handle it */
-            }
+        /* Mobile Sub-Menu */
+        .mobile-sub-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 8px 0 12px 12px;
+        }
+        .mobile-sub-links a {
+            font-size: 18px;
+            color: #a0a0a0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .mobile-sub-links a:hover, .mobile-sub-links a.active {
+            color: #00d2ff;
         }
     </style>
 </head>
@@ -128,32 +172,29 @@
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>
 
-        <!-- Pill Navigation (Uses conditional .service-nav-pill class to dynamically rescale elements) -->
-        <nav class="pill-nav {% if request.url.path.startswith('/services/') %}service-nav-pill{% endif %}">
+        <!-- Pill Navigation -->
+        <nav class="pill-nav">
             <a href="/" class="logo text-gradient">Buildlyst</a>
             
             <div class="pill-links">
-                {% if request.url.path.startswith('/services/') %}
-                    <a href="/services/ai-agents" class="{% if request.url.path == '/services/ai-agents' %}active{% endif %}">AI Agents</a>
-                    <a href="/services/gen-ai" class="{% if request.url.path == '/services/gen-ai' %}active{% endif %}">Gen AI</a>
-                    <a href="/services/machine-learning" class="{% if request.url.path == '/services/machine-learning' %}active{% endif %}">ML</a>
-                    <a href="/services/data-engineering" class="{% if request.url.path == '/services/data-engineering' %}active{% endif %}">Data Eng</a>
-                    <a href="/services/web-development" class="{% if request.url.path == '/services/web-development' %}active{% endif %}">Web Dev</a>
-                {% else %}
-                    <a href="#about">About</a>
-                    <a href="#services">Capabilities</a>
-                    <a href="#playground">Playground</a>
-                    <a href="#pricing">Pricing</a>
-                    <a href="#faq">FAQ</a>
-                {% endif %}
+                <a href="#about">About</a>
+                <div class="nav-dropdown">
+                    <a href="/#services" class="dropdown-toggle">Capabilities <span class="caret">▼</span></a>
+                    <div class="dropdown-menu glass-panel">
+                        <a href="/services/ai-agents" class="{% if request.url.path == '/services/ai-agents' %}active{% endif %}">🤖 AI Agents</a>
+                        <a href="/services/gen-ai" class="{% if request.url.path == '/services/gen-ai' %}active{% endif %}">🧠 Gen AI</a>
+                        <a href="/services/machine-learning" class="{% if request.url.path == '/services/machine-learning' %}active{% endif %}">🔬 Machine Learning</a>
+                        <a href="/services/data-engineering" class="{% if request.url.path == '/services/data-engineering' %}active{% endif %}">🗄️ Data Engineering</a>
+                        <a href="/services/web-development" class="{% if request.url.path == '/services/web-development' %}active{% endif %}">⚡ Web Development</a>
+                    </div>
+                </div>
+                <a href="#playground">Playground</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
             </div>
 
             <div class="nav-right">
-                {% if request.url.path.startswith('/services/') %}
-                    <a href="/" class="btn btn-primary glow-border-btn pill-cta">&larr; Home</a>
-                {% else %}
-                    <a href="#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
-                {% endif %}
+                <a href="/#contact" class="btn btn-primary glow-border-btn pill-cta">Let's Talk</a>
                 <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Mobile Navigation">
                     <span class="hamburger-bar"></span>
                     <span class="hamburger-bar"></span>
@@ -170,20 +211,20 @@
                     <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
                 </div>
                 <div class="mobile-menu-links">
-                    {% if request.url.path.startswith('/services/') %}
-                        <a href="/" class="mobile-nav-link" style="color: var(--c-accent-cyan); font-weight: bold;">&larr; Back to Home Page</a>
-                        <a href="/services/ai-agents" class="mobile-nav-link {% if request.url.path == '/services/ai-agents' %}active{% endif %}">AI Agents</a>
-                        <a href="/services/gen-ai" class="mobile-nav-link {% if request.url.path == '/services/gen-ai' %}active{% endif %}">Gen AI</a>
-                        <a href="/services/machine-learning" class="mobile-nav-link {% if request.url.path == '/services/machine-learning' %}active{% endif %}">Machine Learning</a>
-                        <a href="/services/data-engineering" class="mobile-nav-link {% if request.url.path == '/services/data-engineering' %}active{% endif %}">Data Engineering</a>
-                        <a href="/services/web-development" class="mobile-nav-link {% if request.url.path == '/services/web-development' %}active{% endif %}">Web Development</a>
-                    {% else %}
-                        <a href="#about" class="mobile-nav-link">About</a>
-                        <a href="#services" class="mobile-nav-link">Capabilities</a>
-                        <a href="#playground" class="mobile-nav-link">Live Playground</a>
-                        <a href="#pricing" class="mobile-nav-link">Pricing & Predictor</a>
-                        <a href="#faq" class="mobile-nav-link">FAQ</a>
-                    {% endif %}
+                    <a href="#about" class="mobile-nav-link">About</a>
+                    
+                    <span class="mobile-nav-link" style="color: #fff; cursor: default; display: block; margin-bottom: 0;">Capabilities</span>
+                    <div class="mobile-sub-links">
+                        <a href="/services/ai-agents" class="{% if request.url.path == '/services/ai-agents' %}active{% endif %}">AI Agents</a>
+                        <a href="/services/gen-ai" class="{% if request.url.path == '/services/gen-ai' %}active{% endif %}">Gen AI</a>
+                        <a href="/services/machine-learning" class="{% if request.url.path == '/services/machine-learning' %}active{% endif %}">Machine Learning</a>
+                        <a href="/services/data-engineering" class="{% if request.url.path == '/services/data-engineering' %}active{% endif %}">Data Engineering</a>
+                        <a href="/services/web-development" class="{% if request.url.path == '/services/web-development' %}active{% endif %}">Web Development</a>
+                    </div>
+
+                    <a href="#playground" class="mobile-nav-link">Playground</a>
+                    <a href="#pricing" class="mobile-nav-link">Pricing</a>
+                    <a href="#faq" class="mobile-nav-link">FAQ</a>
                 </div>
             </div>
         </div>
