@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Hero Typewriter Engine
+    // 0.2 Hero Typewriter Engine (Slot 1 strictly <= 12 characters)
     const heroPairs = [
-        { slot1: "AI Agents", slot2: "Business Operations" },
-        { slot1: "Custom RAG Pipelines", slot2: "Enterprise Knowledge" },
-        { slot1: "Autonomous Workflows", slot2: "Team Productivity" },
-        { slot1: "Predictive ML Models", slot2: "Decision Making" },
-        { slot1: "Real-Time Data Pipelines", slot2: "Customer Insights" },
-        { slot1: "Generative AI Systems", slot2: "Content Workflows" },
-        { slot1: "Computer Vision Engines", slot2: "Quality Control" },
-        { slot1: "Deep Learning Neural Nets", slot2: "Speed & Scale" },
-        { slot1: "Scalable Web Platforms", slot2: "User Engagement" },
-        { slot1: "Fine-Tuned LLM Models", slot2: "Proprietary Data" },
-        { slot1: "Cloud Native Systems", slot2: "Reliability & Uptime" },
-        { slot1: "Intelligent Automation", slot2: "Revenue & Growth" }
+        { slot1: "AI Agents", slot2: "Business Ops" },
+        { slot1: "RAG Systems", slot2: "Enterprise Knowledge" },
+        { slot1: "ML Models", slot2: "Smart Decisions" },
+        { slot1: "AI Pipelines", slot2: "Data Insights" },
+        { slot1: "Web Apps", slot2: "User Engagement" },
+        { slot1: "LLM Models", slot2: "Proprietary Data" },
+        { slot1: "Neural Nets", slot2: "System Uptime" },
+        { slot1: "Cloud Tech", slot2: "Reliability & Scale" },
+        { slot1: "AI Workflows", slot2: "Team Output" },
+        { slot1: "Data Engines", slot2: "Work Efficiency" },
+        { slot1: "Smart Bots", slot2: "Tech Growth" },
+        { slot1: "Auto Systems", slot2: "Sales & Revenue" }
     ];
 
     let pairIdx = 0;
-    let charIdx1 = 0;
-    let charIdx2 = 0;
+    let charIdx1 = heroPairs[0].slot1.length;
+    let charIdx2 = heroPairs[0].slot2.length;
     let isDeleting = false;
 
     function runHeroTypewriter() {
@@ -32,24 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!isDeleting) {
             // Typing phase
+            let d1 = false, d2 = false;
             if (charIdx1 < target1.length) {
                 charIdx1++;
                 el1.textContent = target1.substring(0, charIdx1);
-            }
+            } else { d1 = true; }
+
             if (charIdx2 < target2.length) {
                 charIdx2++;
                 el2.textContent = target2.substring(0, charIdx2);
-            }
+            } else { d2 = true; }
 
-            if (charIdx1 >= target1.length && charIdx2 >= target2.length) {
-                // Pause when both slots are fully typed
+            if (d1 && d2) {
                 setTimeout(() => {
                     isDeleting = true;
                     runHeroTypewriter();
                 }, 2200);
                 return;
             }
-            setTimeout(runHeroTypewriter, 50);
+            setTimeout(runHeroTypewriter, 60);
         } else {
             // Deleting phase
             if (charIdx1 > 0) {
@@ -67,10 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(runHeroTypewriter, 300);
                 return;
             }
-            setTimeout(runHeroTypewriter, 30);
+            setTimeout(runHeroTypewriter, 35);
         }
     }
-    runHeroTypewriter();
+
+    setTimeout(() => {
+        isDeleting = true;
+        runHeroTypewriter();
+    }, 2500);
 
     initHeroChat();
 
