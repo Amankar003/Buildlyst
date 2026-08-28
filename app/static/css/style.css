@@ -680,6 +680,21 @@ section { padding: var(--space-xl) 0; }
     color: #fff;
     border-color: var(--c-accent-cyan);
 }
+.mega-footer-text {
+    font-size: 15vw;
+    font-weight: 900;
+    line-height: 0.75;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: -1rem; /* tight to the bottom border */
+    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.04em;
+    user-select: none;
+    pointer-events: none;
+    overflow: hidden;
+}
 
 .footer-led-grid {
     display: grid;
