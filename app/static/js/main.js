@@ -1403,7 +1403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Footer 3D Interactive WebGL Grid
+    // Footer 3D Interactive WebGL Grid - Photorealistic AI Compounding Engine
     function initFooter3DGrid() {
         const container = document.getElementById('footer-3d-canvas');
         if (!container) return;
@@ -1413,155 +1413,123 @@ document.addEventListener('DOMContentLoaded', () => {
         const height = container.clientHeight || 180;
         
         const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-        camera.position.set(0, 0, 6.5);
+        camera.position.set(0, 0, 7);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Photorealistic Tone Mapping
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+        
         container.innerHTML = '';
         container.appendChild(renderer.domElement);
 
         const group = new THREE.Group();
         scene.add(group);
 
-        // 1. Central Core Node (AI Swarm Brain)
-        const coreGeo = new THREE.SphereGeometry(0.3, 16, 16);
-        const coreMat = new THREE.MeshBasicMaterial({
+        // 1. The Quantum AI Core (Torus Knot - representing compounding complex intelligence)
+        const coreGeo = new THREE.TorusKnotGeometry(1.1, 0.35, 256, 32);
+        const coreMat = new THREE.MeshStandardMaterial({
+            color: 0x050505, // Dark sleek metal
+            metalness: 0.95, // Highly metallic
+            roughness: 0.12, // Very smooth, reflective
+        });
+        const aiCore = new THREE.Mesh(coreGeo, coreMat);
+        group.add(aiCore);
+
+        // 2. Inner Energy Sphere (The AI "Brain")
+        const innerGeo = new THREE.SphereGeometry(0.55, 32, 32);
+        const innerMat = new THREE.MeshBasicMaterial({
             color: 0x00d2ff,
             transparent: true,
-            opacity: 0.95
+            opacity: 0.8
         });
-        const coreNode = new THREE.Mesh(coreGeo, coreMat);
-        group.add(coreNode);
+        const innerSphere = new THREE.Mesh(innerGeo, innerMat);
+        group.add(innerSphere);
 
-        const coreEdgeGeo = new THREE.EdgesGeometry(coreGeo);
-        const coreEdgeMat = new THREE.LineBasicMaterial({ color: 0x00d2ff });
-        const coreOutline = new THREE.LineSegments(coreEdgeGeo, coreEdgeMat);
-        coreNode.add(coreOutline);
+        // 3. Photorealistic Studio Lighting Setup
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.1); 
+        scene.add(ambientLight);
 
-        // 2. Satellite Agent Nodes (AI Workers: RAG, Custom Code, LLMs, pipelines)
-        const agentCount = 6;
-        const agents = [];
-        const agentGeo = new THREE.SphereGeometry(0.1, 12, 12);
+        // Main white rim light for edge highlights
+        const rimLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        rimLight.position.set(5, 5, -5);
+        scene.add(rimLight);
+
+        // Orbiting Neon Lights to cast realistic physical reflections on the titanium metal
+        const light1 = new THREE.PointLight(0x00d2ff, 8, 10);
+        scene.add(light1);
         
-        const agentColors = [0x00d2ff, 0x8a2387, 0x00d2ff, 0x8a2387, 0x00d2ff, 0x8a2387];
-        
-        for (let i = 0; i < agentCount; i++) {
-            const angle = (i / agentCount) * Math.PI * 2;
-            const radius = 2.0 + Math.random() * 0.3;
-            
-            const mat = new THREE.MeshBasicMaterial({
-                color: agentColors[i],
-                transparent: true,
-                opacity: 0.85
-            });
-            const agent = new THREE.Mesh(agentGeo, mat);
-            
-            agent.position.x = Math.cos(angle) * radius;
-            agent.position.y = Math.sin(angle) * radius * 0.55;
-            agent.position.z = (Math.random() - 0.5) * 0.6;
-            
-            const lineGeo = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(0, 0, 0),
-                agent.position
-            ]);
-            const lineMat = new THREE.LineBasicMaterial({
-                color: 0xffffff,
-                transparent: true,
-                opacity: 0.15
-            });
-            const line = new THREE.Line(lineGeo, lineMat);
-            group.add(line);
+        const light2 = new THREE.PointLight(0x8a2387, 8, 10);
+        scene.add(light2);
 
-            group.add(agent);
-            agents.push({
-                mesh: agent,
-                line: line,
-                color: agentColors[i],
-                pulseProgress: Math.random(),
-                pulseSpeed: 0.008 + Math.random() * 0.006,
-                activeTime: 0
-            });
-        }
-
-        // 3. Pulse Signals (Telemetry Data packets)
-        const pulseGeo = new THREE.SphereGeometry(0.035, 8, 8);
-        const pulses = [];
-        
-        agents.forEach((agent) => {
-            const pulseMat = new THREE.MeshBasicMaterial({
-                color: 0x00d2ff,
-                transparent: true,
-                opacity: 0.95
-            });
-            const pulse = new THREE.Mesh(pulseGeo, pulseMat);
-            group.add(pulse);
-            pulses.push({
-                mesh: pulse,
-                agent: agent
-            });
-        });
-
+        // Interaction state
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         let isMouseOver = false;
+        let targetRotationX = 0;
+        let targetRotationY = 0;
 
         container.addEventListener('mousemove', (e) => {
             const rect = container.getBoundingClientRect();
             mouse.x = ((e.clientX - rect.left) / width) * 2 - 1;
             mouse.y = -((e.clientY - rect.top) / height) * 2 + 1;
             isMouseOver = true;
+            
+            targetRotationY = mouse.x * 0.4;
+            targetRotationX = mouse.y * 0.4;
         });
 
         container.addEventListener('mouseleave', () => {
             isMouseOver = false;
+            targetRotationY = 0;
+            targetRotationX = 0;
         });
 
         let clock = new THREE.Clock();
+        let speedMulti = 1.0;
+
         function animate() {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            group.rotation.y = elapsedTime * 0.18;
-            group.rotation.x = Math.sin(elapsedTime * 0.08) * 0.05;
+            // Smooth interpolation for parallax
+            group.rotation.y += (targetRotationY - group.rotation.y) * 0.05;
+            group.rotation.x += (targetRotationX - group.rotation.x) * 0.05;
+            
+            // Continuous complex rotation of the engine core
+            aiCore.rotation.z = elapsedTime * 0.15 * speedMulti;
+            aiCore.rotation.y = elapsedTime * 0.05 * speedMulti;
 
-            const coreScale = 1 + Math.sin(elapsedTime * 3.5) * 0.05;
-            coreNode.scale.set(coreScale, coreScale, coreScale);
+            // Orbiting lights around the metal core
+            light1.position.x = Math.sin(elapsedTime * 1.5 * speedMulti) * 3;
+            light1.position.y = Math.cos(elapsedTime * 1.2 * speedMulti) * 3;
+            light1.position.z = Math.sin(elapsedTime * 0.8) * 3;
 
-            pulses.forEach((p) => {
-                const agent = p.agent;
-                agent.pulseProgress += agent.pulseSpeed;
-                if (agent.pulseProgress > 1) {
-                    agent.pulseProgress = 0;
-                }
-                
-                p.mesh.position.lerpVectors(agent.mesh.position, new THREE.Vector3(0, 0, 0), agent.pulseProgress);
-                
-                if (agent.activeTime > 0) {
-                    agent.activeTime -= 0.025;
-                    agent.mesh.material.color.setHex(0x00d2ff);
-                    agent.line.material.opacity = 0.6;
-                } else {
-                    agent.mesh.material.color.setHex(agent.color);
-                    agent.line.material.opacity = 0.15;
-                }
-            });
+            light2.position.x = Math.cos(elapsedTime * 1.3 * speedMulti) * 3;
+            light2.position.y = Math.sin(elapsedTime * 1.6 * speedMulti) * 3;
+            light2.position.z = Math.cos(elapsedTime * 0.9) * 3;
 
+            // Pulse the inner energy brain
+            const pulse = 1 + Math.sin(elapsedTime * 4 * speedMulti) * 0.05;
+            innerSphere.scale.set(pulse, pulse, pulse);
+
+            // Hover interactions
             if (isMouseOver) {
                 raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(group.children);
+                const intersects = raycaster.intersectObject(aiCore);
                 if (intersects.length > 0) {
-                    const hit = intersects[0].object;
-                    const match = agents.find(a => a.mesh === hit);
-                    if (match) {
-                        match.activeTime = 1.0;
-                    }
-                    if (hit === coreNode) {
-                        coreNode.material.color.setHex(0x8a2387);
-                    }
+                    innerSphere.material.color.setHex(0x8a2387);
+                    speedMulti += (2.5 - speedMulti) * 0.1; 
                 } else {
-                    coreNode.material.color.setHex(0x00d2ff);
+                    innerSphere.material.color.setHex(0x00d2ff);
+                    speedMulti += (1.0 - speedMulti) * 0.1;
                 }
+            } else {
+                innerSphere.material.color.setHex(0x00d2ff);
+                speedMulti += (1.0 - speedMulti) * 0.1;
             }
 
             renderer.render(scene, camera);
@@ -1569,17 +1537,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         animate();
 
+        // Replay button triggers a massive energy burst in the engine
         const replayBtn = document.getElementById('footer-grid-replay');
         if (replayBtn) {
             replayBtn.addEventListener('click', () => {
-                agents.forEach((a) => {
-                    a.pulseProgress = 0;
-                    a.activeTime = 2.0;
-                    a.pulseSpeed = 0.045;
-                    setTimeout(() => {
-                        a.pulseSpeed = 0.008 + Math.random() * 0.006;
-                    }, 1200);
-                });
+                speedMulti = 8.0; 
+                rimLight.intensity = 8.0;
+                setTimeout(() => {
+                    rimLight.intensity = 2.5;
+                }, 800);
             });
         }
 
