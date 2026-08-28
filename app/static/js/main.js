@@ -1413,8 +1413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const height = container.clientHeight || 180;
         
         const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-        camera.position.set(0, 5, 8);
-        camera.lookAt(0, 0, 0);
+        camera.position.set(0, 0, 6.5);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(width, height);
@@ -1422,56 +1421,88 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '';
         container.appendChild(renderer.domElement);
 
-        const cols = 15;
-        const rows = 10;
-        const spacingX = 0.6;
-        const spacingZ = 0.6;
-        
         const group = new THREE.Group();
         scene.add(group);
 
-        const particles = [];
-        const pointGeometry = new THREE.SphereGeometry(0.04, 8, 8);
-        
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                const material = new THREE.MeshBasicMaterial({
-                    color: 0x00d2ff,
-                    transparent: true,
-                    opacity: 0.3
-                });
-                const particle = new THREE.Mesh(pointGeometry, material);
-                
-                particle.position.x = (c - (cols - 1)/2) * spacingX;
-                particle.position.z = (r - (rows - 1)/2) * spacingZ;
-                particle.position.y = 0;
-                
-                group.add(particle);
-                particles.push({
-                    mesh: particle,
-                    baseX: particle.position.x,
-                    baseZ: particle.position.z,
-                    phase: (c * 0.3) + (r * 0.2),
-                    activeTime: 0
-                });
-            }
-        }
-
-        const lineMaterial = new THREE.LineBasicMaterial({
+        // 1. Central Core Node (AI Swarm Brain)
+        const coreGeo = new THREE.SphereGeometry(0.3, 16, 16);
+        const coreMat = new THREE.MeshBasicMaterial({
             color: 0x00d2ff,
             transparent: true,
-            opacity: 0.1
+            opacity: 0.95
+        });
+        const coreNode = new THREE.Mesh(coreGeo, coreMat);
+        group.add(coreNode);
+
+        const coreEdgeGeo = new THREE.EdgesGeometry(coreGeo);
+        const coreEdgeMat = new THREE.LineBasicMaterial({ color: 0x00d2ff });
+        const coreOutline = new THREE.LineSegments(coreEdgeGeo, coreEdgeMat);
+        coreNode.add(coreOutline);
+
+        // 2. Satellite Agent Nodes (AI Workers: RAG, Custom Code, LLMs, pipelines)
+        const agentCount = 6;
+        const agents = [];
+        const agentGeo = new THREE.SphereGeometry(0.1, 12, 12);
+        
+        const agentColors = [0x00d2ff, 0x8a2387, 0x00d2ff, 0x8a2387, 0x00d2ff, 0x8a2387];
+        
+        for (let i = 0; i < agentCount; i++) {
+            const angle = (i / agentCount) * Math.PI * 2;
+            const radius = 2.0 + Math.random() * 0.3;
+            
+            const mat = new THREE.MeshBasicMaterial({
+                color: agentColors[i],
+                transparent: true,
+                opacity: 0.85
+            });
+            const agent = new THREE.Mesh(agentGeo, mat);
+            
+            agent.position.x = Math.cos(angle) * radius;
+            agent.position.y = Math.sin(angle) * radius * 0.55;
+            agent.position.z = (Math.random() - 0.5) * 0.6;
+            
+            const lineGeo = new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(0, 0, 0),
+                agent.position
+            ]);
+            const lineMat = new THREE.LineBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.15
+            });
+            const line = new THREE.Line(lineGeo, lineMat);
+            group.add(line);
+
+            group.add(agent);
+            agents.push({
+                mesh: agent,
+                line: line,
+                color: agentColors[i],
+                pulseProgress: Math.random(),
+                pulseSpeed: 0.008 + Math.random() * 0.006,
+                activeTime: 0
+            });
+        }
+
+        // 3. Pulse Signals (Telemetry Data packets)
+        const pulseGeo = new THREE.SphereGeometry(0.035, 8, 8);
+        const pulses = [];
+        
+        agents.forEach((agent) => {
+            const pulseMat = new THREE.MeshBasicMaterial({
+                color: 0x00d2ff,
+                transparent: true,
+                opacity: 0.95
+            });
+            const pulse = new THREE.Mesh(pulseGeo, pulseMat);
+            group.add(pulse);
+            pulses.push({
+                mesh: pulse,
+                agent: agent
+            });
         });
 
-        const lineGeometry = new THREE.BufferGeometry();
-        const maxLines = cols * rows * 4;
-        const linePosArray = new Float32Array(maxLines * 3 * 2);
-        lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePosArray, 3));
-        const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-        group.add(lineMesh);
-
         const raycaster = new THREE.Raycaster();
-        raycaster.params.Points.threshold = 0.2;
         const mouse = new THREE.Vector2();
         let isMouseOver = false;
 
@@ -1491,16 +1522,28 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            particles.forEach((p) => {
-                p.mesh.position.y = Math.sin(elapsedTime * 2.5 + p.phase) * 0.35;
+            group.rotation.y = elapsedTime * 0.18;
+            group.rotation.x = Math.sin(elapsedTime * 0.08) * 0.05;
+
+            const coreScale = 1 + Math.sin(elapsedTime * 3.5) * 0.05;
+            coreNode.scale.set(coreScale, coreScale, coreScale);
+
+            pulses.forEach((p) => {
+                const agent = p.agent;
+                agent.pulseProgress += agent.pulseSpeed;
+                if (agent.pulseProgress > 1) {
+                    agent.pulseProgress = 0;
+                }
                 
-                if (p.activeTime > 0) {
-                    p.activeTime -= 0.03;
-                    p.mesh.material.color.setHex(0x8a2387);
-                    p.mesh.material.opacity = 0.8;
+                p.mesh.position.lerpVectors(agent.mesh.position, new THREE.Vector3(0, 0, 0), agent.pulseProgress);
+                
+                if (agent.activeTime > 0) {
+                    agent.activeTime -= 0.025;
+                    agent.mesh.material.color.setHex(0x00d2ff);
+                    agent.line.material.opacity = 0.6;
                 } else {
-                    p.mesh.material.color.setHex(0x00d2ff);
-                    p.mesh.material.opacity = 0.35 + Math.sin(elapsedTime * 2 + p.phase) * 0.15;
+                    agent.mesh.material.color.setHex(agent.color);
+                    agent.line.material.opacity = 0.15;
                 }
             });
 
@@ -1509,49 +1552,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const intersects = raycaster.intersectObjects(group.children);
                 if (intersects.length > 0) {
                     const hit = intersects[0].object;
-                    const match = particles.find(p => p.mesh === hit);
+                    const match = agents.find(a => a.mesh === hit);
                     if (match) {
                         match.activeTime = 1.0;
                     }
+                    if (hit === coreNode) {
+                        coreNode.material.color.setHex(0x8a2387);
+                    }
+                } else {
+                    coreNode.material.color.setHex(0x00d2ff);
                 }
             }
-
-            let lineIdx = 0;
-            const posAttr = lineGeometry.getAttribute('position');
-            const positions = posAttr.array;
-
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    const idx1 = r * cols + c;
-                    const p1 = particles[idx1].mesh.position;
-
-                    if (c < cols - 1) {
-                        const p2 = particles[idx1 + 1].mesh.position;
-                        positions[lineIdx++] = p1.x;
-                        positions[lineIdx++] = p1.y;
-                        positions[lineIdx++] = p1.z;
-                        positions[lineIdx++] = p2.x;
-                        positions[lineIdx++] = p2.y;
-                        positions[lineIdx++] = p2.z;
-                    }
-                    if (r < rows - 1) {
-                        const p2 = particles[idx1 + cols].mesh.position;
-                        positions[lineIdx++] = p1.x;
-                        positions[lineIdx++] = p1.y;
-                        positions[lineIdx++] = p1.z;
-                        positions[lineIdx++] = p2.x;
-                        positions[lineIdx++] = p2.y;
-                        positions[lineIdx++] = p2.z;
-                    }
-                }
-            }
-            for (let i = lineIdx; i < positions.length; i++) {
-                positions[i] = 0;
-            }
-            posAttr.needsUpdate = true;
-
-            group.rotation.y = elapsedTime * 0.05;
-            group.rotation.x = Math.sin(elapsedTime * 0.03) * 0.05;
 
             renderer.render(scene, camera);
         }
@@ -1561,12 +1572,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const replayBtn = document.getElementById('footer-grid-replay');
         if (replayBtn) {
             replayBtn.addEventListener('click', () => {
-                particles.forEach((p) => {
-                    const dist = Math.sqrt(p.baseX * p.baseX + p.baseZ * p.baseZ);
+                agents.forEach((a) => {
+                    a.pulseProgress = 0;
+                    a.activeTime = 2.0;
+                    a.pulseSpeed = 0.045;
                     setTimeout(() => {
-                        p.activeTime = 1.5;
-                        p.mesh.position.y += 0.8;
-                    }, dist * 250);
+                        a.pulseSpeed = 0.008 + Math.random() * 0.006;
+                    }, 1200);
                 });
             });
         }
