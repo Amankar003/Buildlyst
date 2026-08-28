@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Hero Typewriter Engine (Slot 1 strictly <= 10 characters)
+    // 0.2 Hero Typewriter Engine (Concise non-wrapping pairs)
     const heroPairs = [
-        { slot1: "AI Agents", slot2: "Enterprise Operations" },
-        { slot1: "Gen AI", slot2: "Proprietary Knowledge" },
-        { slot1: "ML Models", slot2: "Strategic Decisions" },
-        { slot1: "AI Systems", slot2: "Market Intelligence" },
-        { slot1: "Web Apps", slot2: "Customer Engagement" },
-        { slot1: "Smart AI", slot2: "Quality Control & Scale" },
-        { slot1: "Cloud Tech", slot2: "Infrastructure Speed" },
-        { slot1: "Data Tech", slot2: "Real-Time Analytics" },
-        { slot1: "RAG Tech", slot2: "Team Productivity" }
+        { slot1: "AI Agents", slot2: "Enterprise Ops" },
+        { slot1: "Gen AI", slot2: "Custom Data" },
+        { slot1: "ML Models", slot2: "Smart Decisions" },
+        { slot1: "AI Systems", slot2: "Market Insights" },
+        { slot1: "Web Apps", slot2: "User Growth" },
+        { slot1: "Smart AI", slot2: "Quality & Scale" },
+        { slot1: "Cloud Tech", slot2: "Speed & Scale" },
+        { slot1: "Data Tech", slot2: "Live Analytics" },
+        { slot1: "RAG Tech", slot2: "Team Speed" }
     ];
 
     let pairIdx = 0;
