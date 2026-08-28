@@ -1403,61 +1403,135 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Footer LED Grid & Scroll Top Initialization
-    function initFooterLedGrid() {
-        const grid = document.getElementById('footer-led-grid');
-        if (!grid) return;
+    // Footer 3D Interactive WebGL Grid
+    function initFooter3DGrid() {
+        const container = document.getElementById('footer-3d-canvas');
+        if (!container) return;
 
-        const cellCount = 12 * 8; // 96 cells
-        grid.innerHTML = '';
+        const scene = new THREE.Scene();
+        const width = container.clientWidth;
+        const height = container.clientHeight || 180;
         
-        for (let i = 0; i < cellCount; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'led-cell';
-            grid.appendChild(cell);
-        }
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(0, 7, 10);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.innerHTML = '';
+        container.appendChild(renderer.domElement);
+
+        // Grid lines helper at base
+        const gridHelper = new THREE.GridHelper(10, 10, 0x00d2ff, 0x1a1a24);
+        gridHelper.position.y = -0.55;
+        scene.add(gridHelper);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const cubes = [];
+        const geometry = new THREE.BoxGeometry(0.7, 0.7, 0.7);
         
-        const cells = grid.querySelectorAll('.led-cell');
-        
-        // Random LED pulses
-        setInterval(() => {
-            const count = Math.floor(Math.random() * 3) + 1; // 1 to 3 cells
-            for (let i = 0; i < count; i++) {
-                const randIdx = Math.floor(Math.random() * cellCount);
-                const cell = cells[randIdx];
-                if (!cell) continue;
+        const cols = 6;
+        const rows = 4;
+        const spacing = 1.3;
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const material = new THREE.MeshBasicMaterial({
+                    color: 0x111118,
+                    transparent: true,
+                    opacity: 0.8
+                });
+                const cube = new THREE.Mesh(geometry, material);
                 
-                const randType = Math.random();
-                if (randType < 0.4) {
-                    cell.classList.add('active-cyan');
-                    setTimeout(() => cell.classList.remove('active-cyan'), 1200 + Math.random() * 1200);
-                } else if (randType < 0.7) {
-                    cell.classList.add('active-purple');
-                    setTimeout(() => cell.classList.remove('active-purple'), 1200 + Math.random() * 1200);
+                cube.position.x = (c - (cols - 1)/2) * spacing;
+                cube.position.z = (r - (rows - 1)/2) * spacing;
+                cube.position.y = 0;
+                
+                const wireframeGeom = new THREE.EdgesGeometry(geometry);
+                const wireframeMat = new THREE.LineBasicMaterial({ color: 0x22222d });
+                const outline = new THREE.LineSegments(wireframeGeom, wireframeMat);
+                cube.add(outline);
+
+                group.add(cube);
+                cubes.push({
+                    mesh: cube,
+                    outline: outline,
+                    baseY: cube.position.y,
+                    phase: Math.random() * Math.PI * 2,
+                    activeTime: 0
+                });
+            }
+        }
+
+        // Raycasting for interactivity
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let isMouseOver = false;
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / height) * 2 + 1;
+            isMouseOver = true;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isMouseOver = false;
+        });
+
+        let clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            cubes.forEach((cubeData) => {
+                const mesh = cubeData.mesh;
+                mesh.position.y = cubeData.baseY + Math.sin(elapsedTime * 2 + cubeData.phase) * 0.15;
+                
+                if (cubeData.activeTime > 0) {
+                    cubeData.activeTime -= 0.025;
                 } else {
-                    cell.classList.add('active-dim');
-                    setTimeout(() => cell.classList.remove('active-dim'), 800 + Math.random() * 800);
+                    mesh.material.color.setHex(0x111118);
+                    cubeData.outline.material.color.setHex(0x22222d);
+                }
+            });
+
+            if (isMouseOver) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(group.children);
+                
+                if (intersects.length > 0) {
+                    const hitMesh = intersects[0].object;
+                    const match = cubes.find(c => c.mesh === hitMesh);
+                    if (match) {
+                        match.mesh.material.color.setHex(0x00d2ff);
+                        match.outline.material.color.setHex(0x00d2ff);
+                        match.activeTime = 0.8;
+                    }
                 }
             }
-        }, 180);
 
-        // Replay/Trigger sweep animation
+            group.rotation.y = Math.sin(elapsedTime * 0.1) * 0.1;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Replay triggers a 3D signal wave sweep
         const replayBtn = document.getElementById('footer-grid-replay');
         if (replayBtn) {
             replayBtn.addEventListener('click', () => {
-                cells.forEach((cell, idx) => {
-                    cell.className = 'led-cell';
-                    
-                    const row = Math.floor(idx / 12);
-                    const col = idx % 12;
-                    const delay = (row + col) * 45;
-                    
+                cubes.forEach((cubeData) => {
+                    const delay = (cubeData.mesh.position.x + cubeData.mesh.position.z) * 120;
                     setTimeout(() => {
-                        cell.classList.add(Math.random() > 0.5 ? 'active-cyan' : 'active-purple');
-                        setTimeout(() => {
-                            cell.className = 'led-cell';
-                        }, 700);
-                    }, delay);
+                        cubeData.mesh.material.color.setHex(Math.random() > 0.5 ? 0x00d2ff : 0x8a2387);
+                        cubeData.outline.material.color.setHex(0x00d2ff);
+                        cubeData.activeTime = 1.0;
+                    }, Math.abs(delay));
                 });
             });
         }
@@ -1471,5 +1545,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    initFooterLedGrid();
+    initFooter3DGrid();
 });
