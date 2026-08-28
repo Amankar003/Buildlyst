@@ -1,19 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Hero Typewriter Engine (Slot 1 strictly <= 12 characters)
+    // 0.2 Hero Typewriter Engine (Ultra-short 3-line pairs, <= 10 chars per slot)
     const heroPairs = [
-        { slot1: "AI Agents", slot2: "Business Ops" },
-        { slot1: "RAG Systems", slot2: "Enterprise Knowledge" },
-        { slot1: "ML Models", slot2: "Smart Decisions" },
-        { slot1: "AI Pipelines", slot2: "Data Insights" },
-        { slot1: "Web Apps", slot2: "User Engagement" },
-        { slot1: "LLM Models", slot2: "Proprietary Data" },
-        { slot1: "Neural Nets", slot2: "System Uptime" },
-        { slot1: "Cloud Tech", slot2: "Reliability & Scale" },
-        { slot1: "AI Workflows", slot2: "Team Output" },
-        { slot1: "Data Engines", slot2: "Work Efficiency" },
-        { slot1: "Smart Bots", slot2: "Tech Growth" },
-        { slot1: "Auto Systems", slot2: "Sales & Revenue" }
+        { slot1: "AI Agents", slot2: "your growth" },
+        { slot1: "Gen AI", slot2: "your scale" },
+        { slot1: "ML Models", slot2: "your speed" },
+        { slot1: "RAG Tech", slot2: "your data" },
+        { slot1: "AI Tools", slot2: "your team" },
+        { slot1: "Web Apps", slot2: "your ROI" },
+        { slot1: "Data Flow", slot2: "your vision" },
+        { slot1: "Smart Bots", slot2: "your future" },
+        { slot1: "Cloud Tech", slot2: "your uptime" },
+        { slot1: "Neural Nets", slot2: "your success" },
+        { slot1: "AI Systems", slot2: "your edge" },
+        { slot1: "Auto Tech", slot2: "your market" },
+        { slot1: "Deep AI", slot2: "your brand" },
+        { slot1: "Fine LLMs", slot2: "your privacy" },
+        { slot1: "Code Base", slot2: "your impact" }
     ];
 
     let pairIdx = 0;
