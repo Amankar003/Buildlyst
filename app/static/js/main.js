@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Dual-Text Rotating Hero Headline
-    const dualHeroPairs = [
+    // 0.2 Hero Typewriter Engine
+    const heroPairs = [
         { slot1: "AI Agents", slot2: "Business Operations" },
         { slot1: "Custom RAG Pipelines", slot2: "Enterprise Knowledge" },
         { slot1: "Autonomous Workflows", slot2: "Team Productivity" },
@@ -16,29 +16,61 @@ document.addEventListener('DOMContentLoaded', () => {
         { slot1: "Intelligent Automation", slot2: "Revenue & Growth" }
     ];
 
-    let heroPairIndex = 0;
-    function initDualHeroRotate() {
-        const slot1 = document.getElementById('hero-rotate-slot1');
-        const slot2 = document.getElementById('hero-rotate-slot2');
-        if (!slot1 || !slot2) return;
+    let pairIdx = 0;
+    let charIdx1 = 0;
+    let charIdx2 = 0;
+    let isDeleting = false;
 
-        setInterval(() => {
-            slot1.classList.add('swap-out');
-            slot2.classList.add('swap-out');
+    function runHeroTypewriter() {
+        const el1 = document.getElementById('hero-slot1');
+        const el2 = document.getElementById('hero-slot2');
+        if (!el1 || !el2) return;
 
-            setTimeout(() => {
-                heroPairIndex = (heroPairIndex + 1) % dualHeroPairs.length;
-                const nextPair = dualHeroPairs[heroPairIndex];
+        const currentPair = heroPairs[pairIdx];
+        const target1 = currentPair.slot1;
+        const target2 = currentPair.slot2;
 
-                slot1.innerText = nextPair.slot1;
-                slot2.innerText = nextPair.slot2;
+        if (!isDeleting) {
+            // Typing phase
+            if (charIdx1 < target1.length) {
+                charIdx1++;
+                el1.textContent = target1.substring(0, charIdx1);
+            }
+            if (charIdx2 < target2.length) {
+                charIdx2++;
+                el2.textContent = target2.substring(0, charIdx2);
+            }
 
-                slot1.classList.remove('swap-out');
-                slot2.classList.remove('swap-out');
-            }, 350);
-        }, 3200);
+            if (charIdx1 >= target1.length && charIdx2 >= target2.length) {
+                // Pause when both slots are fully typed
+                setTimeout(() => {
+                    isDeleting = true;
+                    runHeroTypewriter();
+                }, 2200);
+                return;
+            }
+            setTimeout(runHeroTypewriter, 50);
+        } else {
+            // Deleting phase
+            if (charIdx1 > 0) {
+                charIdx1--;
+                el1.textContent = target1.substring(0, charIdx1);
+            }
+            if (charIdx2 > 0) {
+                charIdx2--;
+                el2.textContent = target2.substring(0, charIdx2);
+            }
+
+            if (charIdx1 === 0 && charIdx2 === 0) {
+                isDeleting = false;
+                pairIdx = (pairIdx + 1) % heroPairs.length;
+                setTimeout(runHeroTypewriter, 300);
+                return;
+            }
+            setTimeout(runHeroTypewriter, 30);
+        }
     }
-    initDualHeroRotate();
+    runHeroTypewriter();
 
     initHeroChat();
 

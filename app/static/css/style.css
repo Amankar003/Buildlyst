@@ -78,35 +78,41 @@ h3 { font-weight: 600; font-size: 24px; letter-spacing: -0.02em; line-height: 1.
 
 .text-gradient { background: linear-gradient(135deg, #fff 0%, var(--c-text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-/* Dual-Rotating Hero Headline */
-.dual-hero-title {
-    font-size: clamp(38px, 5.5vw, 62px) !important;
-    line-height: 1.2 !important;
+/* Hero Typewriter 3-Line Headline */
+.hero-typewriter-title {
+    font-size: clamp(34px, 4.8vw, 56px) !important;
+    line-height: 1.25 !important;
     font-weight: 700 !important;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-md);
 }
 
-.hero-rotate-span {
-    display: inline-block;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    padding: 0 2px;
+.hero-typewriter-title .text-white {
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
 }
 
-.hero-rotate-span.swap-out {
-    opacity: 0;
-    transform: translateY(-10px);
+.hero-typewriter-title .text-skyblue {
+    color: var(--c-accent-cyan) !important;
+    text-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+    font-weight: 700;
+    position: relative;
 }
 
-.cyan-glow {
+/* Blinking Typewriter Cursor */
+.hero-typewriter-title .text-skyblue::after {
+    content: '|';
     color: var(--c-accent-cyan);
-    text-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    animation: typeCursorBlink 0.7s infinite;
+    font-weight: 300;
+    margin-left: 2px;
+    opacity: 0.9;
 }
 
-.purple-glow {
-    background: linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+@keyframes typeCursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 .text-gradient-hero { background: linear-gradient(to right, #FFFFFF 20%, var(--c-accent-cyan) 60%, var(--c-accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% auto; animation: shine 5s linear infinite; }
 @keyframes shine { to { background-position: 200% center; } }
