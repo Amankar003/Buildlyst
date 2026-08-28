@@ -1,22 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Hero Typewriter Engine (Ultra-short 3-line pairs, <= 10 chars per slot)
+    // 0.2 Hero Typewriter Engine (Executive Enterprise Terminology)
     const heroPairs = [
-        { slot1: "AI Agents", slot2: "your growth" },
-        { slot1: "Gen AI", slot2: "your scale" },
-        { slot1: "ML Models", slot2: "your speed" },
-        { slot1: "RAG Tech", slot2: "your data" },
-        { slot1: "AI Tools", slot2: "your team" },
-        { slot1: "Web Apps", slot2: "your ROI" },
-        { slot1: "Data Flow", slot2: "your vision" },
-        { slot1: "Smart Bots", slot2: "your future" },
-        { slot1: "Cloud Tech", slot2: "your uptime" },
-        { slot1: "Neural Nets", slot2: "your success" },
-        { slot1: "AI Systems", slot2: "your edge" },
-        { slot1: "Auto Tech", slot2: "your market" },
-        { slot1: "Deep AI", slot2: "your brand" },
-        { slot1: "Fine LLMs", slot2: "your privacy" },
-        { slot1: "Code Base", slot2: "your impact" }
+        { slot1: "Autonomous AI Agents", slot2: "Enterprise Operations" },
+        { slot1: "Generative RAG Pipelines", slot2: "Proprietary Knowledge" },
+        { slot1: "Predictive ML Models", slot2: "Strategic Decisions" },
+        { slot1: "Real-Time Data Pipelines", slot2: "Market Intelligence" },
+        { slot1: "High-Performance Web Platforms", slot2: "Customer Engagement" },
+        { slot1: "Fine-Tuned LLM Architectures", slot2: "Enterprise Security" },
+        { slot1: "Computer Vision Engines", slot2: "Automated Quality Control" },
+        { slot1: "Cloud-Native Infrastructure", slot2: "System Scale & Uptime" },
+        { slot1: "Intelligent Workflow Systems", slot2: "Team Productivity" },
+        { slot1: "Deep Learning Frameworks", slot2: "Competitive Edge" }
     ];
 
     let pairIdx = 0;
