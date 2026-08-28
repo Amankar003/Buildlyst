@@ -1412,8 +1412,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const width = container.clientWidth;
         const height = container.clientHeight || 180;
         
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        camera.position.set(0, 7, 10);
+        const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+        camera.position.set(0, 5, 8);
         camera.lookAt(0, 0, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -1422,52 +1422,56 @@ document.addEventListener('DOMContentLoaded', () => {
         container.innerHTML = '';
         container.appendChild(renderer.domElement);
 
-        // Grid lines helper at base
-        const gridHelper = new THREE.GridHelper(10, 10, 0x00d2ff, 0x1a1a24);
-        gridHelper.position.y = -0.55;
-        scene.add(gridHelper);
-
+        const cols = 15;
+        const rows = 10;
+        const spacingX = 0.6;
+        const spacingZ = 0.6;
+        
         const group = new THREE.Group();
         scene.add(group);
 
-        const cubes = [];
-        const geometry = new THREE.BoxGeometry(0.7, 0.7, 0.7);
+        const particles = [];
+        const pointGeometry = new THREE.SphereGeometry(0.04, 8, 8);
         
-        const cols = 6;
-        const rows = 4;
-        const spacing = 1.3;
-
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
                 const material = new THREE.MeshBasicMaterial({
-                    color: 0x111118,
+                    color: 0x00d2ff,
                     transparent: true,
-                    opacity: 0.8
+                    opacity: 0.3
                 });
-                const cube = new THREE.Mesh(geometry, material);
+                const particle = new THREE.Mesh(pointGeometry, material);
                 
-                cube.position.x = (c - (cols - 1)/2) * spacing;
-                cube.position.z = (r - (rows - 1)/2) * spacing;
-                cube.position.y = 0;
+                particle.position.x = (c - (cols - 1)/2) * spacingX;
+                particle.position.z = (r - (rows - 1)/2) * spacingZ;
+                particle.position.y = 0;
                 
-                const wireframeGeom = new THREE.EdgesGeometry(geometry);
-                const wireframeMat = new THREE.LineBasicMaterial({ color: 0x22222d });
-                const outline = new THREE.LineSegments(wireframeGeom, wireframeMat);
-                cube.add(outline);
-
-                group.add(cube);
-                cubes.push({
-                    mesh: cube,
-                    outline: outline,
-                    baseY: cube.position.y,
-                    phase: Math.random() * Math.PI * 2,
+                group.add(particle);
+                particles.push({
+                    mesh: particle,
+                    baseX: particle.position.x,
+                    baseZ: particle.position.z,
+                    phase: (c * 0.3) + (r * 0.2),
                     activeTime: 0
                 });
             }
         }
 
-        // Raycasting for interactivity
+        const lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x00d2ff,
+            transparent: true,
+            opacity: 0.1
+        });
+
+        const lineGeometry = new THREE.BufferGeometry();
+        const maxLines = cols * rows * 4;
+        const linePosArray = new Float32Array(maxLines * 3 * 2);
+        lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePosArray, 3));
+        const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+        group.add(lineMesh);
+
         const raycaster = new THREE.Raycaster();
+        raycaster.params.Points.threshold = 0.2;
         const mouse = new THREE.Vector2();
         let isMouseOver = false;
 
@@ -1487,56 +1491,86 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            cubes.forEach((cubeData) => {
-                const mesh = cubeData.mesh;
-                mesh.position.y = cubeData.baseY + Math.sin(elapsedTime * 2 + cubeData.phase) * 0.15;
+            particles.forEach((p) => {
+                p.mesh.position.y = Math.sin(elapsedTime * 2.5 + p.phase) * 0.35;
                 
-                if (cubeData.activeTime > 0) {
-                    cubeData.activeTime -= 0.025;
+                if (p.activeTime > 0) {
+                    p.activeTime -= 0.03;
+                    p.mesh.material.color.setHex(0x8a2387);
+                    p.mesh.material.opacity = 0.8;
                 } else {
-                    mesh.material.color.setHex(0x111118);
-                    cubeData.outline.material.color.setHex(0x22222d);
+                    p.mesh.material.color.setHex(0x00d2ff);
+                    p.mesh.material.opacity = 0.35 + Math.sin(elapsedTime * 2 + p.phase) * 0.15;
                 }
             });
 
             if (isMouseOver) {
                 raycaster.setFromCamera(mouse, camera);
                 const intersects = raycaster.intersectObjects(group.children);
-                
                 if (intersects.length > 0) {
-                    const hitMesh = intersects[0].object;
-                    const match = cubes.find(c => c.mesh === hitMesh);
+                    const hit = intersects[0].object;
+                    const match = particles.find(p => p.mesh === hit);
                     if (match) {
-                        match.mesh.material.color.setHex(0x00d2ff);
-                        match.outline.material.color.setHex(0x00d2ff);
-                        match.activeTime = 0.8;
+                        match.activeTime = 1.0;
                     }
                 }
             }
 
-            group.rotation.y = Math.sin(elapsedTime * 0.1) * 0.1;
+            let lineIdx = 0;
+            const posAttr = lineGeometry.getAttribute('position');
+            const positions = posAttr.array;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const idx1 = r * cols + c;
+                    const p1 = particles[idx1].mesh.position;
+
+                    if (c < cols - 1) {
+                        const p2 = particles[idx1 + 1].mesh.position;
+                        positions[lineIdx++] = p1.x;
+                        positions[lineIdx++] = p1.y;
+                        positions[lineIdx++] = p1.z;
+                        positions[lineIdx++] = p2.x;
+                        positions[lineIdx++] = p2.y;
+                        positions[lineIdx++] = p2.z;
+                    }
+                    if (r < rows - 1) {
+                        const p2 = particles[idx1 + cols].mesh.position;
+                        positions[lineIdx++] = p1.x;
+                        positions[lineIdx++] = p1.y;
+                        positions[lineIdx++] = p1.z;
+                        positions[lineIdx++] = p2.x;
+                        positions[lineIdx++] = p2.y;
+                        positions[lineIdx++] = p2.z;
+                    }
+                }
+            }
+            for (let i = lineIdx; i < positions.length; i++) {
+                positions[i] = 0;
+            }
+            posAttr.needsUpdate = true;
+
+            group.rotation.y = elapsedTime * 0.05;
+            group.rotation.x = Math.sin(elapsedTime * 0.03) * 0.05;
 
             renderer.render(scene, camera);
         }
 
         animate();
 
-        // Replay triggers a 3D signal wave sweep
         const replayBtn = document.getElementById('footer-grid-replay');
         if (replayBtn) {
             replayBtn.addEventListener('click', () => {
-                cubes.forEach((cubeData) => {
-                    const delay = (cubeData.mesh.position.x + cubeData.mesh.position.z) * 120;
+                particles.forEach((p) => {
+                    const dist = Math.sqrt(p.baseX * p.baseX + p.baseZ * p.baseZ);
                     setTimeout(() => {
-                        cubeData.mesh.material.color.setHex(Math.random() > 0.5 ? 0x00d2ff : 0x8a2387);
-                        cubeData.outline.material.color.setHex(0x00d2ff);
-                        cubeData.activeTime = 1.0;
-                    }, Math.abs(delay));
+                        p.activeTime = 1.5;
+                        p.mesh.position.y += 0.8;
+                    }, dist * 250);
                 });
             });
         }
 
-        // Scroll to top button
         const scrollTopBtn = document.getElementById('scroll-to-top-btn');
         if (scrollTopBtn) {
             scrollTopBtn.addEventListener('click', () => {
