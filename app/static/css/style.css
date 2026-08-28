@@ -76,8 +76,38 @@ h3 { font-weight: 600; font-size: 24px; letter-spacing: -0.02em; line-height: 1.
 .overline.highlight { color: var(--c-accent-cyan); }
 .subtext, .demo-subtext { font-size: 18px; color: var(--c-text-secondary); max-width: 650px; margin: 0 auto; }
 
-/* Gradients & Shine */
 .text-gradient { background: linear-gradient(135deg, #fff 0%, var(--c-text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* Dual-Rotating Hero Headline */
+.dual-hero-title {
+    font-size: clamp(38px, 5.5vw, 62px) !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em;
+}
+
+.hero-rotate-span {
+    display: inline-block;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    padding: 0 2px;
+}
+
+.hero-rotate-span.swap-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.cyan-glow {
+    color: var(--c-accent-cyan);
+    text-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+}
+
+.purple-glow {
+    background: linear-gradient(135deg, #8A2387 0%, #E94057 50%, #F27121 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 .text-gradient-hero { background: linear-gradient(to right, #FFFFFF 20%, var(--c-accent-cyan) 60%, var(--c-accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% auto; animation: shine 5s linear infinite; }
 @keyframes shine { to { background-position: 200% center; } }
 

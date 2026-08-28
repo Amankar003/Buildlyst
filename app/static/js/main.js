@@ -1,5 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0.2 Dual-Text Rotating Hero Headline
+    const dualHeroPairs = [
+        { slot1: "AI Agents", slot2: "Business Operations" },
+        { slot1: "Custom RAG Pipelines", slot2: "Enterprise Knowledge" },
+        { slot1: "Autonomous Workflows", slot2: "Team Productivity" },
+        { slot1: "Predictive ML Models", slot2: "Decision Making" },
+        { slot1: "Real-Time Data Pipelines", slot2: "Customer Insights" },
+        { slot1: "Generative AI Systems", slot2: "Content Workflows" },
+        { slot1: "Computer Vision Engines", slot2: "Quality Control" },
+        { slot1: "Deep Learning Neural Nets", slot2: "Speed & Scale" },
+        { slot1: "Scalable Web Platforms", slot2: "User Engagement" },
+        { slot1: "Fine-Tuned LLM Models", slot2: "Proprietary Data" },
+        { slot1: "Cloud Native Systems", slot2: "Reliability & Uptime" },
+        { slot1: "Intelligent Automation", slot2: "Revenue & Growth" }
+    ];
+
+    let heroPairIndex = 0;
+    function initDualHeroRotate() {
+        const slot1 = document.getElementById('hero-rotate-slot1');
+        const slot2 = document.getElementById('hero-rotate-slot2');
+        if (!slot1 || !slot2) return;
+
+        setInterval(() => {
+            slot1.classList.add('swap-out');
+            slot2.classList.add('swap-out');
+
+            setTimeout(() => {
+                heroPairIndex = (heroPairIndex + 1) % dualHeroPairs.length;
+                const nextPair = dualHeroPairs[heroPairIndex];
+
+                slot1.innerText = nextPair.slot1;
+                slot2.innerText = nextPair.slot2;
+
+                slot1.classList.remove('swap-out');
+                slot2.classList.remove('swap-out');
+            }, 350);
+        }, 3200);
+    }
+    initDualHeroRotate();
+
     initHeroChat();
 
     // 0.5 Hero Chat Simulation
