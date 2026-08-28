@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0.2 Hero Typewriter Engine (Executive Enterprise Terminology)
+    // 0.2 Hero Typewriter Engine (Slot 1 strictly <= 10 characters)
     const heroPairs = [
-        { slot1: "Autonomous AI Agents", slot2: "Enterprise Operations" },
-        { slot1: "Generative RAG Pipelines", slot2: "Proprietary Knowledge" },
-        { slot1: "Predictive ML Models", slot2: "Strategic Decisions" },
-        { slot1: "Real-Time Data Pipelines", slot2: "Market Intelligence" },
-        { slot1: "High-Performance Web Platforms", slot2: "Customer Engagement" },
-        { slot1: "Fine-Tuned LLM Architectures", slot2: "Enterprise Security" },
-        { slot1: "Computer Vision Engines", slot2: "Automated Quality Control" },
-        { slot1: "Cloud-Native Infrastructure", slot2: "System Scale & Uptime" },
-        { slot1: "Intelligent Workflow Systems", slot2: "Team Productivity" },
-        { slot1: "Deep Learning Frameworks", slot2: "Competitive Edge" }
+        { slot1: "AI Agents", slot2: "Enterprise Operations" },
+        { slot1: "Gen AI", slot2: "Proprietary Knowledge" },
+        { slot1: "ML Models", slot2: "Strategic Decisions" },
+        { slot1: "AI Systems", slot2: "Market Intelligence" },
+        { slot1: "Web Apps", slot2: "Customer Engagement" },
+        { slot1: "LLM Models", slot2: "Enterprise Security" },
+        { slot1: "Smart AI", slot2: "Quality Control & Scale" },
+        { slot1: "Cloud Tech", slot2: "Infrastructure Speed" },
+        { slot1: "Data Tech", slot2: "Real-Time Analytics" },
+        { slot1: "RAG Tech", slot2: "Team Productivity" }
     ];
 
     let pairIdx = 0;
