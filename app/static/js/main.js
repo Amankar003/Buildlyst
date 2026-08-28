@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { slot1: "ML Models", slot2: "Strategic Decisions" },
         { slot1: "AI Systems", slot2: "Market Intelligence" },
         { slot1: "Web Apps", slot2: "Customer Engagement" },
-        { slot1: "LLM Models", slot2: "Enterprise Security" },
         { slot1: "Smart AI", slot2: "Quality Control & Scale" },
         { slot1: "Cloud Tech", slot2: "Infrastructure Speed" },
         { slot1: "Data Tech", slot2: "Real-Time Analytics" },
