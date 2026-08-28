@@ -1403,36 +1403,239 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Footer 3D Floating Glass Card
-    function initFooter3DGrid() {
-        const cardWrapper = document.getElementById('floating-ai-card');
-        if (cardWrapper) {
-            const cardInner = cardWrapper.querySelector('.floating-ai-card-inner');
-            const glare = cardWrapper.querySelector('.card-glare');
-            
-            cardWrapper.addEventListener('mousemove', (e) => {
-                const rect = cardWrapper.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // Calculate tilt (max 15 degrees)
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const tiltX = ((y - centerY) / centerY) * -15;
-                const tiltY = ((x - centerX) / centerX) * 15;
-                
-                cardInner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-                
-                // Move glare
-                if(glare) {
-                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 210, 255, 0.4) 0%, rgba(255,255,255,0) 60%)`;
+    // Footer Interactive Multi-Agent Swarm (Boids)
+    function initFooterSwarm() {
+        const canvas = document.getElementById('agent-swarm-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        // Handle Resize
+        let width = canvas.offsetWidth;
+        let height = canvas.offsetHeight;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        
+        window.addEventListener('resize', () => {
+            width = canvas.offsetWidth;
+            height = canvas.offsetHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        });
+
+        // Boids Config
+        const boids = [];
+        const numBoids = 120;
+        const maxSpeed = 3;
+        const maxForce = 0.05;
+        const perceptionRadius = 60;
+        
+        // Cyber Colors matching theme
+        const colors = ['#00d2ff', '#8a2387', '#00ffaa', '#ffffff'];
+
+        class Boid {
+            constructor() {
+                this.position = { x: Math.random() * width, y: Math.random() * height };
+                this.velocity = { x: (Math.random() - 0.5) * maxSpeed, y: (Math.random() - 0.5) * maxSpeed };
+                this.acceleration = { x: 0, y: 0 };
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.size = Math.random() * 2 + 2;
+            }
+
+            edges() {
+                if (this.position.x > width + 20) this.position.x = -20;
+                else if (this.position.x < -20) this.position.x = width + 20;
+                if (this.position.y > height + 20) this.position.y = -20;
+                else if (this.position.y < -20) this.position.y = height + 20;
+            }
+
+            align(boids) {
+                let steering = { x: 0, y: 0 };
+                let total = 0;
+                for (let other of boids) {
+                    let d = Math.hypot(this.position.x - other.position.x, this.position.y - other.position.y);
+                    if (other !== this && d < perceptionRadius) {
+                        steering.x += other.velocity.x;
+                        steering.y += other.velocity.y;
+                        total++;
+                    }
                 }
-            });
+                if (total > 0) {
+                    steering.x /= total;
+                    steering.y /= total;
+                    const mag = Math.hypot(steering.x, steering.y);
+                    steering.x = (steering.x / mag) * maxSpeed;
+                    steering.y = (steering.y / mag) * maxSpeed;
+                    steering.x -= this.velocity.x;
+                    steering.y -= this.velocity.y;
+                    return this.limit(steering, maxForce);
+                }
+                return steering;
+            }
+
+            cohesion(boids) {
+                let steering = { x: 0, y: 0 };
+                let total = 0;
+                for (let other of boids) {
+                    let d = Math.hypot(this.position.x - other.position.x, this.position.y - other.position.y);
+                    if (other !== this && d < perceptionRadius) {
+                        steering.x += other.position.x;
+                        steering.y += other.position.y;
+                        total++;
+                    }
+                }
+                if (total > 0) {
+                    steering.x /= total;
+                    steering.y /= total;
+                    steering.x -= this.position.x;
+                    steering.y -= this.position.y;
+                    const mag = Math.hypot(steering.x, steering.y);
+                    steering.x = (steering.x / mag) * maxSpeed;
+                    steering.y = (steering.y / mag) * maxSpeed;
+                    steering.x -= this.velocity.x;
+                    steering.y -= this.velocity.y;
+                    return this.limit(steering, maxForce);
+                }
+                return steering;
+            }
+
+            separation(boids) {
+                let steering = { x: 0, y: 0 };
+                let total = 0;
+                for (let other of boids) {
+                    let d = Math.hypot(this.position.x - other.position.x, this.position.y - other.position.y);
+                    if (other !== this && d < perceptionRadius / 2) {
+                        let diff = { x: this.position.x - other.position.x, y: this.position.y - other.position.y };
+                        diff.x /= (d * d);
+                        diff.y /= (d * d);
+                        steering.x += diff.x;
+                        steering.y += diff.y;
+                        total++;
+                    }
+                }
+                if (total > 0) {
+                    steering.x /= total;
+                    steering.y /= total;
+                    const mag = Math.hypot(steering.x, steering.y);
+                    steering.x = (steering.x / mag) * maxSpeed;
+                    steering.y = (steering.y / mag) * maxSpeed;
+                    steering.x -= this.velocity.x;
+                    steering.y -= this.velocity.y;
+                    return this.limit(steering, maxForce * 1.5);
+                }
+                return steering;
+            }
             
-            cardWrapper.addEventListener('mouseleave', () => {
-                cardInner.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            });
+            swarmMouse(mouseX, mouseY) {
+                let steering = { x: mouseX - this.position.x, y: mouseY - this.position.y };
+                let d = Math.hypot(steering.x, steering.y);
+                if (d < 150) {
+                    const mag = Math.hypot(steering.x, steering.y);
+                    steering.x = (steering.x / mag) * maxSpeed;
+                    steering.y = (steering.y / mag) * maxSpeed;
+                    steering.x -= this.velocity.x;
+                    steering.y -= this.velocity.y;
+                    return this.limit(steering, maxForce * 1.2);
+                }
+                return { x: 0, y: 0 };
+            }
+
+            limit(vec, max) {
+                const mag = Math.hypot(vec.x, vec.y);
+                if (mag > max) {
+                    vec.x = (vec.x / mag) * max;
+                    vec.y = (vec.y / mag) * max;
+                }
+                return vec;
+            }
+
+            flock(boids, mouseX, mouseY, isMouseActive) {
+                let alignment = this.align(boids);
+                let cohesion = this.cohesion(boids);
+                let separation = this.separation(boids);
+
+                this.acceleration.x += alignment.x * 1.0;
+                this.acceleration.y += alignment.y * 1.0;
+                this.acceleration.x += cohesion.x * 1.0;
+                this.acceleration.y += cohesion.y * 1.0;
+                this.acceleration.x += separation.x * 1.5;
+                this.acceleration.y += separation.y * 1.5;
+                
+                if (isMouseActive) {
+                    let mSwarm = this.swarmMouse(mouseX, mouseY);
+                    this.acceleration.x += mSwarm.x * 2.0;
+                    this.acceleration.y += mSwarm.y * 2.0;
+                }
+            }
+
+            update() {
+                this.position.x += this.velocity.x;
+                this.position.y += this.velocity.y;
+                this.velocity.x += this.acceleration.x;
+                this.velocity.y += this.acceleration.y;
+                this.velocity = this.limit(this.velocity, maxSpeed);
+                this.acceleration.x = 0;
+                this.acceleration.y = 0;
+            }
+
+            draw() {
+                const theta = Math.atan2(this.velocity.y, this.velocity.x) + Math.PI / 2;
+                ctx.save();
+                ctx.translate(this.position.x, this.position.y);
+                ctx.rotate(theta);
+                ctx.beginPath();
+                ctx.moveTo(0, -this.size * 2);
+                ctx.lineTo(-this.size, this.size * 2);
+                ctx.lineTo(this.size, this.size * 2);
+                ctx.closePath();
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
         }
+
+        for (let i = 0; i < numBoids; i++) {
+            boids.push(new Boid());
+        }
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let isMouseActive = false;
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            isMouseActive = true;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            isMouseActive = false;
+        });
+
+        function animate() {
+            // Trailing effect
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.3)';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.globalCompositeOperation = 'lighter';
+
+            for (let boid of boids) {
+                boid.edges();
+                boid.flock(boids, mouseX, mouseY, isMouseActive);
+                boid.update();
+                boid.draw();
+            }
+            
+            ctx.globalCompositeOperation = 'source-over';
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
 
         const scrollTopBtn = document.getElementById('scroll-to-top-btn');
         if (scrollTopBtn) {
@@ -1442,5 +1645,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    initFooter3DGrid();
+    initFooterSwarm();
 });
