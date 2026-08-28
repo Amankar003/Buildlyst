@@ -290,16 +290,86 @@
         </div>
 
         <!-- Footer -->
-        <footer class="footer">
+        <!-- Footer -->
+        <footer class="new-footer">
             <div class="container">
-                <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.06);">
-                    <div>
-                        <a href="/" class="logo text-gradient" style="font-size: 24px; font-weight: 700;">Buildlyst</a>
-                        <p style="color: var(--c-text-secondary); font-size: 13px; margin-top: 6px;">Enterprise AI & Data Engineering Studio. 100% Custom Architecture.</p>
+                <!-- Laser line -->
+                <div class="footer-laser-line"></div>
+                
+                <div class="footer-grid-layout">
+                    <!-- Brand Section -->
+                    <div class="footer-brand">
+                        <a href="/" class="logo text-gradient footer-logo">Buildlyst</a>
+                        <p class="footer-tagline">Build AI With Compounding Intelligence</p>
+                        
+                        <div class="footer-badges">
+                            <span class="badge-pill">SOC2</span>
+                            <span class="badge-pill">AICPA</span>
+                            <span class="badge-pill">GDPR</span>
+                        </div>
                     </div>
-                    <div style="font-size: 13px; color: var(--c-text-secondary);">
-                        &copy; 2026 Buildlyst. All rights reserved.
+                    
+                    <!-- Links Sections -->
+                    <div class="footer-links-wrapper">
+                        <div class="footer-col">
+                            <h4>PRODUCT</h4>
+                            <ul>
+                                <li><a href="#features">Features</a></li>
+                                <li><a href="#capabilities">Enterprise</a></li>
+                                <li><a href="#security">Security</a></li>
+                                <li><a href="#pricing">Pricing</a></li>
+                                <li><a href="#roadmap">Roadmap</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h4>PLATFORM</h4>
+                            <ul>
+                                <li><a href="#api">Developer API</a></li>
+                                <li><a href="#partners">Partners</a></li>
+                                <li><a href="#integrations">Integrations</a></li>
+                                <li><a href="#cli">CLI</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h4>RESOURCES</h4>
+                            <ul>
+                                <li><a href="#docs">Documentation</a></li>
+                                <li><a href="#community">Community</a></li>
+                                <li><a href="#status">Status</a></li>
+                                <li><a href="#changelog">Changelog</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h4>COMPANY</h4>
+                            <ul>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="#careers">Careers</a></li>
+                                <li><a href="#blog">Blog</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
                     </div>
+                    
+                    <!-- Interactive Visual Grid -->
+                    <div class="footer-visual-grid-container">
+                        <button class="replay-btn" id="footer-grid-replay">Replay</button>
+                        <div class="footer-led-grid" id="footer-led-grid">
+                            <!-- JS will generate 12x8 LED cells here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Row -->
+                <div class="footer-bottom-row">
+                    <div class="footer-copyright">
+                        &copy; 2026 Buildlyst, Inc. All rights reserved.
+                    </div>
+                    <button class="scroll-top-btn" id="scroll-to-top-btn" aria-label="Scroll to top">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </footer>
@@ -316,6 +386,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="/static/js/main.js?v=40.0"></script>
+    <script src="/static/js/main.js?v=45.0"></script>
 </body>
 </html>

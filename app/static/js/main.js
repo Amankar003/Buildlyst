@@ -1386,7 +1386,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startAutoPlay();
 
-                // Case Studies Carousel Controls
+    // Case Studies Carousel Controls
     const prevProjBtn = document.getElementById('prev-project');
     const nextProjBtn = document.getElementById('next-project');
     const projTrack = document.getElementById('projects-track');
@@ -1402,4 +1402,74 @@ document.addEventListener('DOMContentLoaded', () => {
             projTrack.scrollBy({ left: 360, behavior: 'smooth' });
         });
     }
+
+    // Footer LED Grid & Scroll Top Initialization
+    function initFooterLedGrid() {
+        const grid = document.getElementById('footer-led-grid');
+        if (!grid) return;
+
+        const cellCount = 12 * 8; // 96 cells
+        grid.innerHTML = '';
+        
+        for (let i = 0; i < cellCount; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'led-cell';
+            grid.appendChild(cell);
+        }
+        
+        const cells = grid.querySelectorAll('.led-cell');
+        
+        // Random LED pulses
+        setInterval(() => {
+            const count = Math.floor(Math.random() * 3) + 1; // 1 to 3 cells
+            for (let i = 0; i < count; i++) {
+                const randIdx = Math.floor(Math.random() * cellCount);
+                const cell = cells[randIdx];
+                if (!cell) continue;
+                
+                const randType = Math.random();
+                if (randType < 0.4) {
+                    cell.classList.add('active-cyan');
+                    setTimeout(() => cell.classList.remove('active-cyan'), 1200 + Math.random() * 1200);
+                } else if (randType < 0.7) {
+                    cell.classList.add('active-purple');
+                    setTimeout(() => cell.classList.remove('active-purple'), 1200 + Math.random() * 1200);
+                } else {
+                    cell.classList.add('active-dim');
+                    setTimeout(() => cell.classList.remove('active-dim'), 800 + Math.random() * 800);
+                }
+            }
+        }, 180);
+
+        // Replay/Trigger sweep animation
+        const replayBtn = document.getElementById('footer-grid-replay');
+        if (replayBtn) {
+            replayBtn.addEventListener('click', () => {
+                cells.forEach((cell, idx) => {
+                    cell.className = 'led-cell';
+                    
+                    const row = Math.floor(idx / 12);
+                    const col = idx % 12;
+                    const delay = (row + col) * 45;
+                    
+                    setTimeout(() => {
+                        cell.classList.add(Math.random() > 0.5 ? 'active-cyan' : 'active-purple');
+                        setTimeout(() => {
+                            cell.className = 'led-cell';
+                        }, 700);
+                    }, delay);
+                });
+            });
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scroll-to-top-btn');
+        if (scrollTopBtn) {
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    initFooterLedGrid();
 });
