@@ -1403,182 +1403,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Footer 3D Interactive WebGL - Neural Data Tree
+    // Footer 3D Floating Glass Card
     function initFooter3DGrid() {
-        const container = document.getElementById('footer-3d-canvas');
-        if (!container) return;
-
-        const scene = new THREE.Scene();
-        const width = container.clientWidth;
-        const height = container.clientHeight || 180;
-        
-        const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-        camera.position.set(0, 0, 7);
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        
-        container.innerHTML = '';
-        container.appendChild(renderer.domElement);
-
-        const group = new THREE.Group();
-        scene.add(group);
-
-        // --- Procedural 3D Neural Data Tree ---
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesPositions = [];
-        const particlesColors = [];
-        const particlesPhases = []; // For individual pulsing
-        
-        // Cyber Colors matching Buildlyst theme
-        const color1 = new THREE.Color(0x00d2ff); // Neon Cyan
-        const color2 = new THREE.Color(0x8a2387); // Neon Purple
-        const color3 = new THREE.Color(0xffffff); // Core White
-        
-        let pointCount = 0;
-
-        function createBranch(startPoint, direction, length, depth) {
-            if (depth === 0) return;
+        const cardWrapper = document.getElementById('floating-ai-card');
+        if (cardWrapper) {
+            const cardInner = cardWrapper.querySelector('.floating-ai-card-inner');
+            const glare = cardWrapper.querySelector('.card-glare');
             
-            const endPoint = startPoint.clone().add(direction.clone().multiplyScalar(length));
-            
-            // Density of points along the branch
-            const numPoints = Math.floor(length * 40);
-            
-            for(let i = 0; i < numPoints; i++) {
-                const t = i / numPoints;
-                const p = startPoint.clone().lerp(endPoint, t);
+            cardWrapper.addEventListener('mousemove', (e) => {
+                const rect = cardWrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 
-                // Add organic noise
-                p.x += (Math.random() - 0.5) * 0.15;
-                p.y += (Math.random() - 0.5) * 0.15;
-                p.z += (Math.random() - 0.5) * 0.15;
+                // Calculate tilt (max 15 degrees)
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const tiltX = ((y - centerY) / centerY) * -15;
+                const tiltY = ((x - centerX) / centerX) * 15;
                 
-                particlesPositions.push(p.x, p.y, p.z);
+                cardInner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
                 
-                // Mix colors based on depth (Outer branches are more purple/cyan, core is whiter)
-                let mixedColor;
-                if (depth > 5) {
-                    mixedColor = color1.clone().lerp(color3, 0.4);
-                } else {
-                    mixedColor = color1.clone().lerp(color2, 1 - (depth / 6));
+                // Move glare
+                if(glare) {
+                    glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 210, 255, 0.4) 0%, rgba(255,255,255,0) 60%)`;
                 }
-                
-                // Occasional bright node
-                if (Math.random() > 0.95) mixedColor = color3;
-                
-                particlesColors.push(mixedColor.r, mixedColor.g, mixedColor.b);
-                particlesPhases.push(Math.random() * Math.PI * 2);
-                pointCount++;
-            }
+            });
             
-            // Recursive branching
-            const numBranches = 1 + Math.floor(Math.random() * 3);
-            for(let i = 0; i < numBranches; i++) {
-                const axis = new THREE.Vector3(
-                    Math.random() - 0.5,
-                    Math.random() - 0.5,
-                    Math.random() - 0.5
-                ).normalize();
-                
-                const angle = (Math.random() * 0.7) + 0.3;
-                const branchDir = direction.clone().applyAxisAngle(axis, angle);
-                
-                createBranch(endPoint, branchDir, length * (0.65 + Math.random() * 0.2), depth - 1);
-            }
-        }
-        
-        // Start growing the Neural Tree
-        const start = new THREE.Vector3(0, -2, 0);
-        const dir = new THREE.Vector3(0, 1, 0);
-        createBranch(start, dir, 1.8, 7); 
-        
-        particlesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particlesPositions, 3));
-        particlesGeometry.setAttribute('color', new THREE.Float32BufferAttribute(particlesColors, 3));
-        particlesGeometry.setAttribute('phase', new THREE.Float32BufferAttribute(particlesPhases, 1));
-        
-        // Particle Material
-        const particleMaterial = new THREE.PointsMaterial({
-            size: 0.05,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.7,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
-        
-        const neuralTree = new THREE.Points(particlesGeometry, particleMaterial);
-        
-        // Auto-center the procedurally generated tree
-        neuralTree.geometry.computeBoundingBox();
-        const offset = neuralTree.geometry.boundingBox.getCenter(new THREE.Vector3());
-        neuralTree.position.sub(offset);
-        
-        group.add(neuralTree);
-
-        // Interaction state
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        let isMouseOver = false;
-        let targetRotationX = 0;
-        let targetRotationY = 0;
-
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            mouse.x = ((e.clientX - rect.left) / width) * 2 - 1;
-            mouse.y = -((e.clientY - rect.top) / height) * 2 + 1;
-            isMouseOver = true;
-            
-            targetRotationY = mouse.x * 0.5;
-            targetRotationX = mouse.y * 0.5;
-        });
-
-        container.addEventListener('mouseleave', () => {
-            isMouseOver = false;
-            targetRotationY = 0;
-            targetRotationX = 0;
-        });
-
-        let clock = new THREE.Clock();
-        let speedMulti = 1.0;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const elapsedTime = clock.getElapsedTime();
-
-            // Smooth interpolation for parallax interaction
-            group.rotation.y += (targetRotationY - group.rotation.y) * 0.05;
-            group.rotation.x += (targetRotationX - group.rotation.x) * 0.05;
-            
-            // Continuous organic rotation
-            neuralTree.rotation.y = elapsedTime * 0.08 * speedMulti;
-            neuralTree.rotation.z = Math.sin(elapsedTime * 0.05) * 0.05;
-
-            // Global pulse
-            const globalPulse = 0.5 + Math.sin(elapsedTime * 2.0 * speedMulti) * 0.5;
-            particleMaterial.opacity = 0.4 + (globalPulse * 0.5);
-
-            if (isMouseOver) {
-                speedMulti += (3.0 - speedMulti) * 0.05; 
-            } else {
-                speedMulti += (1.0 - speedMulti) * 0.05;
-            }
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Replay button triggers a massive computation burst
-        const replayBtn = document.getElementById('footer-grid-replay');
-        if (replayBtn) {
-            replayBtn.addEventListener('click', () => {
-                speedMulti = 15.0; // massive speed burst
-                particleMaterial.size = 0.12; // points swell up
-                setTimeout(() => {
-                    particleMaterial.size = 0.05;
-                }, 600);
+            cardWrapper.addEventListener('mouseleave', () => {
+                cardInner.style.transform = `rotateX(0deg) rotateY(0deg)`;
             });
         }
 

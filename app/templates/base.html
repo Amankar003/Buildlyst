@@ -344,11 +344,33 @@
                         </div>
                     </div>
                     
-                    <!-- Interactive 3D Visual Sandbox -->
-                    <div class="footer-visual-grid-container">
-                        <button class="replay-btn" id="footer-grid-replay">Replay</button>
-                        <div id="footer-3d-canvas" style="width: 100%; height: 180px;">
-                            <!-- Three.js will render the 3D interactive block grid here -->
+                    <!-- Floating CSS 3D Holographic AI Card -->
+                    <div class="footer-visual-grid-container" style="display: flex; align-items: center; justify-content: center;">
+                        <div class="floating-ai-card-wrapper" id="floating-ai-card">
+                            <div class="floating-ai-card-inner">
+                                <!-- Holographic glare layer -->
+                                <div class="card-glare"></div>
+                                
+                                <!-- Card Content -->
+                                <div class="card-content">
+                                    <div class="card-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                            <polyline points="2 17 12 22 22 17"></polyline>
+                                            <polyline points="2 12 12 17 22 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="card-title">Intelligence Engine</div>
+                                    <div class="card-data">
+                                        <div class="data-line"></div>
+                                        <div class="data-line"></div>
+                                        <div class="data-line"></div>
+                                    </div>
+                                    <div class="card-status">
+                                        <span class="status-dot"></span> Compounding
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -385,6 +407,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"></script>
-    <script src="/static/js/main.js?v=56.0"></script>
+    <script src="/static/js/main.js?v=58.0"></script>
 </body>
 </html>

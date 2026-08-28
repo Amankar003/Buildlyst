@@ -695,6 +695,139 @@ section { padding: var(--space-xl) 0; }
     pointer-events: none;
     overflow: hidden;
 }
+/* Floating Holographic AI Card */
+.floating-ai-card-wrapper {
+    width: 260px;
+    height: 340px;
+    perspective: 1500px;
+    margin: 0 auto;
+    position: relative;
+    animation: floatCard 6s ease-in-out infinite;
+    cursor: pointer;
+}
+
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.floating-ai-card-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    box-shadow: 
+        0 30px 60px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+/* The holographic glare */
+.card-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.4) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.floating-ai-card-wrapper:hover .card-glare {
+    opacity: 1;
+}
+
+/* Card Content */
+.card-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform: translateZ(40px);
+    z-index: 3;
+    position: relative;
+}
+
+.card-icon svg {
+    width: 48px;
+    height: 48px;
+    stroke: var(--c-accent-cyan);
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 10px rgba(0,210,255,0.5));
+}
+
+.card-title {
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: auto;
+}
+
+.card-data {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 2rem;
+}
+
+.data-line {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.data-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: var(--c-accent-cyan);
+    animation: dataStream 2s infinite ease-in-out;
+}
+
+.data-line:nth-child(2)::after { animation-delay: 0.3s; width: 30%; background: var(--c-accent-purple); }
+.data-line:nth-child(3)::after { animation-delay: 0.7s; width: 70%; background: #00ffaa; }
+
+@keyframes dataStream {
+    to { left: 200%; }
+}
+
+.card-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--c-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ffaa;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffaa;
+    animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
 
 .footer-led-grid {
     display: grid;
