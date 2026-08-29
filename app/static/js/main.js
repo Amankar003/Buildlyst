@@ -1,3 +1,13 @@
+window.addEventListener('load', () => {
+    const loader = document.getElementById('global-loader');
+    if (loader) {
+        loader.classList.add('fade-out');
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 800);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // 0.2 Hero Typewriter Engine (Concise non-wrapping pairs)
@@ -177,6 +187,56 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
 
+        // --- NEW: Lenis Smooth Scrolling ---
+        if (typeof Lenis !== 'undefined') {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+            gsap.ticker.lagSmoothing(0, 0);
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        }
+        // -----------------------------------
+
+        // --- NEW: SplitType Animations ---
+        if (typeof SplitType !== 'undefined') {
+            // Apply to main headings, avoiding the typewriter which handles its own animation
+            const splitElements = document.querySelectorAll('h1:not(.hero-typewriter-title), .section-heading');
+            splitElements.forEach(el => {
+                const text = new SplitType(el, { types: 'lines, words, chars' });
+                gsap.set(text.chars, { y: 60, opacity: 0 });
+                
+                // We wrap the content of each char so the transform works properly with overflow:hidden on the char
+                text.chars.forEach(char => {
+                    const content = char.innerHTML;
+                    char.innerHTML = `<div>${content}</div>`;
+                });
+
+                gsap.to(text.chars.map(c => c.firstElementChild), {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 0,
+                    opacity: 1,
+                    stagger: 0.02,
+                    duration: 0.8,
+                    ease: "back.out(1.2)"
+                });
+            });
+        }
+        // ---------------------------------
+
         // Hero Load Animation
         const tlHero = gsap.timeline({ defaults: { ease: "power3.out", duration: 1.2 } });
         const hero = document.getElementById('hero');
@@ -256,25 +316,54 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Premium 3D Tilt Effect
-    const tiltCards = document.querySelectorAll('.tilt-card');
+    // 3. Premium 3D Tilt & Spotlight Effect
+    const tiltCards = document.querySelectorAll('.tilt-card, .glass-panel');
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            
+            // Apply spotlight variables
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
+
+            // Apply tilt effect only if it's a tilt card
+            if (card.classList.contains('tilt-card')) {
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
         });
+        
         card.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            if (card.classList.contains('tilt-card')) {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+            }
         });
     });
+
+    // --- NEW: Custom Magnetic Cursor ---
+    const cursor = document.getElementById('custom-cursor');
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            // Use requestAnimationFrame for smoother cursor tracking
+            requestAnimationFrame(() => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+        });
+
+        // Add hover effect to interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .btn, .pill-links a, .accordion-item, .trust-logo-item, input, textarea');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+    }
+    // -----------------------------------
 
     // 3.5 Accordion Gallery Interactions (Capabilities)
     const accordionItems = document.querySelectorAll('.accordion-item');

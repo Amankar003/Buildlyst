@@ -14,7 +14,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import get_settings
 from app.models.schemas import HealthResponse
@@ -130,6 +131,16 @@ async def service_web_dev(request: Request):
     return templates.TemplateResponse(name="services/website_development.html", request=request)
 
 
+# ── Legal Pages ──────────────────────────────────────────────
+@app.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
+async def legal_privacy(request: Request):
+    return templates.TemplateResponse(name="privacy.html", request=request)
+
+@app.get("/terms", response_class=HTMLResponse, include_in_schema=False)
+async def legal_terms(request: Request):
+    return templates.TemplateResponse(name="terms.html", request=request)
+
+
 # ── Health Check ─────────────────────────────────────────────
 @app.get(
     "/health",
@@ -139,3 +150,11 @@ async def service_web_dev(request: Request):
 )
 async def health():
     return HealthResponse(status="ok", version=settings.APP_VERSION)
+
+
+# ── Exception Handlers ───────────────────────────────────────
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        return templates.TemplateResponse(name="404.html", request=request, status_code=404)
+    return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)

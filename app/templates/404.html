@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block back_button %}
+<a href="/" class="back-btn" style="position: absolute; top: 32px; left: 32px; z-index: 1000; color: var(--c-text-secondary); text-decoration: none; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to Home
+</a>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center" style="min-height: 90vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <div class="container" style="position: relative; z-index: 2;">
+        <h1 class="text-gradient" style="font-size: clamp(80px, 15vw, 150px); line-height: 1; margin-bottom: 0;">404</h1>
+        <h2 style="font-size: clamp(24px, 4vw, 36px); margin-bottom: 16px; color: #fff;">Neural Pathway Not Found</h2>
+        <p class="subtext" style="max-width: 500px; margin: 0 auto 40px auto;">
+            The endpoint you are looking for has either been deleted, moved, or never existed in our training data.
+        </p>
+        <a href="/" class="btn btn-primary glow-border-btn">Return to Safety</a>
+    </div>
+    
+    <!-- Animated background elements for the 404 page -->
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; opacity: 0.1; width: 100%; max-width: 600px; pointer-events: none;">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--c-accent-cyan)" stroke-width="1" stroke-dasharray="4 8" style="animation: spin 20s linear infinite; transform-origin: center;" />
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--c-accent-purple)" stroke-width="2" stroke-dasharray="10 20" style="animation: spin 15s linear infinite reverse; transform-origin: center;" />
+        </svg>
+    </div>
+</section>
+
+<style>
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+</style>
+{% endblock %}

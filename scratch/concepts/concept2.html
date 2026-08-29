@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 2: Assembly Line</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        .container { width: 600px; height: 200px; position: relative; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        
+        .belt { width: 100%; height: 40px; background: #222; border-top: 2px dashed #444; border-bottom: 2px dashed #444; position: relative; display: flex; align-items: center; }
+        .box { width: 30px; height: 30px; background: #777; border-radius: 4px; position: absolute; left: -40px; animation: moveBelt 8s linear infinite; }
+        .box:nth-child(2) { animation-delay: 2.6s; }
+        .box:nth-child(3) { animation-delay: 5.3s; }
+        
+        @keyframes moveBelt {
+            0% { left: -40px; }
+            100% { left: 640px; }
+        }
+
+        /* Automated State */
+        .container.automated .belt { height: 100px; background: transparent; border: none; flex-direction: column; justify-content: space-between; padding: 10px 0; }
+        .container.automated .belt::before, .container.automated .belt::after { display: none; }
+        .container.automated .box { height: 10px; border-radius: 10px; background: #00d2ff; box-shadow: 0 0 15px #00d2ff; animation: moveFast 0.5s linear infinite; width: 80px; }
+        .container.automated .box:nth-child(2) { top: 40px; background: #8a2387; box-shadow: 0 0 15px #8a2387; animation-delay: 0.1s; width: 120px; }
+        .container.automated .box:nth-child(3) { top: 70px; background: #00ffaa; box-shadow: 0 0 15px #00ffaa; animation-delay: 0.3s; width: 60px; }
+        
+        @keyframes moveFast {
+            0% { left: -150px; }
+            100% { left: 640px; }
+        }
+
+        button { background: #00d2ff; color: black; border: none; padding: 12px 24px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: white; }
+        .back { position: absolute; top: 20px; left: 20px; color: #aaa; text-decoration: none; }
+        .back:hover { color: white; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Back to Menu</a>
+    <h2>Concept 2: The Assembly Line</h2>
+    <div class="container" id="board">
+        <div class="belt">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </div>
+    <button id="activate-btn">Activate Buildlyst</button>
+
+    <script>
+        const board = document.getElementById('board');
+        const btn = document.getElementById('activate-btn');
+        let isAutomated = false;
+
+        btn.addEventListener('click', () => {
+            if (!isAutomated) {
+                board.classList.add('automated');
+                btn.innerText = 'Reset Assembly';
+                btn.style.background = '#8a2387';
+                btn.style.color = 'white';
+            } else {
+                board.classList.remove('automated');
+                btn.innerText = 'Activate Buildlyst';
+                btn.style.background = '#00d2ff';
+                btn.style.color = 'black';
+            }
+            isAutomated = !isAutomated;
+        });
+    </script>
+</body>
+</html>

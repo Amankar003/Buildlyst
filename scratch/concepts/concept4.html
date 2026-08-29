@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept 4: Heavy Boulder</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        .container { width: 600px; height: 350px; position: relative; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 2rem; overflow: hidden; }
+        
+        .hill { position: absolute; bottom: -50px; left: -50px; width: 800px; height: 800px; background: #222; transform: rotate(15deg); transform-origin: top left; z-index: 1; }
+        
+        .boulder { width: 60px; height: 60px; background: #666; border-radius: 50%; position: absolute; bottom: 50px; left: 100px; z-index: 2; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; transition: opacity 0.2s; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5); }
+        
+        .particle-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+        .particle { position: absolute; width: 15px; height: 15px; border-radius: 50%; background: #00d2ff; opacity: 0; box-shadow: 0 0 10px #00d2ff; transition: transform 2s cubic-bezier(0.1, 1, 0.1, 1), opacity 0.5s; }
+
+        .container.automated .boulder { opacity: 0; }
+        .container.automated .hill { background: #111; border-top: 2px solid #00d2ff; }
+
+        button { background: #00d2ff; color: black; border: none; padding: 12px 24px; font-size: 1rem; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.3s; z-index: 10; position: relative; }
+        button:hover { background: white; }
+        .back { position: absolute; top: 20px; left: 20px; color: #aaa; text-decoration: none; z-index: 10; }
+        .back:hover { color: white; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Back to Menu</a>
+    <h2>Concept 4: The Heavy Boulder</h2>
+    <div class="container" id="board">
+        <div class="hill"></div>
+        <div class="boulder" id="rock">DATA</div>
+        <div class="particle-container" id="particles"></div>
+    </div>
+    <button id="activate-btn">Activate Buildlyst</button>
+
+    <script>
+        const board = document.getElementById('board');
+        const btn = document.getElementById('activate-btn');
+        const pContainer = document.getElementById('particles');
+        let isAutomated = false;
+        const pList = [];
+
+        // create 30 particles hidden inside the boulder
+        for(let i=0; i<30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = '120px';
+            p.style.bottom = '70px';
+            if (i%2 === 0) p.style.background = '#8a2387';
+            pContainer.appendChild(p);
+            pList.push(p);
+        }
+
+        btn.addEventListener('click', () => {
+            if (!isAutomated) {
+                board.classList.add('automated');
+                btn.innerText = 'Reset Physics';
+                btn.style.background = '#8a2387';
+                btn.style.color = 'white';
+                
+                // Explode particles upwards
+                pList.forEach(p => {
+                    p.style.opacity = '1';
+                    const x = (Math.random() * 400) - 100;
+                    const y = -(Math.random() * 300) - 100;
+                    p.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            } else {
+                board.classList.remove('automated');
+                btn.innerText = 'Activate Buildlyst';
+                btn.style.background = '#00d2ff';
+                btn.style.color = 'black';
+                
+                pList.forEach(p => {
+                    p.style.opacity = '0';
+                    p.style.transform = `translate(0px, 0px)`;
+                });
+            }
+            isAutomated = !isAutomated;
+        });
+    </script>
+</body>
+</html>

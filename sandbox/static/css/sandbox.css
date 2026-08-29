@@ -1,0 +1,137 @@
+:root {
+    --c-bg: #040814;
+    --c-text: #ffffff;
+    --c-text-secondary: #a0a0a0;
+    --c-accent-cyan: #00d2ff;
+    --c-accent-purple: #8a2387;
+    --font-sans: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.text-gradient {
+    background: linear-gradient(90deg, var(--c-accent-cyan), var(--c-accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sandbox-header {
+    text-align: center;
+    padding: 100px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature-section {
+    padding: 100px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.demo-box {
+    margin-top: 40px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255,255,255,0.2);
+    border-radius: 12px;
+    position: relative;
+}
+
+/* Feature 1: Magnetic Buttons */
+.magnetic-btn {
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid rgba(0, 210, 255, 0.5);
+    color: #fff;
+    position: relative;
+}
+.btn-text {
+    pointer-events: none;
+    display: inline-block;
+}
+.btn-primary {
+    background: rgba(0, 210, 255, 0.1);
+}
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Feature 2: Scroll Marquee */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 20px 0;
+}
+.marquee-inner {
+    display: flex;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--c-text-secondary);
+}
+.marquee-part {
+    padding-right: 40px;
+}
+
+/* Feature 3: Parallax Media */
+.parallax-container {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.parallax-mask {
+    width: 80%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+.parallax-img {
+    width: 100%;
+    height: 140%; /* larger than container for parallax room */
+    object-fit: cover;
+    will-change: transform;
+}
+
+/* Feature 4: Hover Media Reveal */
+.hover-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.hover-item {
+    font-size: 32px;
+    font-weight: 700;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.hover-item:hover {
+    color: var(--c-accent-cyan);
+}
+.hover-reveal-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 200px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+}

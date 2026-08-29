@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block back_button %}
+<a href="/" class="back-btn" style="position: absolute; top: 32px; left: 32px; z-index: 1000; color: var(--c-text-secondary); text-decoration: none; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Back to Home
+</a>
+{% endblock %}
+
+{% block content %}
+<section class="legal-section" style="padding-top: 120px; min-height: 80vh;">
+    <div class="container">
+        <div class="glass-panel p-lg" style="max-width: 800px; margin: 0 auto;">
+            <h1 style="font-size: 32px; margin-bottom: 24px;">Privacy Policy</h1>
+            <p class="subtext" style="text-align: left; margin: 0 0 24px 0;">Last Updated: August 2026</p>
+            
+            <div style="color: var(--c-text-secondary); font-size: 15px; line-height: 1.8;">
+                <h3 style="color: #fff; font-size: 20px; margin-top: 32px;">1. Information We Collect</h3>
+                <p>Buildlyst Studio ("we", "us", or "our") collects information that you provide directly to us when you use our website, inquire about our services, or interact with our AI assistant. This may include your name, email address, company details, and project requirements.</p>
+
+                <h3 style="color: #fff; font-size: 20px; margin-top: 32px;">2. How We Use Your Information</h3>
+                <p>We use the information we collect to communicate with you about your projects, provide service estimates, deliver our AI and Data Engineering solutions, and improve our website experience. We do not sell your personal data to third parties.</p>
+
+                <h3 style="color: #fff; font-size: 20px; margin-top: 32px;">3. Data Security & AI Processing</h3>
+                <p>As an AI and Data Engineering firm, we adhere to strict SOC2 and GDPR compliance standards. Any sensitive data provided for ML model training or RAG system architecture is processed in isolated, secure environments and is never used to train public foundational models without explicit consent.</p>
+
+                <h3 style="color: #fff; font-size: 20px; margin-top: 32px;">4. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at privacy@buildlyst.in.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
