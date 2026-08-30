@@ -109,13 +109,18 @@ export default function Methodology() {
                     position: "relative"
                   }}
                 >
-                  <Image
+                  <img
                     src={phase.imageSrc}
                     alt={phase.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ objectFit: "cover" }}
-                    priority={idx === 0}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      position: "absolute",
+                      top: 0,
+                      left: 0
+                    }}
+                    loading={idx === 0 ? "eager" : "lazy"}
                   />
                 </div>
               </div>

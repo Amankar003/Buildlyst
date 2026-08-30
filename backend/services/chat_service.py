@@ -240,7 +240,7 @@ _SYSTEM_PROMPT_BASE = """You are a Buildlyst Customer Executive — a profession
 
 STRICT RULES:
 1. Answer ONLY using information from the BUILDLYST KNOWLEDGE section below. Do not use pretrained knowledge.
-2. If the context does not contain the answer, respond: "I don't have that information in my approved Buildlyst knowledge. Please contact info.buildlyst@gmail.com."
+2. If the context does not contain the answer, respond: "I don't have that information in my approved Buildlyst knowledge. Please contact info@buildlyst.in."
 3. NEVER invent services, pricing, clients, or technologies.
 4. For questions unrelated to Buildlyst, respond: "I'm here to help with Buildlyst's services and business solutions."
 5. For customer requirements, briefly connect them to Buildlyst capabilities.
@@ -276,7 +276,7 @@ def _build_system_prompt(knowledge_context: str) -> str:
             f"{_SYSTEM_PROMPT_BASE}\n\n"
             f"No specific Buildlyst knowledge was retrieved for this query. "
             f"If the user asks a factual question about Buildlyst, respond with: "
-            f"\"I don't have that information in my approved Buildlyst knowledge. Please contact info.buildlyst@gmail.com.\""
+            f"\"I don't have that information in my approved Buildlyst knowledge. Please contact info@buildlyst.in.\""
         )
 
 
@@ -339,11 +339,11 @@ def _get_fallback_response(message: str, category: str) -> str:
 
     if category == BUILDLYST_RELATED:
         if any(kw in lower for kw in ["price", "cost", "pricing", "budget", "how much"]):
-            return "Pricing varies by scope. We offer 3-tier packages starting at ₹35K+. Contact info.buildlyst@gmail.com for a quote."
+            return "Pricing varies by scope. We offer 3-tier packages starting at ₹35K+. Contact info@buildlyst.in for a quote."
         if any(kw in lower for kw in ["service", "offer", "provide", "capabilit", "what do you"]):
             return "We offer AI Agents, Generative AI, Machine Learning, Data Engineering, and Web Development. What area interests you?"
         if any(kw in lower for kw in ["contact", "email", "reach", "call", "talk"]):
-            return "You can reach us at info.buildlyst@gmail.com or book a discovery call on buildlyst.in."
+            return "You can reach us at info@buildlyst.in or book a discovery call on buildlyst.in."
 
     if category == GENERAL_BUSINESS:
         return "Yes, we can help with that. Please share your requirements and we can suggest the right approach."

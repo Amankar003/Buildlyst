@@ -166,7 +166,7 @@ A: Launch MVPs deploy in 7-10 days. Complex multi-agent swarms with custom memor
 Headquarters: Bangalore, India.
 Also Present In: Hyderabad, Noida.
 Availability: Remote Worldwide.
-Direct Inquiry Email: info.buildlyst@gmail.com
+Direct Inquiry Email: info@buildlyst.in
 Website: buildlyst.in
 
 ## Engagement and Discovery
@@ -178,4 +178,4 @@ Engagement includes:
 - Architecture & Cost Blueprint (24-Hr PDF Delivery)
 - Zero Obligation Guarantee (100% Free Strategy)
 
-To start a project or book a strategy call, visit the contact section on buildlyst.in or email info.buildlyst@gmail.com.
+To start a project or book a strategy call, visit the contact section on buildlyst.in or email info@buildlyst.in.

@@ -228,8 +228,8 @@ export default function ContactForm() {
             <div className="info-block glass-panel">
               <span className="overline highlight">Direct Inquiry</span>
               <p>
-                <a href="mailto:info.buildlyst@gmail.com" className="text-gradient">
-                  info.buildlyst@gmail.com
+                <a href="mailto:info@buildlyst.in" className="text-gradient">
+                  info@buildlyst.in
                 </a>
               </p>
             </div>
