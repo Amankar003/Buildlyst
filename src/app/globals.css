@@ -488,10 +488,10 @@ section {
     top: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(10, 10, 15, 0.75); /* Frosted dark glassmorphism background to prevent text overlap */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50px;
     padding: 8px 16px 8px 32px;
     display: flex;

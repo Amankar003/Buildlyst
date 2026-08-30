@@ -147,7 +147,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
   useEffect(() => {
     if (showLoader) return;
 
-    // Smooth Scroll to URL Hash on Initial Page Load
+    // Scroll handling on route change (reset to top if no hash is present)
     if (window.location.hash) {
       const targetEl = document.querySelector(window.location.hash) as HTMLElement | null;
       if (targetEl) {
@@ -160,6 +160,16 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
           }
         }, 150); // Small delay to allow layout to settle
       }
+    } else {
+      // Force scroll to top of the page on route change
+      setTimeout(() => {
+        const l = (window as any).lenis;
+        if (l) {
+          l.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 50); // Small delay to ensure route rendering completes
     }
 
     const ctx = gsap.context(() => {
