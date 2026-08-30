@@ -88,57 +88,13 @@ async def log_requests(request: Request, call_next):
 
 
 # ── Static Files & Templates ────────────────────────────────
-try:
-    app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
-except RuntimeError as e:
-    logger.warning("StaticFiles mount skipped (directory not found). Vercel edge network will serve static files.")
-    
-templates = Jinja2Templates(directory=BASE_DIR / "templates")
+# Removed: Next.js frontend will handle serving static files and HTML pages.
 
 
 # ── Routers ──────────────────────────────────────────────────
 app.include_router(contact.router)
 app.include_router(demo.router)
 app.include_router(chat.router)
-
-
-# ── Root — Serve SPA ─────────────────────────────────────────
-@app.get("/", response_class=HTMLResponse, include_in_schema=False)
-async def serve_index(request: Request):
-    """Serve the Buildlyst single-page website."""
-    return templates.TemplateResponse(name="index.html", request=request)
-
-
-# ── Service Pages ────────────────────────────────────────────
-@app.get("/services/ai-agents", response_class=HTMLResponse, include_in_schema=False)
-async def service_ai_agents(request: Request):
-    return templates.TemplateResponse(name="services/ai_agents.html", request=request)
-
-@app.get("/services/gen-ai", response_class=HTMLResponse, include_in_schema=False)
-async def service_gen_ai(request: Request):
-    return templates.TemplateResponse(name="services/gen_ai.html", request=request)
-
-@app.get("/services/machine-learning", response_class=HTMLResponse, include_in_schema=False)
-async def service_ml(request: Request):
-    return templates.TemplateResponse(name="services/machine_learning.html", request=request)
-
-@app.get("/services/data-engineering", response_class=HTMLResponse, include_in_schema=False)
-async def service_data_eng(request: Request):
-    return templates.TemplateResponse(name="services/data_engineering.html", request=request)
-
-@app.get("/services/web-development", response_class=HTMLResponse, include_in_schema=False)
-async def service_web_dev(request: Request):
-    return templates.TemplateResponse(name="services/website_development.html", request=request)
-
-
-# ── Legal Pages ──────────────────────────────────────────────
-@app.get("/privacy", response_class=HTMLResponse, include_in_schema=False)
-async def legal_privacy(request: Request):
-    return templates.TemplateResponse(name="privacy.html", request=request)
-
-@app.get("/terms", response_class=HTMLResponse, include_in_schema=False)
-async def legal_terms(request: Request):
-    return templates.TemplateResponse(name="terms.html", request=request)
 
 
 # ── Health Check ─────────────────────────────────────────────
@@ -155,6 +111,5 @@ async def health():
 # ── Exception Handlers ───────────────────────────────────────
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
-    if exc.status_code == 404:
-        return templates.TemplateResponse(name="404.html", request=request, status_code=404)
     return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+

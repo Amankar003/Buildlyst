@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Header Text Gradient (White to Soft Grey) -->
+    <linearGradient id="bwTextGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#CCCCCC"/>
+    </linearGradient>
+
+    <!-- Glowing Skyblue Cyan Accent -->
+    <linearGradient id="skyblueGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D2FF"/>
+      <stop offset="100%" stop-color="#00F2FE"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="skyGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;display=swap');
+    .favicon-header-text {
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 340px;
+    }
+  </style>
+
+  <!-- Deep Black Background Frame -->
+  <rect width="512" height="512" rx="140" fill="#000000" stroke="rgba(255, 255, 255, 0.3)" stroke-width="12"/>
+
+  <!-- Pure White Space Grotesk Monogram B -->
+  <text x="240" y="375" class="favicon-header-text" fill="url(#bwTextGrad)" filter="url(#softGlow)" text-anchor="middle">B</text>
+
+  <!-- Glowing Skyblue Cyan Dot Accent (Top Right) -->
+  <circle cx="390" cy="130" r="30" fill="url(#skyblueGlowGrad)" filter="url(#skyGlow)"/>
+</svg>
