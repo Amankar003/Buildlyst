@@ -20,7 +20,15 @@ export default function Globe3D() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = 15;
+    
+    // Adjust camera distance dynamically based on screen width to prevent mobile cropping
+    if (width < 500) {
+      camera.position.z = 21; // Move camera further back on small phone screens
+    } else if (width < 768) {
+      camera.position.z = 18; // Medium screens
+    } else {
+      camera.position.z = 15; // Standard desktop distance
+    }
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, preserveDrawingBuffer: true });
     renderer.setSize(width, height);
@@ -277,6 +285,16 @@ export default function Globe3D() {
       const w = container.clientWidth;
       const h = container.clientHeight;
       camera.aspect = w / h;
+      
+      // Update camera distance on resize
+      if (w < 500) {
+        camera.position.z = 21;
+      } else if (w < 768) {
+        camera.position.z = 18;
+      } else {
+        camera.position.z = 15;
+      }
+      
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
       composer.setSize(w, h);
