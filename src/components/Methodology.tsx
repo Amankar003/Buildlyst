@@ -84,7 +84,7 @@ export default function Methodology() {
                 marginBottom: idx === PHASES.length - 1 ? "0" : "40px"
               }}
             >
-              <div className="stack-card-inner" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "center" }}>
+              <div className="stack-card-inner" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", alignItems: "stretch" }}>
                 <div className="stack-content">
                   <div className="step-number text-gradient" style={{ fontSize: "64px", lineHeight: "1", fontWeight: 700, marginBottom: "16px" }}>
                     {phase.number}
