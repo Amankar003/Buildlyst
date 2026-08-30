@@ -115,10 +115,7 @@ export default function Methodology() {
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "cover",
-                      position: "absolute",
-                      top: 0,
-                      left: 0
+                      objectFit: "cover"
                     }}
                     loading={idx === 0 ? "eager" : "lazy"}
                   />
