@@ -19,8 +19,8 @@ import re
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-from app.config import get_settings
-from app.services.knowledge_loader import get_relevant_context
+from backend.config import get_settings
+from backend.services.knowledge_loader import get_relevant_context
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
@@ -438,7 +438,7 @@ def get_reply(message: str, conversation_id: str | None) -> tuple[str, str]:
         
     # Inject default services overview for legitimate business inquiries with no relevant matching context
     if category == GENERAL_BUSINESS and relevance_score == 0.0:
-        from app.services.knowledge_loader import get_all_sections
+        from backend.services.knowledge_loader import get_all_sections
         sections = get_all_sections()
         services = sections.get("Services Overview", "Buildlyst offers AI Agents, Data Engineering, and Web Development.")
         knowledge_context = f"### Services Overview\n{services}"

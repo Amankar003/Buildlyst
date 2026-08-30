@@ -5,7 +5,7 @@ Will be wired to a real model in Part 3.
 
 import random
 from datetime import datetime, timezone
-from app.models.schemas import DemoRequest, DemoResponse
+from backend.models.schemas import DemoRequest, DemoResponse
 
 
 # Mock insight templates by detected category

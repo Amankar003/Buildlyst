@@ -1,35 +1,59 @@
+
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 # Environment
-.env
-*.db
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-dist/
-build/
-*.egg
-
-# Virtual environment
-venv/
-.venv/
-env/
-
 # IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
-*.log
-
+# OS
+# Python
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 # Vercel
+# Virtual environment
+# debug
+# dependencies
+# env files (can opt-in for committing if needed)
+# misc
+# next.js
+# production
+# testing
+# typescript
+# vercel
+*$py.class
+*.db
+*.egg
+*.egg-info/
+*.log
+*.pem
+*.py[cod]
+*.swo
+*.swp
+*.tsbuildinfo
+*~
+.DS_Store
+.env
+.env*
+.idea/
+.pnp.*
+.pnpm-debug.log*
+.venv/
 .vercel
-
+.vscode/
+.yarn/*
+.next/
+/.pnp
+/build
+/coverage
+node_modules/
+/out/
+Thumbs.db
+__pycache__/
+build/
+dist/
+env/
+next-env.d.ts
+npm-debug.log*
+venv/
+yarn-debug.log*
+yarn-error.log*

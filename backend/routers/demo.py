@@ -6,8 +6,8 @@ Will be wired to real model inference in Part 3.
 import logging
 from fastapi import APIRouter, HTTPException, status
 
-from app.models.schemas import DemoRequest, DemoResponse
-from app.services.chatbot import generate_mock_insight
+from backend.models.schemas import DemoRequest, DemoResponse
+from backend.services.chatbot import generate_mock_insight
 
 logger = logging.getLogger("buildlyst.demo")
 router = APIRouter(prefix="/api", tags=["AI Demo"])

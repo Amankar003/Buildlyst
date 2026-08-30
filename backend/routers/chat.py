@@ -7,9 +7,9 @@ import logging
 from collections import defaultdict
 from fastapi import APIRouter, HTTPException, Request, status
 
-from app.config import get_settings
-from app.models.schemas import ChatRequest, ChatResponse
-from app.services.chat_service import get_reply
+from backend.config import get_settings
+from backend.models.schemas import ChatRequest, ChatResponse
+from backend.services.chat_service import get_reply
 
 logger = logging.getLogger("buildlyst.chat")
 router = APIRouter(prefix="/api", tags=["Chat"])

@@ -17,9 +17,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app.config import get_settings
-from app.models.schemas import HealthResponse
-from app.routers import contact, demo, chat
+from backend.config import get_settings
+from backend.models.schemas import HealthResponse
+from backend.routers import contact, demo, chat
 
 # ── Paths ────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent

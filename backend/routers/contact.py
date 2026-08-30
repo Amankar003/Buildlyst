@@ -10,8 +10,8 @@ from email.message import EmailMessage
 from collections import defaultdict
 from fastapi import APIRouter, HTTPException, Request, status, BackgroundTasks
 
-from app.config import get_settings
-from app.models.schemas import (
+from backend.config import get_settings
+from backend.models.schemas import (
     ContactRequest, ContactResponse,
     NewsletterRequest, NewsletterResponse,
 )

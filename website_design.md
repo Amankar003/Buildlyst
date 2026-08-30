@@ -107,7 +107,7 @@ Simulates a live AI model assembly workflow:
 
 ## 5. Decoupled Backend REST APIs
 
-The FastAPI microservice ([main.py](file:///d:/End%20to%20End%20Projects/buildlyst/app/main.py)) handles pure JSON data exchanges:
+The FastAPI microservice ([main.py](file:///d:/End%20to%20End%20Projects/buildlyst/backend/main.py)) handles pure JSON data exchanges:
 
 1.  **Lead Capture (`POST /api/contact`)**:
     *   Receives structured JSON from the frontend chat-wizard lead generator ([ContactForm.tsx](file:///d:/End%20to%20End%20Projects/buildlyst/frontend/src/components/ContactForm.tsx)).
