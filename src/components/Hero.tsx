@@ -257,10 +257,14 @@ export default function Hero() {
             </span>
             .
           </h1>
-          <p className="subtext">
-            We architect high-performance AI agents, machine learning pipelines, and custom data systems that transform how
-            enterprises operate. Premium, scalable, and built for speed.
-          </p>
+          <div className="subtext">
+            <p style={{ marginBottom: "12px" }}>
+              We build custom AI and data software that will increase your productivity, automate your operations, reduce costs, and scale your business.
+            </p>
+            <p style={{ margin: 0, fontWeight: 500, color: "var(--c-text-primary)" }}>
+              Built for speed, engineered for scale.
+            </p>
+          </div>
           <div className="hero-actions">
             <Link href="#contact" className="btn btn-primary glow-border-btn">
               Start a Project

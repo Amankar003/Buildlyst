@@ -23,33 +23,33 @@ const PRICING_MATRIX: Record<string, PricingCategory> = {
     t3: { title: "Scale", price: "₹2.5L+", features: ["Scalable application architecture", "Advanced security", "Cloud deployment", "Multiple third-party integrations", "Performance optimization"] }
   },
   data: {
-    t1: { title: "Insight", price: "₹40K+", features: ["Data cleaning", "Exploratory data analysis", "KPI analysis", "Interactive dashboard", "Business insights"] },
-    t2: { title: "Pipeline", price: "₹90K+", features: ["Automated ETL/ELT", "Multiple data sources", "Database optimization", "Scheduled data pipelines", "Basic data warehouse setup"] },
-    t3: { title: "Data Platform", price: "₹1.75L+", features: ["Cloud data warehouse", "Multiple data pipelines", "Data quality checks", "Analytics layer", "API/data access"] }
+    t1: { title: "Insight", price: "₹80K+", features: ["Data cleaning", "Exploratory data analysis", "KPI analysis", "Interactive dashboard", "Business insights"] },
+    t2: { title: "Pipeline", price: "₹1.6L+", features: ["Automated ETL/ELT", "Multiple data sources", "Database optimization", "Scheduled data pipelines", "Basic data warehouse setup"] },
+    t3: { title: "Data Platform", price: "₹3L+", features: ["Cloud data warehouse", "Multiple data pipelines", "Data quality checks", "Analytics layer", "API/data access"] }
   },
   ml: {
-    t1: { title: "Predict", price: "₹75K+", features: ["Data preparation", "Feature engineering", "ML model development", "Model evaluation", "Prediction report"] },
-    t2: { title: "Intelligence", price: "₹1.5L+", features: ["Advanced ML", "Multiple features/models", "Prediction API", "Analytics dashboard", "Model deployment"] },
-    t3: { title: "Enterprise ML", price: "₹3L+", features: ["Production ML pipeline", "Model serving", "Model monitoring", "Automated retraining", "Scalable infrastructure"] }
+    t1: { title: "Predict", price: "₹85K+", features: ["Data preparation", "Feature engineering", "ML model development", "Model evaluation", "Prediction report"] },
+    t2: { title: "Intelligence", price: "₹2L+", features: ["Advanced ML", "Multiple features/models", "Prediction API", "Analytics dashboard", "Model deployment"] },
+    t3: { title: "Enterprise ML", price: "₹3.8L+", features: ["Production ML pipeline", "Model serving", "Model monitoring", "Automated retraining", "Scalable infrastructure"] }
   },
-  ai: {
-    t1: { title: "AI Workflow", price: "₹50K+", features: ["LLM integration", "Single AI workflow", "Prompt/system design", "Basic tool/API integration", "Deployment"] },
-    t2: { title: "AI Knowledge System", price: "₹1.5L+", features: ["Custom RAG", "Vector database", "Data ingestion", "Retrieval optimization", "Citations", "AI chat interface"] },
-    t3: { title: "Autonomous AI", price: "₹3.5L+", features: ["Multi-agent architecture", "Tool orchestration", "Advanced RAG", "AI guardrails", "Monitoring", "Production deployment"] }
+  "gen-ai": {
+    t1: { title: "AI Workflow", price: "₹1L+", features: ["LLM integration", "Single AI workflow", "Prompt/system design", "Basic tool/API integration", "Deployment"] },
+    t2: { title: "AI Knowledge System", price: "₹2.5L+", features: ["Custom RAG", "Vector database", "Data ingestion", "Retrieval optimization", "Citations", "AI chat interface"] },
+    t3: { title: "Enterprise Gen AI", price: "₹5L+", features: ["Fine-tuned foundation models", "Advanced semantic search", "Large context RAG", "AI guardrails", "Custom deployments", "Data security compliance"] }
   },
-  consulting: {
-    t1: { title: "Tech Audit", price: "₹20K+", features: ["Codebase review", "Architecture review", "Dependency assessment", "Basic security assessment", "Technical improvement report"] },
-    t2: { title: "Strategy Sprint", price: "₹50K+", features: ["One-week discovery", "Architecture planning", "Technology stack selection", "Feasibility analysis", "Prototype blueprint", "Implementation roadmap"] },
-    t3: { title: "Fractional CTO", price: "₹1.5L+/mo", features: ["Weekly strategy sessions", "Architecture leadership", "Engineering roadmap", "Team guidance", "Vendor evaluation", "Technical decision support"] }
+  "ai-agents": {
+    t1: { title: "Agent MVP", price: "₹85K+", features: ["Single agent setup", "Basic reasoning capabilities", "Simple task execution", "Standard tool integration", "Deployment"] },
+    t2: { title: "Agent Swarm", price: "₹1.8L+", features: ["Multi-agent architecture", "Agent orchestration", "Complex task reasoning", "External API integrations", "Human-in-the-loop", "UI Dashboard"] },
+    t3: { title: "Autonomous Enterprise", price: "₹3.8L+", features: ["LangGraph Stateful Swarm", "Long term state memory", "Custom security guardrails", "24/7 dedicated support", "SOC2 compliance", "Monitoring"] }
   }
 };
 
 const CATEGORIES = [
   { key: "web", label: "Web & Product Engineering" },
-  { key: "data", label: "Data Engineering & Analytics" },
-  { key: "ml", label: "Data Science & ML" },
-  { key: "ai", label: "GenAI & AI Agents" },
-  { key: "consulting", label: "Strategy Consulting" }
+  { key: "data", label: "Data Engineering" },
+  { key: "ml", label: "Machine Learning" },
+  { key: "gen-ai", label: "Gen AI" },
+  { key: "ai-agents", label: "AI Agents" }
 ];
 
 export default function Pricing() {

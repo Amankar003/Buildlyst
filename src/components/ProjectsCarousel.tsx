@@ -62,6 +62,7 @@ export default function ProjectsCarousel() {
                 <div
                   className="project-image"
                   style={{
+                    width: "100%",
                     backgroundImage: `url('${proj.imageSrc}')`,
                     backgroundSize: "cover",
                     backgroundPosition: "top center",

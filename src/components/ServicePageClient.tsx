@@ -31,12 +31,12 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
 
   // 3. Pricing Matrix Tiers
   const pricingTiers = {
-    "ai-agents": { t1: "₹45K+", t2: "₹1.2L+", t3: "₹2.8L+" },
-    "data-engineering": { t1: "₹45K+", t2: "₹1.4L+", t3: "₹2.9L+" },
-    "gen-ai": { t1: "₹60K+", t2: "₹1.8L+", t3: "₹3.5L+" },
-    "machine-learning": { t1: "₹50K+", t2: "₹1.5L+", t3: "₹3.0L+" },
+    "ai-agents": { t1: "₹85K+", t2: "₹1.8L+", t3: "₹3.8L+" },
+    "data-engineering": { t1: "₹80K+", t2: "₹1.6L+", t3: "₹3L+" },
+    "gen-ai": { t1: "₹1L+", t2: "₹2.5L+", t3: "₹5L+" },
+    "machine-learning": { t1: "₹85K+", t2: "₹2L+", t3: "₹3.8L+" },
     "web-development": { t1: "₹35K+", t2: "₹1.0L+", t3: "₹2.5L+" },
-  }[serviceKey] || { t1: "₹45K+", t2: "₹1.2L+", t3: "₹2.8L+" };
+  }[serviceKey] || { t1: "₹85K+", t2: "₹1.8L+", t3: "₹3.8L+" };
 
   // 4. FAQ accordion state
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);

@@ -25,15 +25,9 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       window.scrollTo(0, 0);
     }
 
-    // 1. Loader screen timer
-    const loaderTimer = setTimeout(() => {
-      setLoading(false);
-      // Wait for fade-out animation to complete
-      const fadeTimer = setTimeout(() => {
-        setShowLoader(false);
-      }, 800);
-      return () => clearTimeout(fadeTimer);
-    }, 1500);
+    // Remove the fake loader timer to fix slow reloading
+    setLoading(false);
+    setShowLoader(false);
 
     // 2. Custom Cursor Follower
     const cursor = cursorRef.current;
@@ -130,7 +124,6 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     document.addEventListener("click", handleAnchorClick);
 
     return () => {
-      clearTimeout(loaderTimer);
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseover", onMouseOver);
       document.removeEventListener("mouseout", onMouseOut);

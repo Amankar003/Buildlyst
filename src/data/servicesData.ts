@@ -43,6 +43,22 @@ export const SERVICES_DATA: Record<string, ServiceData> = {
       {
         "question": "Who owns the intellectual property (IP) and code?",
         "answer": "You own 100% of the IP, source code, and custom agent weights. We deliver clean, commented codebases directly to your GitHub repository."
+      },
+      {
+        "question": "What APIs and systems can the AI agents integrate with?",
+        "answer": "Our AI agents can integrate with any system exposing a REST or GraphQL API, including Salesforce, HubSpot, Stripe, Slack, and custom internal databases."
+      },
+      {
+        "question": "How do you ensure the agent doesn't take destructive actions?",
+        "answer": "We implement strict Human-in-the-Loop (HITL) workflows and RBAC guardrails, ensuring that high-stakes actions like payments or database deletions require explicit human approval."
+      },
+      {
+        "question": "What happens if an agent fails a task?",
+        "answer": "Our LangGraph stateful architecture includes automatic retry mechanisms, error logging, and circuit breakers to pause operations and alert your team if persistent failures occur."
+      },
+      {
+        "question": "Can the agents run locally on our own servers?",
+        "answer": "Yes, we support deploying agents inside private VPCs or entirely on-premises using containerized Docker deployments to ensure maximum data privacy."
       }
     ],
     "specs": [
@@ -129,6 +145,22 @@ export const SERVICES_DATA: Record<string, ServiceData> = {
       {
         "question": "Is our sensitive company data sent to third-party public AI models?",
         "answer": "No. We build private RAG systems that can be hosted inside your own AWS/Azure VPC or air-gapped private servers so data never leaves your perimeter."
+      },
+      {
+        "question": "How do you prevent the AI from hallucinating incorrect facts?",
+        "answer": "We use strict Retrieval-Augmented Generation (RAG) with citation tracking and automated fact-checking guardrails to ensure every claim is grounded in your source documents."
+      },
+      {
+        "question": "Can the system ingest complex files like scanned PDFs or legal contracts?",
+        "answer": "Yes, our ingestion engine uses advanced OCR and unstructured data parsing to accurately extract text, tables, and metadata from highly complex documents."
+      },
+      {
+        "question": "Do you use open-source or proprietary LLMs?",
+        "answer": "We can build with proprietary models like OpenAI's GPT-4 or Anthropic's Claude, as well as deploy private open-source models like Llama 3 or Mistral directly in your environment."
+      },
+      {
+        "question": "How is access control handled for different documents?",
+        "answer": "We implement role-based access control (RBAC) at the vector database level, ensuring users can only retrieve and chat with documents they have permission to view."
       }
     ],
     "specs": [
@@ -215,6 +247,22 @@ export const SERVICES_DATA: Record<string, ServiceData> = {
       {
         "question": "What is the real-time inference latency guaranteed by your models?",
         "answer": "Our NVIDIA TensorRT optimized computer vision models execute inference in < 5ms. REST ML models execute in < 50ms."
+      },
+      {
+        "question": "How do you handle concept drift when data patterns change over time?",
+        "answer": "We build automated MLflow tracking and telemetry pipelines that alert you when data drifts, and can trigger continuous retraining pipelines to keep models accurate."
+      },
+      {
+        "question": "Do we need a massive dataset to get started?",
+        "answer": "While more data is better, we can often build highly effective MVP models using transfer learning, data augmentation, or synthetic data generation from smaller datasets."
+      },
+      {
+        "question": "What hardware is required to run the deployed models?",
+        "answer": "Our solutions are highly optimized. We can deploy on CPU-based cloud instances, massive GPU clusters, or even edge devices like NVIDIA Jetson using TensorRT."
+      },
+      {
+        "question": "Can you explain how the model makes its predictions?",
+        "answer": "Yes, we integrate explainable AI (XAI) techniques like SHAP or LIME to provide clear, interpretable reports on which features drove a specific prediction."
       }
     ],
     "specs": [
@@ -301,6 +349,22 @@ export const SERVICES_DATA: Record<string, ServiceData> = {
       {
         "question": "Which data warehouses do you support?",
         "answer": "We build for Snowflake, Google BigQuery, AWS Redshift, and Databricks Delta Lakehouses."
+      },
+      {
+        "question": "How do you ensure data quality and prevent bad data from breaking dashboards?",
+        "answer": "We implement automated dbt tests and Great Expectations checks within our pipelines to halt processing or alert teams immediately if data anomalies are detected."
+      },
+      {
+        "question": "Can you handle real-time streaming data as well as batch processing?",
+        "answer": "Absolutely. We build real-time event streaming architectures using Apache Kafka and Spark, alongside traditional batch processing workflows via Apache Airflow."
+      },
+      {
+        "question": "How is sensitive PII (Personally Identifiable Information) handled?",
+        "answer": "We apply strict data masking, hashing, and role-based tokenization before data lands in the warehouse to ensure compliance with GDPR, HIPAA, and SOC2."
+      },
+      {
+        "question": "Will we be locked into a specific cloud provider?",
+        "answer": "No. We utilize open-source standards and containerized workflows (like Docker, dbt, and Airflow) to ensure your data infrastructure remains cloud-agnostic."
       }
     ],
     "specs": [
@@ -387,6 +451,22 @@ export const SERVICES_DATA: Record<string, ServiceData> = {
       {
         "question": "Which modern web frameworks do you specialize in?",
         "answer": "We specialize in Next.js 19 (React), FastAPI (Python), Node.js, TailwindCSS, and Three.js 3D graphics."
+      },
+      {
+        "question": "Do you build SEO-friendly applications?",
+        "answer": "Yes, we leverage Next.js Server-Side Rendering (SSR) and Static Site Generation (SSG) to ensure your web applications rank highly and load instantly for search engines."
+      },
+      {
+        "question": "How do you handle website performance and load times?",
+        "answer": "We optimize everything from image compression and code splitting to utilizing Edge CDNs (like Vercel and Cloudflare) to consistently achieve 95+ Lighthouse performance scores."
+      },
+      {
+        "question": "Are your web applications mobile-responsive?",
+        "answer": "100%. Every interface we build is designed mobile-first, ensuring a seamless, native-feeling experience across smartphones, tablets, and desktop displays."
+      },
+      {
+        "question": "Can you integrate the frontend with our existing legacy backend?",
+        "answer": "Yes, our API gateway layer can aggregate and translate data from your existing legacy systems to serve modern, lightning-fast interfaces without rewriting your core backend."
       }
     ],
     "specs": [
