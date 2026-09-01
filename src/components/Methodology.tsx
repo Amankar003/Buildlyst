@@ -20,7 +20,7 @@ const PHASES: MethodCard[] = [
       "Cloud Infrastructure Blueprinting",
       "Security & Compliance Mapping"
     ],
-    imageSrc: "/static/img/method_arch.png",
+    imageSrc: "/static/img/method_arch.jpg",
     stickyTop: 100
   },
   {
@@ -32,7 +32,7 @@ const PHASES: MethodCard[] = [
       "Containerization (Docker & Kubernetes)",
       "Zero-Downtime Deployments"
     ],
-    imageSrc: "/static/img/method_eng.png",
+    imageSrc: "/static/img/method_eng.jpg",
     stickyTop: 140
   },
   {
@@ -44,7 +44,7 @@ const PHASES: MethodCard[] = [
       "RLHF & LoRA Fine-tuning",
       "Hallucination Mitigation Architecture"
     ],
-    imageSrc: "/static/img/method_ai.png",
+    imageSrc: "/static/img/method_ai.jpg",
     stickyTop: 180
   },
   {
@@ -56,7 +56,7 @@ const PHASES: MethodCard[] = [
       "Pipeline Throughput Optimization",
       "Compute Auto-scaling Strategies"
     ],
-    imageSrc: "/static/img/method_scale.png",
+    imageSrc: "/static/img/method_scale.jpg",
     stickyTop: 220
   }
 ];
