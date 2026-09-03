@@ -34,12 +34,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://buildlyst.in/services/${resolvedParams.service}`,
+      canonical: `https://www.buildlyst.in/services/${resolvedParams.service}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://buildlyst.in/services/${resolvedParams.service}`,
+      url: `https://www.buildlyst.in/services/${resolvedParams.service}`,
       type: "website",
     },
     twitter: {
@@ -85,7 +85,7 @@ export default async function Page({ params }: PageProps) {
     provider: {
       "@type": "Organization",
       name: "Buildlyst",
-      url: "https://buildlyst.in",
+      url: "https://www.buildlyst.in",
     },
     serviceType: serviceName,
     areaServed: "Worldwide",
@@ -100,19 +100,19 @@ export default async function Page({ params }: PageProps) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://buildlyst.in",
+        item: "https://www.buildlyst.in",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Services",
-        item: "https://buildlyst.in",
+        item: "https://www.buildlyst.in",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: serviceName,
-        item: `https://buildlyst.in/services/${serviceKey}`,
+        item: `https://www.buildlyst.in/services/${serviceKey}`,
       },
     ],
   };

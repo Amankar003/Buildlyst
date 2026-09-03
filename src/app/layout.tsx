@@ -28,7 +28,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://buildlyst.in"),
+  metadataBase: new URL("https://www.buildlyst.in"),
   title: "Buildlyst | AI & Data Engineering Studio",
   description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
   keywords: [
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://buildlyst.in/",
+    url: "https://www.buildlyst.in/",
     title: "Buildlyst | AI & Data Engineering Studio",
     description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
     siteName: "Buildlyst",
@@ -96,10 +96,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Buildlyst",
-              url: "https://buildlyst.in",
-              logo: "https://buildlyst.in/static/img/og-preview.svg",
+              url: "https://www.buildlyst.in",
+              logo: "https://www.buildlyst.in/static/img/og-preview.svg",
               description:
-                "Buildlyst is an AI and data engineering studio that builds custom AI agents, generative AI solutions, machine learning pipelines, data engineering infrastructure, and high-performance web applications for enterprises and startups.",
+                "Buildlyst is a technology company and an AI and data engineering studio. We build custom AI agents, generative AI solutions, machine learning pipelines, data engineering infrastructure, and high-performance web applications for enterprises and startups.",
               sameAs: [
                 "https://www.linkedin.com/company/buildlyst/",
                 "https://www.instagram.com/buildlyst",
@@ -125,7 +125,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Buildlyst",
-              url: "https://buildlyst.in",
+              url: "https://www.buildlyst.in",
               description:
                 "AI & Data Engineering Studio. We build custom AI agents, machine learning pipelines, and enterprise data systems.",
             }),

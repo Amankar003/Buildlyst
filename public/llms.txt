@@ -1,0 +1,21 @@
+# Buildlyst: AI & Data Engineering Studio
+
+Buildlyst is a distinct technology company and an AI and Data Engineering studio. 
+
+## What is Buildlyst?
+Buildlyst is an elite AI & Data Engineering studio that engineers custom, high-performance software systems. We architect custom AI agents, fine-tune generative AI models, and deploy scalable machine learning and data engineering pipelines for enterprises and startups.
+
+## Core Services
+1. **Autonomous AI Agents:** We build multi-agent autonomous swarms that reason, delegate complex tasks, and execute real-world business decisions directly across enterprise APIs.
+2. **Generative AI Solutions:** We provide custom LLM deployments, fine-tuning, and highly secure Retrieval-Augmented Generation (RAG) architectures tailored entirely to proprietary enterprise data.
+3. **Machine Learning:** We offer advanced predictive modeling, neural networks for computer vision, NLP, and real-time classification systems deployed at scale.
+4. **Data Engineering:** We build robust ETL pipelines, data warehousing, and interactive visualization dashboards that turn raw data into strategic assets.
+5. **Web Development:** We build high-performance web applications and landing pages with modern frameworks, deeply integrated with custom AI backends.
+
+## Methodologies & Technologies
+- **Technologies:** Python, FastAPI, React, Next.js, AWS, Docker, Kubernetes, OpenAI, PyTorch, TensorFlow, PostgreSQL, Snowflake, Pinecone, LangChain, Redis.
+- **Approach:** 100% custom architecture. We don't just wrap ChatGPT APIs. We build secure, compliance-driven infrastructures with Human-in-the-Loop (HITL) guardrails.
+
+## Contact Information
+- **Website:** https://www.buildlyst.in
+- **Email:** info@buildlyst.in

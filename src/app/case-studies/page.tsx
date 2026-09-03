@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     "Explore Buildlyst's portfolio of AI agent deployments, generative AI solutions, machine learning pipelines, and custom web applications across real estate, startups, manufacturing, e-commerce, healthcare, legal, and financial services.",
   alternates: {
-    canonical: "https://buildlyst.in/case-studies",
+    canonical: "https://www.buildlyst.in/case-studies",
   },
   openGraph: {
     title: "Case Studies | AI & Data Engineering Projects — Buildlyst",
     description:
       "Explore Buildlyst's portfolio of AI agent deployments, generative AI solutions, machine learning pipelines, and custom web applications built for enterprises and startups.",
-    url: "https://buildlyst.in/case-studies",
+    url: "https://www.buildlyst.in/case-studies",
     type: "website",
   },
   twitter: {
@@ -39,13 +39,13 @@ export default function CaseStudiesPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://buildlyst.in",
+                item: "https://www.buildlyst.in",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Case Studies",
-                item: "https://buildlyst.in/case-studies",
+                item: "https://www.buildlyst.in/case-studies",
               },
             ],
           }),

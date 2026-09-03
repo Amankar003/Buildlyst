@@ -243,7 +243,7 @@ export default function Hero() {
 
       <div className="hero-container">
         <div className="hero-content">
-          <span className="overline highlight">AI & Data Engineering Studio</span>
+          <span className="overline highlight">Buildlyst is an AI & Data Engineering Studio</span>
           <h1 className="hero-typewriter-title">
             <span className="text-white">We build </span>
             <span id="hero-slot1" className="text-skyblue">

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Read Buildlyst's privacy policy. Learn how we collect, use, and protect your personal data when you use our AI and data engineering services.",
   alternates: {
-    canonical: "https://buildlyst.in/privacy",
+    canonical: "https://www.buildlyst.in/privacy",
   },
 };
 
@@ -45,13 +45,13 @@ export default function PrivacyPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://buildlyst.in",
+                item: "https://www.buildlyst.in",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Privacy Policy",
-                item: "https://buildlyst.in/privacy",
+                item: "https://www.buildlyst.in/privacy",
               },
             ],
           }),

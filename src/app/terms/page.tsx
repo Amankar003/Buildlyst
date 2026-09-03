@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Read Buildlyst's terms of service. Understand our terms for AI agent development, generative AI integration, machine learning pipelines, and web engineering services.",
   alternates: {
-    canonical: "https://buildlyst.in/terms",
+    canonical: "https://www.buildlyst.in/terms",
   },
 };
 
@@ -45,13 +45,13 @@ export default function TermsPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://buildlyst.in",
+                item: "https://www.buildlyst.in",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Terms of Service",
-                item: "https://buildlyst.in/terms",
+                item: "https://www.buildlyst.in/terms",
               },
             ],
           }),
