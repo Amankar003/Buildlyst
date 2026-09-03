@@ -14,7 +14,6 @@ if (typeof window !== "undefined") {
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
-  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Disable browser scroll restoration and force scroll to top on reload/fresh load
@@ -29,56 +28,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     setLoading(false);
     setShowLoader(false);
 
-    // 2. Custom Cursor Follower
-    const cursor = cursorRef.current;
-    const onMouseMove = (e: MouseEvent) => {
-      if (!cursor) return;
-      requestAnimationFrame(() => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-      });
-    };
-
-    // Event delegation for cursor hover styles
-    const onMouseOver = (e: MouseEvent) => {
-      if (!cursor) return;
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.closest("a") ||
-          target.closest("button") ||
-          target.closest(".btn") ||
-          target.closest(".pill-links a") ||
-          target.closest(".accordion-item") ||
-          target.closest(".trust-logo-item") ||
-          target.closest("input") ||
-          target.closest("textarea"))
-      ) {
-        cursor.classList.add("hover");
-      }
-    };
-
-    const onMouseOut = (e: MouseEvent) => {
-      if (!cursor) return;
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.closest("a") ||
-          target.closest("button") ||
-          target.closest(".btn") ||
-          target.closest(".pill-links a") ||
-          target.closest(".accordion-item") ||
-          target.closest(".trust-logo-item") ||
-          target.closest("input") ||
-          target.closest("textarea"))
-      ) {
-        cursor.classList.remove("hover");
-      }
-    };
-
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseover", onMouseOver);
-    document.addEventListener("mouseout", onMouseOut);
+    // Removed custom cursor logic for performance
 
     // 3. Lenis Smooth Scrolling
     const lenis = new Lenis({
@@ -124,9 +74,6 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     document.addEventListener("click", handleAnchorClick);
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseover", onMouseOver);
-      document.removeEventListener("mouseout", onMouseOut);
       document.removeEventListener("click", handleAnchorClick);
       lenis.destroy();
       gsap.ticker.remove(rafTicker);
@@ -298,8 +245,6 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
         </div>
       )}
 
-      {/* Custom Cursor */}
-      <div className="custom-cursor" id="custom-cursor" ref={cursorRef}></div>
 
       {/* Noise Overlay */}
       <div className="noise-overlay"></div>

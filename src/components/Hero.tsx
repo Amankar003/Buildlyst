@@ -269,6 +269,18 @@ export default function Hero() {
             <Link href="#contact" className="btn btn-primary glow-border-btn">
               Start a Project
             </Link>
+            <Link
+              href="#master-industry-portal"
+              className="btn btn-secondary"
+              style={{
+                border: "1.5px solid rgba(0, 210, 255, 0.4)",
+                background: "rgba(0, 210, 255, 0.08)",
+                color: "#fff",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              View Case Studies →
+            </Link>
           </div>
         </div>
 

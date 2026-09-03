@@ -8,7 +8,7 @@ import PhilosophyV2 from "@/components/PhilosophyV2";
 import Playground from "@/components/Playground";
 import Architecture from "@/components/Architecture";
 import Methodology from "@/components/Methodology";
-import ProjectsCarousel from "@/components/ProjectsCarousel";
+import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import Faq from "@/components/Faq";
@@ -41,8 +41,8 @@ export default function Home() {
       {/* 7. Scroll card methodology stacking phases */}
       <Methodology />
 
-      {/* 8. Portfolio case studies carousel */}
-      <ProjectsCarousel />
+      {/* 8. Portfolio case studies (Featured Case Studies teaser) */}
+      <FeaturedCaseStudies />
 
       {/* 9. Engagement pricing matrix with estimator predictor */}
       <Pricing />

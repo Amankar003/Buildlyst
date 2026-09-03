@@ -2,9 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+
 
 export default function Globe3D() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,21 +34,7 @@ export default function Globe3D() {
     renderer.setClearColor(0x000000, 0); // Transparent background for bloom
     container.appendChild(renderer.domElement);
 
-    // Setup Post-Processing (Bloom) - adjusted for a softer, premium glow
-    const renderScene = new RenderPass(scene, camera);
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(width, height),
-      1.0, // toned down strength
-      0.5, // radius
-      0.25 // threshold
-    );
-    bloomPass.threshold = 0.25;
-    bloomPass.strength = 1.0; // reduced from 4.0 to stop over-exposure
-    bloomPass.radius = 0.6;
-
-    const composer = new EffectComposer(renderer);
-    composer.addPass(renderScene);
-    composer.addPass(bloomPass);
+    // Removed EffectComposer (Bloom) to fix the black background and improve performance
 
     const globeGroup = new THREE.Group();
     scene.add(globeGroup);
@@ -68,10 +52,10 @@ export default function Globe3D() {
     });
     globeGroup.add(new THREE.Mesh(sphereGeo, glassMat));
 
-    // 2. Atmospheric Rim Light - Changed to brand Violet (0x8a2387) for a dual-tone cyan/purple effect
+    // 2. Atmospheric Rim Light - Sky blue effect
     const rimMat = new THREE.ShaderMaterial({
       uniforms: {
-        color: { value: new THREE.Color(0x8a2387) },
+        color: { value: new THREE.Color(0x00d2ff) },
       },
       vertexShader: `
         varying vec3 vNormal;
@@ -94,12 +78,12 @@ export default function Globe3D() {
     });
     globeGroup.add(new THREE.Mesh(new THREE.SphereGeometry(5.05, 64, 64), rimMat));
 
-    // 3. Real Continents (Texture Sampling) - Toned down color to cyan
+    // 3. Real Continents (Texture Sampling) - Sky blue dots
     const dotsGeo = new THREE.BufferGeometry();
     const dotsMat = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
-        color: { value: new THREE.Color(0x00bfff) }, // Cyan-blue continent dots
+        color: { value: new THREE.Color(0x00d2ff) }, // Sky blue continent dots
       },
       vertexShader: `
         attribute float aOpacity;
@@ -198,7 +182,7 @@ export default function Globe3D() {
     const starMesh = new THREE.Points(
       starGeo,
       new THREE.PointsMaterial({
-        color: 0x3a7bd5, // Brand blue for space dust
+        color: 0xffffff, // White for space dust
         size: 0.03, // smaller size
         transparent: true,
         opacity: 0.25, // lower opacity
@@ -215,7 +199,7 @@ export default function Globe3D() {
       speed: number;
     }
     const nodes: NodeObject[] = [];
-    const nodeColors = [0x00d2ff, 0x8a2387, 0x00d2ff, 0x8a2387, 0x3a7bd5];
+    const nodeColors = [0x00d2ff, 0xffffff, 0x00d2ff, 0xffffff, 0x00d2ff];
     for (let i = 0; i < 5; i++) {
       const nodeGroup = new THREE.Group();
       const nodeColor = nodeColors[i];
@@ -247,16 +231,19 @@ export default function Globe3D() {
 
     // Lighting - Toned down from 1.5 to 0.6
     scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-    const dirLight = new THREE.DirectionalLight(0x3a7bd5, 0.6);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
     dirLight.position.set(-5, 5, -5);
     scene.add(dirLight);
 
     // Animation Loop
     const clock = new THREE.Clock();
     let animationFrameId: number;
+    let isVisible = true;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+      if (!isVisible) return; // Pause rendering if not visible
+
       const time = clock.getElapsedTime();
 
       // 1 rotation / 25s
@@ -275,7 +262,7 @@ export default function Globe3D() {
         );
       });
 
-      composer.render();
+      renderer.render(scene, camera);
     };
     animate();
 
@@ -297,13 +284,20 @@ export default function Globe3D() {
       
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
-      composer.setSize(w, h);
     };
     window.addEventListener("resize", handleResize);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isVisible = entry.isIntersecting;
+      });
+    }, { threshold: 0 });
+    if (container) observer.observe(container);
 
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (container) observer.unobserve(container);
       window.removeEventListener("resize", handleResize);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -329,7 +323,6 @@ export default function Globe3D() {
         });
       });
       renderer.dispose();
-      composer.dispose();
     };
   }, []);
 

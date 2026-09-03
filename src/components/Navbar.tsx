@@ -90,8 +90,8 @@ export default function Navbar() {
           <Link href={isHome ? "#pricing" : "/#pricing"} className={activeSection === "pricing" ? "active" : ""}>
             Pricing
           </Link>
-          <Link href={isHome ? "#faq" : "/#faq"} className={activeSection === "faq" ? "active" : ""}>
-            FAQ
+          <Link href="/case-studies" className={pathname === "/case-studies" ? "active" : ""}>
+            Case Studies
           </Link>
         </div>
 
@@ -172,8 +172,8 @@ export default function Navbar() {
             <Link href={isHome ? "#pricing" : "/#pricing"} className="mobile-nav-link" onClick={closeMobileMenu}>
               Pricing
             </Link>
-            <Link href={isHome ? "#faq" : "/#faq"} className="mobile-nav-link" onClick={closeMobileMenu}>
-              FAQ
+            <Link href="/case-studies" className="mobile-nav-link" onClick={closeMobileMenu}>
+              Case Studies
             </Link>
           </div>
         </div>

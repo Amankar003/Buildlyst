@@ -24,6 +24,22 @@ const FAQS: FaqItem[] = [
     question: "How do you handle data security and privacy?",
     answer: "We implement enterprise-grade security protocols, including end-to-end encryption, VPC isolation, and compliance-driven architectures. For highly sensitive data, we can deploy open-source models (like Llama 3) directly onto your on-premise servers so data never leaves your environment.",
   },
+  {
+    question: "What does your pricing structure look like?",
+    answer: "We offer transparent, fixed-price engagements based on project scope, rather than unpredictable hourly billing. Engagements typically start at ₹35K for basic web setups and scale to ₹5L+ for enterprise Gen AI deployments. You can use our AI Predictor on the Pricing page to get an estimate.",
+  },
+  {
+    question: "Do you provide post-delivery support and maintenance?",
+    answer: "Yes, we offer flexible post-deployment SLA (Service Level Agreement) packages. These include 24/7 monitoring, regular model retraining, bug fixes, and infrastructure scaling to ensure your AI systems remain highly performant as your user base grows.",
+  },
+  {
+    question: "What is your communication cadence during a project?",
+    answer: "We believe in radical transparency. You will have a dedicated Slack/Teams channel with our core engineers, weekly sprint review calls, and a live Notion dashboard where you can track every task, milestone, and deliverable in real-time.",
+  },
+  {
+    question: "How is your team structured?",
+    answer: "We don't use junior developers or offshore intermediaries. When you hire Buildlyst, you work directly with senior AI engineers, data architects, and full-stack developers who have built scalable systems for leading enterprises and high-growth startups.",
+  },
 ];
 
 export default function Faq() {
