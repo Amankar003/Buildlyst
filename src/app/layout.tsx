@@ -29,7 +29,7 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://buildlyst.in"),
-  title: "Buildlyst | Premium AI & Data Engineering Studio",
+  title: "Buildlyst | AI & Data Engineering Studio",
   description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
   keywords: [
     "AI Agency",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://buildlyst.in/",
-    title: "Buildlyst | Premium AI & Data Engineering Studio",
+    title: "Buildlyst | AI & Data Engineering Studio",
     description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
     siteName: "Buildlyst",
     images: [
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
         url: "/static/img/og-preview.svg",
         width: 1200,
         height: 630,
-        alt: "Buildlyst — Premium AI & Data Engineering Studio",
+        alt: "Buildlyst — AI & Data Engineering Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Buildlyst | Premium AI & Data Engineering Studio",
+    title: "Buildlyst | AI & Data Engineering Studio",
     description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
     images: ["/static/img/og-preview.svg"],
   },
@@ -99,7 +99,7 @@ export default function RootLayout({
               url: "https://buildlyst.in",
               logo: "https://buildlyst.in/static/img/og-preview.svg",
               description:
-                "Buildlyst is a premium AI and data engineering studio that builds custom AI agents, generative AI solutions, machine learning pipelines, data engineering infrastructure, and high-performance web applications for enterprises and startups.",
+                "Buildlyst is an AI and data engineering studio that builds custom AI agents, generative AI solutions, machine learning pipelines, data engineering infrastructure, and high-performance web applications for enterprises and startups.",
               sameAs: [
                 "https://www.linkedin.com/company/buildlyst/",
                 "https://www.instagram.com/buildlyst",
@@ -127,7 +127,7 @@ export default function RootLayout({
               name: "Buildlyst",
               url: "https://buildlyst.in",
               description:
-                "Premium AI & Data Engineering Studio. We build custom AI agents, machine learning pipelines, and enterprise data systems.",
+                "AI & Data Engineering Studio. We build custom AI agents, machine learning pipelines, and enterprise data systems.",
             }),
           }}
         />
