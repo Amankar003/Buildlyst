@@ -47,7 +47,7 @@ export default function FeaturedCaseStudies() {
           <div className="glass-panel glowing-card mip-card-split">
             {/* LEFT SIDE: Image */}
             <div className="mip-split-left">
-              <Image src={featuredCase.imageSrc} alt={featuredCase.title} fill className="mip-card-img" />
+              <Image src={featuredCase.imageSrc} alt={`${featuredCase.title} — ${featuredCase.subDomain} project by Buildlyst`} fill className="mip-card-img" />
               <div className="mip-card-img-overlay" />
               <div className="mip-card-location-badge">
                 📍 {featuredCase.location}

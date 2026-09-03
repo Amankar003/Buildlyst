@@ -270,7 +270,7 @@ export default function Hero() {
               Start a Project
             </Link>
             <Link
-              href="#master-industry-portal"
+              href="/case-studies"
               className="btn btn-secondary"
               style={{
                 border: "1.5px solid rgba(0, 210, 255, 0.4)",

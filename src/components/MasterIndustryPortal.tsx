@@ -53,7 +53,7 @@ export default function MasterIndustryPortal() {
               >
                 {/* LEFT SIDE: Image */}
                 <div className="mip-split-left">
-                  <Image src={cCard.imageSrc} alt={cCard.title} fill className="mip-card-img" />
+                  <Image src={cCard.imageSrc} alt={`${cCard.title} — ${cCard.subDomain} project by Buildlyst`} fill className="mip-card-img" />
                   <div className="mip-card-img-overlay" />
                   <div className="mip-card-location-badge">
                     📍 {cCard.location}

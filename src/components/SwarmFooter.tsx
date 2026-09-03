@@ -358,6 +358,9 @@ export default function SwarmFooter() {
                   <Link href={isHome ? "#about" : "/#about"}>About Us</Link>
                 </li>
                 <li>
+                  <Link href="/case-studies">Case Studies</Link>
+                </li>
+                <li>
                   <Link href={isHome ? "#pricing" : "/#pricing"}>Pricing</Link>
                 </li>
                 <li>
@@ -380,7 +383,7 @@ export default function SwarmFooter() {
 
           {/* Swarm Visual Grid Container */}
           <div className="footer-visual-grid-container" style={{ position: "relative", overflow: "hidden", borderRadius: "12px" }}>
-            <canvas ref={canvasRef} id="agent-swarm-canvas" style={{ width: "100%", height: "260px", display: "block" }} />
+            <canvas ref={canvasRef} id="agent-swarm-canvas" aria-label="Animated swarm intelligence visualization" style={{ width: "100%", height: "260px", display: "block" }} />
 
             <div style={{ position: "absolute", bottom: "12px", left: "16px", pointerEvents: "none" }}>
               <div

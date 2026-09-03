@@ -1,0 +1,10 @@
+# Buildlyst – https://buildlyst.in
+# robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /prototypes_server/
+Disallow: /preview-impact/
+
+Sitemap: https://buildlyst.in/sitemap.xml

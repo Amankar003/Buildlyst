@@ -258,7 +258,7 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
               <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "4px", background: "linear-gradient(90deg, #00D2FF, #8A2387)" }}></div>
               <img
                 src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Production Deliverables"
+                alt={`${serviceData.headline} — production deliverables built by Buildlyst`}
                 style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85, filter: "contrast(1.1)", display: "block" }}
               />
             </div>
@@ -519,7 +519,7 @@ flow.compile()`}
                 <div
                   className="faq-answer"
                   style={{
-                    maxHeight: openFaqIdx === idx ? "120px" : "0",
+                    maxHeight: openFaqIdx === idx ? "300px" : "0",
                     overflow: "hidden",
                     transition: "max-height 0.4s ease-out, padding 0.3s ease-out",
                     padding: openFaqIdx === idx ? "16px 20px" : "0 20px"
@@ -535,6 +535,43 @@ flow.compile()`}
 
       {/* ContactForm */}
       <ContactForm />
+
+      {/* Internal cross-linking to other Buildlyst services — GEO/SEO */}
+      <section style={{ padding: "60px 0", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="container" style={{ maxWidth: "800px" }}>
+          <div className="section-header text-center" style={{ marginBottom: "24px" }}>
+            <h2 className="section-heading" style={{ color: "#fff", fontSize: "24px" }}>Explore More Buildlyst Services</h2>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>Buildlyst offers a full spectrum of AI, data, and web engineering services.</p>
+          </div>
+          <nav style={{ display: "flex", flexWrap: "wrap", gap: "12px", justifyContent: "center" }}>
+            {Object.entries({
+              "ai-agents": "AI Agents",
+              "gen-ai": "Generative AI",
+              "machine-learning": "Machine Learning",
+              "data-engineering": "Data Engineering",
+              "web-development": "Web Development",
+            })
+              .filter(([key]) => key !== serviceKey)
+              .map(([key, name]) => (
+                <Link
+                  key={key}
+                  href={`/services/${key}`}
+                  className="btn glass-btn"
+                  style={{ padding: "10px 20px", fontSize: "13px", borderRadius: "8px" }}
+                >
+                  {name}
+                </Link>
+              ))}
+            <Link
+              href="/case-studies"
+              className="btn glass-btn"
+              style={{ padding: "10px 20px", fontSize: "13px", borderRadius: "8px" }}
+            >
+              View Case Studies
+            </Link>
+          </nav>
+        </div>
+      </section>
     </>
   );
 }

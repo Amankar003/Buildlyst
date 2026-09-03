@@ -49,7 +49,26 @@ export default function Faq() {
     setOpenIdx(openIdx === idx ? null : idx);
   };
 
+  // Build FAQPage JSON-LD from genuine FAQ data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
     <section id="faq" className="faq-section reveal">
       <div className="container">
         <div className="section-header text-center">
@@ -79,5 +98,6 @@ export default function Faq() {
         </div>
       </div>
     </section>
+    </>
   );
 }
