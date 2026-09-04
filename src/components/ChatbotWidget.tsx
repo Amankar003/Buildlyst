@@ -24,8 +24,10 @@ export default function ChatbotWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (messages.length > 1 || isOpen) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [messages, isOpen]);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);

@@ -40,7 +40,9 @@ export default function ContactForm() {
 
   // Auto scroll to bottom of chat
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (bubbles.length > 1) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   }, [bubbles]);
 
   const addBubble = (text: string, sender: "system" | "user", isTyping = false) => {

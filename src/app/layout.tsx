@@ -78,6 +78,14 @@ export const metadata: Metadata = {
     description: "We build high-performance AI agents, machine learning pipelines, and custom data systems that transform how businesses operate.",
     images: ["/static/img/og-preview.svg"],
   },
+  icons: {
+    icon: [
+      { url: "/static/img/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/static/img/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
