@@ -139,11 +139,10 @@ export default function RootLayout({
             }),
           }}
         />
+        <Navbar />
         <ClientWrapper>
-          <Navbar />
           {children}
           <SwarmFooter />
-
         </ClientWrapper>
       </body>
     </html>
