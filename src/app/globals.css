@@ -170,9 +170,6 @@ h3 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    position: relative;
-    z-index: 1;
-    transform: translateZ(0);
 }
 
 /* Hero Typewriter 3-Line Headline */
@@ -491,7 +488,7 @@ section {
     position: fixed;
     top: 24px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateZ(100px); /* Force front in 3D space */
     background: rgba(8, 8, 12, 0.98); /* Solid enough to prevent text overlap without backdrop-filter */
     border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
