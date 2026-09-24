@@ -170,6 +170,9 @@ h3 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    position: relative;
+    z-index: 1;
+    transform: translateZ(0);
 }
 
 /* Hero Typewriter 3-Line Headline */
