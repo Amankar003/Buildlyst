@@ -3469,6 +3469,17 @@ section {
         display: none;
     }
 
+    .pill-nav {
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        background: rgba(8, 8, 12, 0.98);
+        padding: 12px 20px;
+    }
+
     .mobile-menu-btn {
         display: flex;
     }
@@ -3549,8 +3560,8 @@ section {
     }
 
     .pill-nav {
-        width: 95%;
-        padding: 6px 12px;
+        width: 100%;
+        padding: 12px 16px;
     }
 
     .hero-actions {

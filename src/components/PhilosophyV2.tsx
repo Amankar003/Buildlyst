@@ -121,6 +121,7 @@ export default function PhilosophyV2() {
         borderTop: "1px solid rgba(255,255,255,0.05)",
         overflow: "hidden",
         background: "radial-gradient(circle at 30% 50%, rgba(0, 210, 255, 0.03) 0%, rgba(138, 35, 137, 0.02) 40%, transparent 70%)",
+        scrollMarginTop: "80px",
       }}
     >
       <style>{`
@@ -150,6 +151,9 @@ export default function PhilosophyV2() {
             font-size: 9.5px !important;
             white-space: normal !important;
             line-height: 1.2;
+          }
+          #philosophy-v2 {
+            padding: 120px 0 60px 0 !important;
           }
         }
       `}</style>
