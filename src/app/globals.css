@@ -2999,12 +2999,14 @@ section {
 .global-section {
     padding-top: 0;
     padding-bottom: 80px;
+    background: #000000;
+    position: relative;
+    z-index: 2;
 }
 
 .global-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: #000000;
     border: 1px solid var(--c-border);
-    backdrop-filter: blur(20px);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
