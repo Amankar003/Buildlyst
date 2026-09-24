@@ -55,7 +55,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="pill-nav">
+      <nav className="pill-nav" style={{ position: 'fixed', zIndex: 2147483647 }}>
         <Link href="/" className="logo text-gradient">
           Buildlyst
         </Link>

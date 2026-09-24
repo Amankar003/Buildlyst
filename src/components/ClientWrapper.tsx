@@ -251,7 +251,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       <div className="noise-overlay"></div>
 
       {/* Main Content Wrapper */}
-      <div id="main-content">
+      <div id="main-content" style={{ position: 'relative', zIndex: 1 }}>
         {/* Ambient Background Effects */}
         <div className="ambient-glow glow-1"></div>
         <div className="ambient-glow glow-2"></div>
