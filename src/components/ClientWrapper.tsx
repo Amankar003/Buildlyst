@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
+import WhatsAppWidget from "./WhatsAppWidget";
 
 // Register ScrollTrigger globally
 if (typeof window !== "undefined") {
@@ -255,6 +256,7 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
         <div className="ambient-glow glow-1"></div>
         <div className="ambient-glow glow-2"></div>
 
+        <WhatsAppWidget />
         {children}
       </div>
     </>

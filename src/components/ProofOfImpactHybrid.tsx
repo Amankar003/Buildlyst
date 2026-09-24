@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import { Zap } from "lucide-react";
 
 interface ProjectCaseStudy {
   id: string;
@@ -204,6 +205,7 @@ export default function ProofOfImpactHybrid() {
                     src={proj.imageSrc}
                     alt={proj.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 420px"
                     style={{
                       objectFit: "cover",
                       objectPosition: "top center",
@@ -252,10 +254,13 @@ export default function ProofOfImpactHybrid() {
                       fontSize: "11px",
                       fontWeight: 800,
                       boxShadow: "0 0 15px rgba(0,210,255,0.5)",
-                      letterSpacing: "0.5px"
+                      letterSpacing: "0.5px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px"
                     }}
                   >
-                    ⚡ {proj.roiBadge}
+                    <Zap size={12} className="theme-icon" style={{ color: "#000" }} /> {proj.roiBadge}
                   </div>
 
                   {/* Card Title on Image */}
@@ -298,8 +303,8 @@ export default function ProofOfImpactHybrid() {
                     </div>
 
                     <div>
-                      <strong style={{ color: "var(--c-accent-cyan)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.8px", display: "block", marginBottom: "3px" }}>
-                        ⚡ The Solution
+                      <strong style={{ color: "var(--c-accent-cyan)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.8px", display: "flex", alignItems: "center", gap: "4px", marginBottom: "3px" }}>
+                        <Zap size={12} className="theme-icon theme-icon-cyan" /> The Solution
                       </strong>
                       <span style={{ color: "rgba(255, 255, 255, 0.85)" }}>{proj.solution}</span>
                     </div>

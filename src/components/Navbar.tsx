@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Bot, BrainCircuit, Microscope, Database, Zap } from "lucide-react";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -50,6 +51,7 @@ export default function Navbar() {
   };
 
   const isHome = pathname === "/";
+  const isServicePage = pathname.startsWith("/services/");
 
   return (
     <>
@@ -59,35 +61,35 @@ export default function Navbar() {
         </Link>
 
         <div className="pill-links">
-          <Link href={isHome ? "#about" : "/#about"} className={activeSection === "about" ? "active" : ""}>
-            About
+          <Link href={isHome ? "#about" : isServicePage ? `${pathname}#about` : "/#about"} className={activeSection === "about" ? "active" : ""}>
+            {isServicePage ? "Overview" : "About Us"}
           </Link>
           <div className="nav-dropdown">
             <Link href={isHome ? "#services" : "/#services"} className="dropdown-toggle">
               Capabilities <span className="caret">▼</span>
             </Link>
             <div className="dropdown-menu glass-panel">
-              <Link href="/services/ai-agents" className={pathname === "/services/ai-agents" ? "active" : ""}>
-                🤖 AI Agents
+              <Link href="/services/ai-agents" className={pathname === "/services/ai-agents" ? "active" : ""} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Bot size={14} className="theme-icon theme-icon-cyan" /> AI Agents & Automation
               </Link>
-              <Link href="/services/gen-ai" className={pathname === "/services/gen-ai" ? "active" : ""}>
-                🧠 Gen AI
+              <Link href="/services/gen-ai" className={pathname === "/services/gen-ai" ? "active" : ""} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <BrainCircuit size={14} className="theme-icon theme-icon-purple" /> Generative AI & RAG
               </Link>
-              <Link href="/services/machine-learning" className={pathname === "/services/machine-learning" ? "active" : ""}>
-                🔬 Machine Learning
+              <Link href="/services/machine-learning" className={pathname === "/services/machine-learning" ? "active" : ""} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Microscope size={14} className="theme-icon theme-icon-cyan" /> Machine Learning & Predictive AI
               </Link>
-              <Link href="/services/data-engineering" className={pathname === "/services/data-engineering" ? "active" : ""}>
-                🗄️ Data Engineering
+              <Link href="/services/data-engineering" className={pathname === "/services/data-engineering" ? "active" : ""} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Database size={14} className="theme-icon theme-icon-purple" /> Data Engineering & Analytics
               </Link>
-              <Link href="/services/web-development" className={pathname === "/services/web-development" ? "active" : ""}>
-                ⚡ Web Development
+              <Link href="/services/ai-product-engineering" className={pathname === "/services/ai-product-engineering" ? "active" : ""} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Zap size={14} className="theme-icon theme-icon-cyan" /> AI Product Engineering
               </Link>
             </div>
           </div>
-          <Link href={isHome ? "#playground" : "/#playground"} className={activeSection === "playground" ? "active" : ""}>
+          <Link href={isHome ? "#playground" : isServicePage ? `${pathname}#playground` : "/#playground"} className={activeSection === "playground" ? "active" : ""}>
             Playground
           </Link>
-          <Link href={isHome ? "#pricing" : "/#pricing"} className={activeSection === "pricing" ? "active" : ""}>
+          <Link href={isHome ? "#pricing" : isServicePage ? `${pathname}#pricing` : "/#pricing"} className={activeSection === "pricing" ? "active" : ""}>
             Pricing
           </Link>
           <Link href="/case-studies" className={pathname === "/case-studies" ? "active" : ""}>
@@ -96,7 +98,7 @@ export default function Navbar() {
         </div>
 
         <div className="nav-right">
-          <Link href={isHome ? "#contact" : "/#contact"} className="btn btn-primary glow-border-btn pill-cta">
+          <Link href={isHome ? "#contact" : isServicePage ? `${pathname}#contact` : "/#contact"} className="btn btn-primary glow-border-btn pill-cta">
             Let&apos;s Talk
           </Link>
           <button
@@ -121,8 +123,8 @@ export default function Navbar() {
             </button>
           </div>
           <div className="mobile-menu-links">
-            <Link href={isHome ? "#about" : "/#about"} className="mobile-nav-link" onClick={closeMobileMenu}>
-              About
+            <Link href={isHome ? "#about" : isServicePage ? `${pathname}#about` : "/#about"} className="mobile-nav-link" onClick={closeMobileMenu}>
+              {isServicePage ? "Overview" : "About Us"}
             </Link>
 
             <span className="mobile-nav-link" style={{ color: "#fff", cursor: "default", display: "block", marginBottom: 0 }}>
@@ -134,42 +136,42 @@ export default function Navbar() {
                 className={pathname === "/services/ai-agents" ? "active" : ""}
                 onClick={closeMobileMenu}
               >
-                AI Agents
+                AI Agents & Automation
               </Link>
               <Link
                 href="/services/gen-ai"
                 className={pathname === "/services/gen-ai" ? "active" : ""}
                 onClick={closeMobileMenu}
               >
-                Gen AI
+                Generative AI & RAG
               </Link>
               <Link
                 href="/services/machine-learning"
                 className={pathname === "/services/machine-learning" ? "active" : ""}
                 onClick={closeMobileMenu}
               >
-                Machine Learning
+                Machine Learning & Predictive AI
               </Link>
               <Link
                 href="/services/data-engineering"
                 className={pathname === "/services/data-engineering" ? "active" : ""}
                 onClick={closeMobileMenu}
               >
-                Data Engineering
+                Data Engineering & Analytics
               </Link>
               <Link
-                href="/services/web-development"
-                className={pathname === "/services/web-development" ? "active" : ""}
+                href="/services/ai-product-engineering"
+                className={pathname === "/services/ai-product-engineering" ? "active" : ""}
                 onClick={closeMobileMenu}
               >
-                Web Development
+                AI Product Engineering
               </Link>
             </div>
 
-            <Link href={isHome ? "#playground" : "/#playground"} className="mobile-nav-link" onClick={closeMobileMenu}>
+            <Link href={isHome ? "#playground" : isServicePage ? `${pathname}#playground` : "/#playground"} className="mobile-nav-link" onClick={closeMobileMenu}>
               Playground
             </Link>
-            <Link href={isHome ? "#pricing" : "/#pricing"} className="mobile-nav-link" onClick={closeMobileMenu}>
+            <Link href={isHome ? "#pricing" : isServicePage ? `${pathname}#pricing` : "/#pricing"} className="mobile-nav-link" onClick={closeMobileMenu}>
               Pricing
             </Link>
             <Link href="/case-studies" className="mobile-nav-link" onClick={closeMobileMenu}>

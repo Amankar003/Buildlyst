@@ -17,7 +17,7 @@ interface DisciplineFlow {
 const DISCIPLINES: DisciplineFlow[] = [
   {
     id: "agents",
-    title: "AI Agents",
+    title: "AI Agents & Automation",
     steps: [
       { icon: "👤", label: "User Intent" },
       { icon: "🧠", label: "Reasoning Engine" },
@@ -28,7 +28,7 @@ const DISCIPLINES: DisciplineFlow[] = [
   },
   {
     id: "genai",
-    title: "Gen AI",
+    title: "Generative AI & RAG",
     steps: [
       { icon: "📄", label: "Raw Documents" },
       { icon: "📉", label: "Embedding Model" },
@@ -39,7 +39,7 @@ const DISCIPLINES: DisciplineFlow[] = [
   },
   {
     id: "ml",
-    title: "Machine Learning",
+    title: "Machine Learning & Predictive AI",
     steps: [
       { icon: "📦", label: "Raw Data" },
       { icon: "🧹", label: "Preprocessing" },
@@ -50,7 +50,7 @@ const DISCIPLINES: DisciplineFlow[] = [
   },
   {
     id: "data",
-    title: "Data Engineering",
+    title: "Data Engineering & Analytics",
     steps: [
       { icon: "🌐", label: "Data Sources" },
       { icon: "⚙️", label: "ETL Pipeline" },
@@ -61,7 +61,7 @@ const DISCIPLINES: DisciplineFlow[] = [
   },
   {
     id: "web",
-    title: "Web Development",
+    title: "AI Product Engineering",
     steps: [
       { icon: "💻", label: "User Interface" },
       { icon: "🚪", label: "API Gateway" },
@@ -103,14 +103,9 @@ export default function Architecture() {
         <div className="section-header text-center">
           <span className="overline highlight">Engineering Core</span>
           <h2 className="section-heading text-gradient">Enterprise Architecture</h2>
-          <p className="subtext text-center mx-auto">
+          <p className="subtext text-center mx-auto" style={{ maxWidth: "800px" }}>
             Built on a foundation of elite frameworks, tailored for specific autonomous use-cases.
           </p>
-          <div style={{ marginTop: "24px" }}>
-            <Link href="#services" className="btn btn-secondary glass-btn">
-              View Full Service Technical Specs &rarr;
-            </Link>
-          </div>
         </div>
 
         {/* Infinite Tech Marquee */}
@@ -126,13 +121,13 @@ export default function Architecture() {
           </div>
         </div>
 
-        {/* Architecture Tabs */}
-        <div className="arch-tabs">
+        <div className="arch-tabs" style={{ flexWrap: "nowrap", overflowX: "auto", whiteSpace: "nowrap", paddingBottom: "10px", justifyContent: "flex-start", WebkitOverflowScrolling: "touch" }}>
           {DISCIPLINES.map((d) => (
             <button
               key={d.id}
               className={`arch-tab-btn ${activeTab === d.id ? "active" : ""}`}
               onClick={() => setActiveTab(d.id)}
+              style={{ fontSize: "13px", padding: "8px 16px", flexShrink: 0 }}
             >
               {d.title}
             </button>

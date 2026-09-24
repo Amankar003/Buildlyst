@@ -80,7 +80,7 @@ export default function ContactForm() {
         setFormData((prev) => ({ ...prev, email: val }));
         addBubble("Thanks! What area do you need help with?", "system");
         setShowInput(false);
-        setOptions(["AI Agents", "Gen AI", "Machine Learning", "Data Engineering", "Web Development"]);
+        setOptions(["AI Agents & Automation", "Generative AI & RAG", "Machine Learning & Predictive AI", "Data Engineering & Analytics", "AI Product Engineering"]);
         setStep(2);
       } else if (step === 3) {
         if (val.length < 10) {
@@ -166,49 +166,53 @@ export default function ContactForm() {
         
         <div className="contact-grid">
           {/* Left Conversational Form */}
-          <div className="contact-form-wrapper glass-panel glow-border p-lg">
-            <h2 className="section-heading" style={{ marginBottom: "24px", fontSize: "28px" }}>Initiate Project</h2>
+          <div className="chat-simulation-container glass-panel" style={{ margin: 0, maxWidth: "100%", height: "500px" }}>
+            {/* Terminal Header */}
+            <div className="sim-header">
+              <div className="sim-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span className="sim-title">Initiate Project | Buildlyst Assistant</span>
+            </div>
 
-            <div className="conversational-ui-container">
-              <div className="conv-messages" id="conv-messages" style={{ overflowY: "auto", maxHeight: "300px" }}>
+            <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
+              <div className="sim-messages" id="conv-messages" style={{ overflowY: "auto", flex: 1 }}>
                 {bubbles.map((b) => (
-                  <div key={b.id} className={`conv-bubble ${b.sender}`}>
-                    <div className="conv-avatar">
-                      {b.sender === "system" ? "B" : (formData.name.charAt(0).toUpperCase() || "U")}
-                    </div>
-                    <div className="conv-text">
-                      {b.isTyping ? (
-                        <div className="typing-indicator">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                        </div>
-                      ) : (
-                        <div dangerouslySetInnerHTML={{ __html: b.text }} />
-                      )}
-                    </div>
+                  <div key={b.id} className={`sim-message ${b.sender === "system" ? "ai" : "user"}`}>
+                    {b.isTyping ? (
+                      <div className="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    ) : (
+                      <div dangerouslySetInnerHTML={{ __html: b.text }} />
+                    )}
                   </div>
                 ))}
                 <div ref={messagesEndRef} />
               </div>
 
               {showInput ? (
-                <div className="conv-input-area" id="conv-input-area">
+                <div style={{ padding: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.2)", display: "flex", gap: "12px" }}>
                   <input
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     className="glass-input"
+                    style={{ flex: 1, padding: "12px", borderRadius: "8px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#fff" }}
                     placeholder={step === 0 ? "Type your name..." : step === 1 ? "Type your email..." : "Type details..."}
                     aria-label="Conversational message input"
                   />
-                  <button onClick={handleSend} className="btn btn-primary glow-border-btn">Send</button>
+                  <button onClick={handleSend} className="btn glow-border-btn" style={{ padding: "8px 20px" }}>Send</button>
                 </div>
               ) : (
-                <div className="conv-options-area" id="conv-options-area">
+                <div style={{ padding: "16px", borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.2)", display: "flex", gap: "8px", flexWrap: "wrap" }}>
                   {options.map((opt, i) => (
-                    <button key={i} onClick={() => handleOptionClick(opt)} className="conv-option-btn">
+                    <button key={i} onClick={() => handleOptionClick(opt)} style={{ padding: "8px 16px", fontSize: "13px", borderRadius: "20px", background: "rgba(0, 210, 255, 0.1)", border: "1px solid var(--c-accent-cyan)", color: "#fff", cursor: "pointer" }}>
                       {opt}
                     </button>
                   ))}
@@ -224,8 +228,12 @@ export default function ContactForm() {
               <p>Bangalore, India<br />Remote Worldwide</p>
             </div>
             <div className="info-block glass-panel">
-              <span className="overline highlight">Also Present In</span>
-              <p>Hyderabad<br />Noida</p>
+              <span className="overline highlight">Phone Contact</span>
+              <p>
+                <a href="tel:+917462095793" className="text-gradient" style={{ fontWeight: 700, fontSize: "16px" }}>
+                  +91 7462095793
+                </a>
+              </p>
             </div>
             <div className="info-block glass-panel">
               <span className="overline highlight">Direct Inquiry</span>

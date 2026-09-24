@@ -13,11 +13,11 @@ interface PageProps {
 
 // Human-readable service names for metadata
 const SERVICE_NAMES: Record<string, string> = {
-  "ai-agents": "AI Agents",
-  "gen-ai": "Generative AI",
-  "machine-learning": "Machine Learning",
-  "data-engineering": "Data Engineering",
-  "web-development": "Web Development",
+  "ai-agents": "AI Agents & Automation",
+  "gen-ai": "Generative AI & RAG",
+  "machine-learning": "Machine Learning & Predictive AI",
+  "data-engineering": "Data Engineering & Analytics",
+  "ai-product-engineering": "AI Product Engineering",
 };
 
 // Generate dynamic metadata for search engines
@@ -143,7 +143,7 @@ export function generateStaticParams() {
     { service: "gen-ai" },
     { service: "machine-learning" },
     { service: "data-engineering" },
-    { service: "web-development" },
+    { service: "ai-product-engineering" },
   ];
 }
 export const dynamicParams = false; // block unknown subpaths

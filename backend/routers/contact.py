@@ -53,25 +53,42 @@ def send_smtp_email(data: ContactRequest, settings):
         return
 
     try:
+        # 1. Send notification to Agency
         msg = EmailMessage()
-        msg['Subject'] = f"New Inquiry from Buildlyst: {data.project_type.value}"
+        msg['Subject'] = f"New Inquiry from Buildlyst: {data.project_type}"
         msg['From'] = settings.SMTP_USERNAME
-        msg['To'] = settings.SMTP_USERNAME  # Send to ourselves
+        msg['To'] = settings.SMTP_USERNAME
 
         body = f"Name: {data.name}\n"
         body += f"Email: {data.email}\n"
-        body += f"Project Type: {data.project_type.value}\n"
+        body += f"Project Type: {data.project_type}\n"
         if data.company:
             body += f"Company: {data.company}\n"
         body += f"\nMessage:\n{data.message}\n"
 
         msg.set_content(body)
+        
+        # 2. Send confirmation to User
+        user_msg = EmailMessage()
+        user_msg['Subject'] = f"We received your build profile - Buildlyst"
+        user_msg['From'] = settings.SMTP_USERNAME
+        user_msg['To'] = data.email
+        
+        user_body = f"Hi {data.name},\n\n"
+        user_body += "Thank you for sharing your project details with Buildlyst!\n\n"
+        user_body += "We have successfully received your build profile. Our engineering team is reviewing your requirements and will reach out shortly to discuss the next steps.\n\n"
+        user_body += "Here is a copy of what you submitted:\n"
+        user_body += f"{data.message}\n\n"
+        user_body += "Best,\nThe Buildlyst Team"
+        
+        user_msg.set_content(user_body)
 
         with smtplib.SMTP_SSL(settings.SMTP_SERVER, settings.SMTP_PORT) as server:
             server.login(settings.SMTP_USERNAME, settings.SMTP_PASSWORD)
             server.send_message(msg)
+            server.send_message(user_msg)
             
-        logger.info("SMTP email sent successfully for lead: %s", data.email)
+        logger.info("SMTP emails sent successfully for lead: %s", data.email)
     except Exception as e:
         logger.error("SMTP email failed for lead: %s", str(e))
 

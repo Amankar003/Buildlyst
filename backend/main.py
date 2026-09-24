@@ -19,7 +19,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.config import get_settings
 from backend.models.schemas import HealthResponse
-from backend.routers import contact, demo, chat
+from backend.routers import contact, demo, chat, scope
 
 # ── Paths ────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent
@@ -95,6 +95,7 @@ async def log_requests(request: Request, call_next):
 app.include_router(contact.router)
 app.include_router(demo.router)
 app.include_router(chat.router)
+app.include_router(scope.router)
 
 
 # ── Health Check ─────────────────────────────────────────────

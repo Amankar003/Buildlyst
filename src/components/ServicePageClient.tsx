@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SERVICES_DATA, ServiceData } from "@/data/servicesData";
 import ContactForm from "@/components/ContactForm";
 import TiltCard from "@/components/TiltCard";
+import { Bot, Zap, ShieldCheck, Database, Lock, Check, ArrowRight, ArrowUpRight, BrainCircuit, Code2, Cpu } from "lucide-react";
 
 interface ServicePageClientProps {
   serviceKey: string;
@@ -14,90 +15,79 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
   const serviceData: ServiceData | undefined = SERVICES_DATA[serviceKey];
   if (!serviceData) return null;
 
-  // 1. Sandbox Telemetry states
-  const [telemetryLines, setTelemetryLines] = useState<string[]>([
-    "[SYSTEM] Initializing live execution telemetry stream...",
-    "[READY] Connected to Autonomous AI Agents kernel node.",
-  ]);
-  const [telemetryRunning, setTelemetryRunning] = useState(false);
-  const [latency, setLatency] = useState("8.4ms");
-  const [memory, setMemory] = useState("42.1 MB");
-  const [throughput, setThroughput] = useState("4,200 req/s");
-  const telemetryIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  // Scope labels for pricing tiers (no hardcoded prices)
+  const scopeLabels = { t1: "MVP Scope", t2: "Professional", t3: "Custom Enterprise" };
 
-  // 2. 3D Model Inspector states
-  const [activeNodeIdx, setActiveNodeIdx] = useState(0);
-  const [flatView, setFlatView] = useState(false);
-
-  // 3. Pricing Matrix Tiers
-  const pricingTiers = {
-    "ai-agents": { t1: "₹85K+", t2: "₹1.8L+", t3: "₹3.8L+" },
-    "data-engineering": { t1: "₹80K+", t2: "₹1.6L+", t3: "₹3L+" },
-    "gen-ai": { t1: "₹1L+", t2: "₹2.5L+", t3: "₹5L+" },
-    "machine-learning": { t1: "₹85K+", t2: "₹2L+", t3: "₹3.8L+" },
-    "web-development": { t1: "₹35K+", t2: "₹1.0L+", t3: "₹2.5L+" },
-  }[serviceKey] || { t1: "₹85K+", t2: "₹1.8L+", t3: "₹3.8L+" };
-
-  // 4. FAQ accordion state
+  // FAQ accordion state
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
 
+  // Pipeline Animation State
+  const [activePipeStep, setActivePipeStep] = useState(0);
+  const [hoveredUseCaseIdx, setHoveredUseCaseIdx] = useState<number | null>(null);
+
   useEffect(() => {
-    return () => {
-      if (telemetryIntervalRef.current) clearInterval(telemetryIntervalRef.current);
-    };
-  }, []);
-
-  const handleRunTelemetry = () => {
-    if (telemetryRunning) return;
-
-    setTelemetryRunning(true);
-    const sampleLogs = [
-      "[INFO] Executing memory vector retrieval step...",
-      "[PERF] Cache query resolved in 0.4ms.",
-      "[SEC] TLS 1.3 handshake verified with client endpoint.",
-      "[WORKER] Sub-thread #14 finished execution without error.",
-      "[METRIC] CPU load stable @ 4.2% across 8 worker cores.",
-      "[AUDIT] Event log written to SOC2 compliance vault.",
-    ];
-
-    telemetryIntervalRef.current = setInterval(() => {
-      const now = new Date();
-      const timeStr = now.toTimeString().split(" ")[0] + "." + String(now.getMilliseconds()).padStart(3, "0");
-      const randomMsg = sampleLogs[Math.floor(Math.random() * sampleLogs.length)];
-      const logLine = `[${timeStr}] ${randomMsg}`;
-
-      setTelemetryLines((prev) => {
-        const next = [...prev, logLine];
-        if (next.length > 20) {
-          next.shift();
-        }
-        return next;
-      });
-
-      // Fluctuate metrics
-      setLatency(`${(6 + Math.random() * 4).toFixed(1)}ms`);
-      setMemory(`${(40 + Math.random() * 5).toFixed(1)} MB`);
-      setThroughput(`${Math.floor(4000 + Math.random() * 500).toLocaleString()} req/s`);
-    }, 800);
-  };
-
-  const handleClearTelemetry = () => {
-    if (telemetryIntervalRef.current) {
-      clearInterval(telemetryIntervalRef.current);
-      telemetryIntervalRef.current = null;
-    }
-    setTelemetryRunning(false);
-    setTelemetryLines([]);
-  };
-
-  const selected3DNode = serviceData.nodes3d[activeNodeIdx];
+    setActivePipeStep(0);
+    const interval = setInterval(() => {
+      setActivePipeStep((prev) => (prev + 1) % (serviceData?.nodes3d?.length || 1));
+    }, 1500);
+    return () => clearInterval(interval);
+  }, [serviceData]);
 
   return (
     <>
-      {/* Service Hero section */}
+      {/* ═══════════════════════════════════════════════════════
+          1. HERO
+          ═══════════════════════════════════════════════════════ */}
       <section id="hero" className="hero-section reveal" style={{ paddingTop: "140px", opacity: 1 }}>
         {/* Animated Gradient Waves */}
         <div className="wave-container">
+          <style dangerouslySetInnerHTML={{ __html: `
+            .use-case-row { display: flex; align-items: center; padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--c-text-secondary); transition: all 0.4s ease; cursor: default; }
+            .use-case-row:hover { color: #fff; }
+            .use-case-row-idx { width: 80px; font-size: 18px; font-family: var(--font-mono); opacity: 0.5; transition: opacity 0.4s ease; }
+            .use-case-row:hover .use-case-row-idx { opacity: 1; }
+            .use-case-row-title { flex: 1; font-size: 32px; font-weight: 300; margin: 0; }
+            .use-case-row-desc { width: 400px; font-size: 14px; line-height: 1.6; opacity: 0; transform: translateX(-10px); transition: all 0.4s ease; color: #aaa; margin: 0; }
+            .use-case-row:hover .use-case-row-desc { opacity: 1; transform: translateX(0); }
+            .use-case-row-icon { margin-left: 40px; opacity: 0.2; transform: translateY(0); transition: all 0.4s ease; color: var(--c-accent-cyan); }
+            .use-case-row:hover .use-case-row-icon { opacity: 1; transform: translateY(-4px); }
+            
+            .deliverables-bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+            .deliverable-card { padding: 32px 28px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.08); background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.2) 100%); backdrop-filter: blur(10px); box-shadow: inset 0 0 15px rgba(255,255,255,0.02); display: flex; align-items: center; gap: 24px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+            .deliverable-card:hover { border-color: rgba(138, 35, 135, 0.4); background: linear-gradient(145deg, rgba(138, 35, 135, 0.05) 0%, rgba(0, 210, 255, 0.02) 100%); transform: scale(1.02); box-shadow: 0 10px 40px -10px rgba(138, 35, 135, 0.15); }
+            .deliverable-index { font-family: var(--font-display); font-size: 42px; font-weight: 800; background: -webkit-linear-gradient(90deg, #00D2FF, #8A2387); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; min-width: 52px; flex-shrink: 0; opacity: 0.9; }
+            .deliverable-content { display: flex; flex-direction: column; gap: 8px; }
+            .deliverable-title { font-size: 16px; color: #fff; line-height: 1.4; font-weight: 600; }
+            .deliverable-icon-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--c-accent-cyan); font-weight: 500; }
+            .deliverable-highlight { border-color: rgba(0, 210, 255, 0.2); background: linear-gradient(145deg, rgba(0, 210, 255, 0.08) 0%, rgba(0, 0, 0, 0.2) 100%); }
+            
+            @media (max-width: 900px) {
+              .use-case-row { flex-direction: column; align-items: flex-start; gap: 16px; padding: 32px 0; }
+              .use-case-row-idx { width: auto; font-size: 14px; }
+              .use-case-row-title { font-size: 24px; }
+              .use-case-row-desc { width: 100%; opacity: 0.7; transform: none; }
+              .use-case-row:hover .use-case-row-desc { opacity: 1; transform: none; }
+              .use-case-row-icon { display: none; }
+            }
+            @media (max-width: 650px) { .deliverables-bento { grid-template-columns: 1fr; } .deliverable-card { padding: 18px 16px; } }
+            @media (max-width: 768px) {
+              .pipeline-flow { flex-direction: column !important; align-items: center !important; gap: 12px; }
+              .pipeline-flow > div { flex-direction: column !important; width: auto !important; align-items: center !important; }
+              .pipe-arrow { width: 3px !important; min-width: 3px !important; min-height: 24px; height: 24px !important; }
+            }
+            
+            .explore-more-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+            .explore-card { padding: 24px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); background: rgba(255, 255, 255, 0.015); transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; }
+            .explore-card:hover { border-color: rgba(0, 210, 255, 0.3); background: rgba(0, 210, 255, 0.04); transform: translateY(-3px); box-shadow: 0 10px 30px -10px rgba(0, 210, 255, 0.1); }
+            .explore-card-icon { margin-bottom: 16px; color: var(--c-accent-cyan); display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 210, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.1); }
+            .explore-card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; font-family: var(--font-display); }
+            .explore-card-desc { font-size: 13px; color: var(--c-text-secondary); line-height: 1.5; margin: 0; padding-right: 20px; }
+            .explore-card-arrow { position: absolute; right: 24px; top: 24px; color: rgba(255,255,255,0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(-10px); opacity: 0; }
+            .explore-card:hover .explore-card-arrow { transform: translateX(0); opacity: 1; color: var(--c-accent-cyan); }
+            
+            @media (max-width: 1024px) { .explore-more-grid { grid-template-columns: repeat(2, 1fr); } }
+            @media (max-width: 600px) { .explore-more-grid { grid-template-columns: 1fr; } }
+          ` }} />
           <svg className="waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
             <defs>
               <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -120,12 +110,12 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
           <div className="hero-content">
             <span className="overline highlight">Buildlyst Engineering Studio</span>
             <h1 className="text-gradient-hero" style={{ fontSize: "clamp(34px, 4.4vw, 54px)", lineHeight: "1.15", marginBottom: "16px" }}>
-              <span style={{ display: "block" }}>Autonomous</span>
-              <span style={{ display: "block" }}>{serviceData.headline}</span>
+              {serviceData.headline}
             </h1>
-            <p className="subtext">{serviceData.subtext}</p>
+            <p className="subtext">{serviceData.heroSubtext}</p>
             <div className="hero-actions">
-              <Link href="#contact" className="btn btn-primary glow-border-btn">Start a Project</Link>
+              <Link href="#contact" className="btn btn-primary glow-border-btn">Build Your Solution</Link>
+              <Link href="#use-cases" className="btn btn-secondary glass-btn">Explore Solutions</Link>
             </div>
           </div>
 
@@ -136,21 +126,21 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
                 <span className="sim-title">Buildlyst AI</span>
               </div>
               <div style={{ padding: "16px", color: "#fff", fontFamily: "var(--font-mono)", fontSize: "13px", lineHeight: "1.8" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px", borderBottom: "1px solid rgba(255,255,255,0.08);", paddingBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "8px", flexWrap: "wrap", gap: "8px" }}>
                   <span style={{ color: "#27c93f", display: "inline-flex", alignItems: "center", gap: "6px", whiteSpace: "nowrap" }}>● PRODUCTION READY</span>
-                  <span style={{ color: "#888", whiteSpace: "nowrap" }}>LATENCY: &lt; 2ms</span>
+                  <span style={{ color: "#888", whiteSpace: "nowrap" }}>SYSTEM: ONLINE</span>
                 </div>
                 <div style={{ marginBottom: "12px", color: "#e0e0e0" }}>
-                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; ARCHITECTURE:</span> LangGraph Stateful Swarm
+                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; SERVICE:</span> {serviceData.headline.replace(".", "")}
                 </div>
                 <div style={{ marginBottom: "12px", color: "#e0e0e0" }}>
-                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; SECURITY:</span> SOC2 Compliant / Private VPC
+                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; SECURITY:</span> Private &amp; Secure Infrastructure
                 </div>
                 <div style={{ marginBottom: "14px", color: "#e0e0e0" }}>
-                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; CODE IP:</span> 100% Client Source Code Transfer
+                  <span style={{ color: "var(--c-accent-cyan)" }}>&gt; CODE IP:</span> 100% Client Source Code Ownership
                 </div>
                 <div style={{ padding: "10px 14px", borderRadius: "8px", background: "rgba(0, 210, 255, 0.08)", border: "1px solid rgba(0, 210, 255, 0.2)", fontSize: "11px", color: "#00d2ff" }}>
-                  ⚡ Delivered with sub-14 day production SLA guarantee.
+                  ⚡ Fast delivery. Clear timelines. Full code ownership.
                 </div>
               </div>
             </div>
@@ -158,15 +148,17 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
         </div>
       </section>
 
-      {/* Overview & Blueprint */}
-      <section id="about" className="reveal" style={{ padding: "60px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* ═══════════════════════════════════════════════════════
+          2. OVERVIEW + ARCHITECTURE BLUEPRINT
+          ═══════════════════════════════════════════════════════ */}
+      <section id="about" className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container">
           <div className="responsive-grid grid-overview">
             <div>
               <div style={{ marginBottom: "14px" }}>
                 <span className="overline highlight" style={{ fontSize: "11px" }}>Service Overview</span>
                 <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "6px" }}>
-                  <span style={{ fontSize: "38px" }}>🤖</span>
+                  <span style={{ fontSize: "38px", display: "flex" }}><Bot size={38} className="theme-icon theme-icon-cyan" /></span>
                   <h2 className="section-heading text-gradient" style={{ margin: 0 }}>
                     {serviceData.headline}
                   </h2>
@@ -174,38 +166,39 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
               </div>
 
               <p style={{ color: "#fff", fontSize: "15.5px", fontWeight: 500, lineHeight: 1.6, marginBottom: "12px" }}>
-                Autonomous {serviceData.headline} architectures engineered strictly for production workloads.
+                {serviceData.heroSubtext}
               </p>
 
               <p style={{ color: "var(--c-text-secondary)", fontSize: "14px", lineHeight: "1.6", marginBottom: "20px" }}>
-                We build fault-tolerant, state-of-the-art enterprise nodes. Every deployment runs under private security, zero vendor lock-in, and full source code IP ownership.
+                {serviceData.subtext}
               </p>
 
               <div className="overview-highlights-grid">
                 <div style={{ padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff" }}>⚡ Stateful Architecture</span>
-                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Multi-node collaborative pipelines orchestrating complex tasks with zero single point of failure.</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}><Zap size={14} className="theme-icon theme-icon-cyan" /> Production Architecture</span>
+                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Systems designed for reliability and growth — built for real business workloads, not demos.</span>
                 </div>
                 <div style={{ padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff" }}>🛡️ Safety Guardrails</span>
-                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Define custom safety thresholds where automated tasks pause for validation.</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}><ShieldCheck size={14} className="theme-icon theme-icon-cyan" /> Security &amp; Privacy</span>
+                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Your data stays yours. We build with privacy and security as a foundation, not an afterthought.</span>
                 </div>
                 <div style={{ padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff" }}>🗄️ Vector Database Sync</span>
-                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Integrated similarity search modules querying metadata in milliseconds.</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}><Lock size={14} className="theme-icon theme-icon-cyan" /> Full Code Ownership</span>
+                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>You own 100% of the code, models, and intellectual property. No vendor lock-in, ever.</span>
                 </div>
                 <div style={{ padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff" }}>🔒 100% IP Transfer</span>
-                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Full copyright, weights, and codebase control delivered to your private repositories.</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: "6px" }}><Database size={14} className="theme-icon theme-icon-cyan" /> Seamless Integration</span>
+                  <span style={{ fontSize: "11px", color: "var(--c-text-secondary)", lineHeight: 1.4 }}>Built to connect with your existing tools, databases, and business systems without disruption.</span>
                 </div>
               </div>
 
               <div className="overview-buttons-container" style={{ marginTop: "20px" }}>
                 <Link href="#contact" className="btn glow-border-btn" style={{ padding: "10px 22px", fontSize: "13px" }}>Build Custom Solution</Link>
-                <Link href="#playground" className="btn glass-btn" style={{ padding: "10px 20px", fontSize: "13px" }}>View Live Telemetry &darr;</Link>
+                <Link href="#use-cases" className="btn glass-btn" style={{ padding: "10px 20px", fontSize: "13px" }}>See What We Build ↓</Link>
               </div>
             </div>
 
+            {/* Architecture Blueprint — KEPT & REFINED */}
             <div className="project-blueprint-card">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: "10px" }}>
                 <span style={{ fontFamily: "var(--font-display)", fontSize: "11px", fontWeight: 800, color: "var(--c-accent-cyan)", textTransform: "uppercase", letterSpacing: "1.5px" }}>
@@ -236,185 +229,92 @@ export default function ServicePageClient({ serviceKey }: ServicePageClientProps
         </div>
       </section>
 
-      {/* Deliverables */}
-      <section className="reveal" style={{ padding: "70px 0", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* ═══════════════════════════════════════════════════════
+          3. USE CASES — "What can this do for your business?"
+          ═══════════════════════════════════════════════════════ */}
+      <section id="use-cases" className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container">
-          <div className="responsive-grid grid-deliverables">
-            <div>
-              <span className="overline highlight" style={{ fontSize: "11px" }}>Production Deliverables</span>
-              <h2 className="section-heading text-gradient">Exactly what we build.</h2>
-              <p style={{ color: "var(--c-text-secondary)", fontSize: "15px", marginBottom: "24px", lineHeight: 1.6 }}>
-                We don&apos;t sell generic advice; we deliver production-ready codebases. Our standard engineering deployments include:
-              </p>
-              <ul style={{ listStyle: "none", padding: 0 }}>
-                {serviceData.deliverables.map((item, iIdx) => (
-                  <li key={iIdx} style={{ marginBottom: "14px", fontSize: "14px", color: "#e0e0e0", display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span style={{ color: "var(--c-accent-cyan)", fontSize: "16px" }}>✓</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="glass-panel deliverables-img-card" style={{ position: "relative" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "4px", background: "linear-gradient(90deg, #00D2FF, #8A2387)" }}></div>
-              <img
-                src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt={`${serviceData.headline} — production deliverables built by Buildlyst`}
-                style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.85, filter: "contrast(1.1)", display: "block" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Telemetry Stream */}
-      <section id="playground" className="reveal" style={{ padding: "70px 0", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.25)" }}>
-        <div className="container">
-          <div className="section-header text-center" style={{ marginBottom: "28px" }}>
-            <span className="overline highlight" style={{ fontSize: "11px" }}>Developer Sandbox</span>
-            <h2 className="section-heading text-gradient">Live Execution Telemetry</h2>
-            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>
-              Real-time code inspection, live log streaming, and dynamic metric counters for your pipeline.
+          <div className="section-header text-center" style={{ marginBottom: "48px" }}>
+            <span className="overline highlight" style={{ fontSize: "11px" }}>Real-World Applications</span>
+            <h2 className="section-heading text-gradient">What can this do for your business?</h2>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14.5px", maxWidth: "600px" }}>
+              From automation to analytics — here are the specific problems we solve with this service.
             </p>
           </div>
 
-          <div className="responsive-grid grid-telemetry">
-            <div className="glass-panel" style={{ padding: "20px", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.08)", background: "#070b14", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "10px", marginBottom: "14px" }}>
-                  <span style={{ color: "#fff", fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: "bold" }}>apex_pipeline.py</span>
-                  <span style={{ color: "#00d2ff", fontFamily: "var(--font-mono)", fontSize: "10px", fontWeight: "bold" }}>PYTHON / LANGCHAIN</span>
-                </div>
-                <pre style={{ margin: 0, color: "#a5d6ff", fontFamily: "var(--font-mono)", fontSize: "12px", lineHeight: 1.5, whiteSpace: "pre-wrap", maxHeight: "240px", overflowY: "auto" }}>
-{`from buildlyst.pipeline import StatefulPipeline
-from buildlyst.models import EmbeddingModel
-
-# Buildlyst Custom Microservice Node
-flow = StatefulPipeline(namespace="${serviceKey}")
-flow.add_node("ingress_gateway", host="0.0.0.0", port=80)
-flow.add_node("model_processor", model=EmbeddingModel("fast"))
-
-flow.compile()`}
-                </pre>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            {serviceData.useCases.map((uc, idx) => (
+              <div 
+                key={idx} 
+                className="use-case-row"
+                onMouseEnter={() => setHoveredUseCaseIdx(idx)}
+                onMouseLeave={() => setHoveredUseCaseIdx(null)}
+              >
+                <div className="use-case-row-idx">0{idx + 1}</div>
+                <h4 className="use-case-row-title">{uc.title}</h4>
+                <p className="use-case-row-desc">{uc.description}</p>
               </div>
-              <div style={{ marginTop: "14px", paddingTop: "10px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px" }}>
-                <button onClick={handleRunTelemetry} className="btn glass-btn" style={{ padding: "6px 14px", fontSize: "12px", borderRadius: "6px" }}>▶ Run Simulation</button>
-                <button onClick={handleClearTelemetry} className="btn glass-btn" style={{ padding: "6px 14px", fontSize: "12px", borderRadius: "6px", color: "#aaa" }}>Clear Logs</button>
-              </div>
-            </div>
-
-            <div className="glass-panel" style={{ padding: "20px", borderRadius: "16px", border: "1px solid rgba(0,210,255,0.25)", background: "#03060c", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "10px", marginBottom: "14px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#27c93f", boxShadow: "0 0 8px #27c93f" }}></span>
-                    <span style={{ color: "#27c93f", fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: "bold" }}>TELEMETRY LOG STREAM</span>
-                  </div>
-                  <span style={{ color: "#00d2ff", fontFamily: "var(--font-mono)", fontSize: "10px" }}>
-                    {telemetryRunning ? "STREAMING ACTIVE" : "STANDBY"}
-                  </span>
-                </div>
-                
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: "11px", lineHeight: 1.7, color: "#d0d0d0", height: "210px", overflowY: "auto", paddingRight: "6px" }}>
-                  {telemetryLines.map((line, lIdx) => (
-                    <div key={lIdx}>{line}</div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="telemetry-metrics-bar">
-                <span>LATENCY: <strong style={{ color: "#00d2ff" }}>{latency}</strong></span>
-                <span>MEMORY: <strong style={{ color: "#27c93f" }}>{memory}</strong></span>
-                <span>THROUGHPUT: <strong style={{ color: "#fff" }}>{throughput}</strong></span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 3D Isometric System Architecture Model */}
-      <section className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 80%)" }}>
+      {/* ═══════════════════════════════════════════════════════
+          4. DELIVERABLES — Redesigned Bento Grid (no stock photos)
+          ═══════════════════════════════════════════════════════ */}
+      <section className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container">
-          <div className="section-header text-center" style={{ marginBottom: "24px" }}>
-            <span className="overline highlight" style={{ fontSize: "11px" }}>Interactive Blueprint</span>
-            <h2 className="section-heading text-gradient">3D System Architecture Model</h2>
-            <p className="subtext text-center mx-auto" style={{ fontSize: "14.5px", maxWidth: "640px" }}>
-              Click any floating 3D microservice node to inspect its real-world function and technical specs.
+          <div className="section-header text-center" style={{ marginBottom: "48px" }}>
+            <span className="overline highlight" style={{ fontSize: "11px" }}>Production Deliverables</span>
+            <h2 className="section-heading text-gradient">What you get.</h2>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14.5px", maxWidth: "600px" }}>
+              We don&apos;t sell advice — we deliver production-ready systems. Every engagement includes:
             </p>
-            <div style={{ marginTop: "12px", display: "flex", gap: "10px", justifyContent: "center" }}>
-              <button onClick={() => setFlatView(!flatView)} className="btn glass-btn" style={{ padding: "6px 16px", fontSize: "12px", borderRadius: "30px" }}>
-                🌐 Toggle 3D Isometric / 2D View
-              </button>
-            </div>
           </div>
 
-          <div className="responsive-grid grid-3d">
-            <div className={`arch-3d-wrapper ${flatView ? "flat-view" : ""}`}>
-              <div className="arch-3d-stage">
-                <div className="arch-3d-floor" />
-                <div className="laser-beam-3d" style={{ top: "40px", left: "100px" }} />
-                <div className="laser-beam-3d" style={{ bottom: "40px", right: "100px" }} />
-
-                {serviceData.nodes3d.map((node, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => setActiveNodeIdx(idx)}
-                    className={`node-3d-card n3d-${idx + 1} ${activeNodeIdx === idx ? "active-3d" : ""}`}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                      <span style={{ fontSize: "18px" }}>{node.icon}</span>
-                      <span style={{ fontSize: "11px", fontWeight: "bold", color: "#fff" }}>{node.name.split(" ")[0]} Node</span>
-                    </div>
-                    <div style={{ fontSize: "9px", fontFamily: "var(--font-mono)", color: "var(--c-accent-cyan)" }}>{node.tech}</div>
+          <div className="deliverables-bento">
+            {serviceData.deliverables.map((item, idx) => (
+              <div key={idx} className="deliverable-card">
+                <div className="deliverable-index">{String(idx + 1).padStart(2, "0")}</div>
+                <div className="deliverable-content">
+                  <div className="deliverable-title">{item}</div>
+                  <div className="deliverable-icon-row">
+                    <Check size={14} /> Included in Engagement
                   </div>
-                ))}
+                </div>
+              </div>
+            ))}
+            {/* Standard deliverables included in every engagement */}
+            <div className="deliverable-card deliverable-highlight">
+              <div className="deliverable-index">+</div>
+              <div className="deliverable-content">
+                <div className="deliverable-title">Complete source code &amp; documentation handoff</div>
+                <div className="deliverable-icon-row">
+                  <Check size={14} /> Full IP Ownership
+                </div>
               </div>
             </div>
-
-            {selected3DNode && (
-              <div className="glass-panel" style={{ padding: "30px", borderRadius: "20px", border: "1px solid rgba(0,210,255,0.3)", background: "rgba(4, 8, 20, 0.95)", boxShadow: "0 0 35px rgba(0, 210, 255, 0.12)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "14px", marginBottom: "18px" }}>
-                  <div>
-                    <span style={{ fontSize: "10px", fontFamily: "var(--font-mono)", color: "var(--c-accent-cyan)", textTransform: "uppercase", letterSpacing: "1px" }}>SELECTED 3D NODE</span>
-                    <h3 style={{ margin: "4px 0 0 0", color: "#fff", fontSize: "20px", fontWeight: 800 }}>{selected3DNode.name}</h3>
-                  </div>
-                  <span style={{ fontSize: "36px" }}>{selected3DNode.icon}</span>
-                </div>
-
-                <div style={{ padding: "14px 16px", borderRadius: "12px", background: "rgba(0, 210, 255, 0.06)", border: "1px solid rgba(0, 210, 255, 0.2)", marginBottom: "18px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
-                    <span>🌟</span>
-                    <span style={{ fontSize: "11px", fontWeight: "bold", color: "#00d2ff", textTransform: "uppercase", letterSpacing: "1px" }}>IN PLAIN ENGLISH (FOR BUSINESS)</span>
-                  </div>
-                  <p style={{ color: "#e0e0e0", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>{selected3DNode.plain}</p>
-                </div>
-
-                <div className="cto-tech-grid">
-                  <div style={{ padding: "12px", borderRadius: "10px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                    <span style={{ fontSize: "10px", color: "#888", display: "block", fontWeight: 600 }}>TECH STACK</span>
-                    <span style={{ fontSize: "13px", color: "#00d2ff", fontWeight: "bold" }}>{selected3DNode.tech}</span>
-                  </div>
-                  <div style={{ padding: "12px", borderRadius: "10px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                    <span style={{ fontSize: "10px", color: "#888", display: "block", fontWeight: 600 }}>LATENCY BUDGET</span>
-                    <span style={{ fontSize: "13px", color: "#27c93f", fontWeight: "bold" }}>{selected3DNode.latency}</span>
-                  </div>
-                </div>
-
-                <div style={{ padding: "12px", borderRadius: "10px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
-                  <span style={{ fontSize: "10px", fontFamily: "var(--font-mono)", color: "var(--c-accent-cyan)", display: "block", fontWeight: "bold", marginBottom: "2px" }}>REDUNDANCY & FAILOVER</span>
-                  <span style={{ fontSize: "12px", color: "#ccc" }}>{selected3DNode.ha}</span>
+            <div className="deliverable-card deliverable-highlight">
+              <div className="deliverable-index">+</div>
+              <div className="deliverable-content">
+                <div className="deliverable-title">Deployment to your preferred cloud environment</div>
+                <div className="deliverable-icon-row">
+                  <Check size={14} /> Seamless Integration
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* ═══════════════════════════════════════════════════════
+          5. SOLUTION TIERS / PRICING
+          ═══════════════════════════════════════════════════════ */}
       <section id="pricing" className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(0, 210, 255, 0.015)" }}>
         <div className="container">
           <div className="section-header text-center">
             <span className="overline highlight" style={{ fontSize: "11px" }}>Transparent Investment</span>
-            <h2 className="section-heading text-gradient">Tailored Pricing Tiers</h2>
+            <h2 className="section-heading text-gradient">Solution Tiers</h2>
             <p className="subtext text-center mx-auto" style={{ fontSize: "14.5px", maxWidth: "600px" }}>Select the engagement level that fits your scale.</p>
           </div>
           
@@ -422,64 +322,66 @@ flow.compile()`}
             <TiltCard className="service-pricing-card glass-panel">
               <div>
                 <div className="pricing-tier-title" style={{ color: "var(--c-text-secondary)" }}>Launch (MVP)</div>
-                <div className="pricing-tier-price">{pricingTiers.t1}</div>
+                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--c-accent-cyan)", marginBottom: "12px", letterSpacing: "0.5px" }}>{scopeLabels.t1}</div>
                 <ul className="pricing-feature-list">
-                  <li><span>✓</span> Basic integration deployment</li>
-                  <li><span>✓</span> Single pipeline flow</li>
-                  <li><span>✓</span> Standard schema checks</li>
-                  <li><span>✓</span> Full code ownership transfer</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Core functionality deployment</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Single workflow or pipeline</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Standard quality checks</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Full code ownership transfer</li>
                 </ul>
               </div>
-              <Link href="#contact" className="btn glass-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Get Started</Link>
+              <Link href="#contact" className="btn glass-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Get Started →</Link>
             </TiltCard>
 
             <TiltCard className="service-pricing-card glass-panel featured">
               <div className="popular-badge">Most Popular</div>
               <div>
                 <div className="pricing-tier-title" style={{ color: "var(--c-accent-cyan)" }}>Build (Pro)</div>
-                <div className="pricing-tier-price" style={{ color: "var(--c-accent-cyan)" }}>{pricingTiers.t2}</div>
+                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--c-accent-cyan)", marginBottom: "12px", letterSpacing: "0.5px" }}>{scopeLabels.t2}</div>
                 <ul className="pricing-feature-list">
-                  <li><span>✓</span> Collaborative swarm pipelines</li>
-                  <li><span>✓</span> Long term state memory caches</li>
-                  <li><span>✓</span> Multi-channel API endpoints</li>
-                  <li><span>✓</span> Human in the loop validation UI</li>
-                  <li><span>✓</span> Developer SLA verification</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Multi-step workflows &amp; integrations</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Persistent data &amp; memory</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Multiple API connections</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Review &amp; approval workflows</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Dedicated support period</li>
                 </ul>
               </div>
-              <Link href="#contact" className="btn glow-border-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Select Pro</Link>
+              <Link href="#contact" className="btn glow-border-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Get Started →</Link>
             </TiltCard>
 
             <TiltCard className="service-pricing-card glass-panel">
               <div>
                 <div className="pricing-tier-title" style={{ color: "var(--c-text-secondary)" }}>Scale (Enterprise)</div>
-                <div className="pricing-tier-price">{pricingTiers.t3}</div>
+                <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--c-accent-cyan)", marginBottom: "12px", letterSpacing: "0.5px" }}>{scopeLabels.t3}</div>
                 <ul className="pricing-feature-list">
-                  <li><span>✓</span> Custom orchestrated private pipelines</li>
-                  <li><span>✓</span> High-availability auto-scaling</li>
-                  <li><span>✓</span> 24/7 dedicated container support</li>
-                  <li><span>✓</span> SOC2 compliance verification</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Custom architecture &amp; private deployment</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> High-availability &amp; auto-scaling</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Dedicated infrastructure support</li>
+                  <li><span style={{ display: "inline-flex" }}><Check size={12} className="theme-icon theme-icon-cyan" /></span> Advanced security &amp; compliance</li>
                 </ul>
               </div>
-              <Link href="#contact" className="btn glass-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Contact Sales</Link>
+              <Link href="#contact" className="btn glass-btn w-100" style={{ padding: "12px", textAlign: "center", fontSize: "14px" }}>Get Started →</Link>
             </TiltCard>
           </div>
         </div>
       </section>
 
-      {/* Specs table */}
+      {/* ═══════════════════════════════════════════════════════
+          6. SPECS TABLE + ANIMATED PIPELINE
+          ═══════════════════════════════════════════════════════ */}
       <section className="reveal" style={{ padding: "70px 0", borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(255,255,255,0.01)" }}>
         <div className="container">
           <div className="section-header text-center" style={{ marginBottom: "28px" }}>
-            <span className="overline highlight" style={{ fontSize: "11px" }}>Comparison Matrix</span>
-            <h2 className="section-heading text-gradient">Technical Specifications</h2>
-            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>Compare benchmarks across our Launch, Build, and Scale tiers.</p>
+            <span className="overline highlight" style={{ fontSize: "11px", textTransform: "uppercase" }}>WHAT&apos;S INCLUDED</span>
+            <h2 className="section-heading text-gradient">Solution Comparison</h2>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>{serviceData.specsDescription}</p>
           </div>
 
           <div className="glass-panel" style={{ borderRadius: "14px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
             <table className="specs-table">
               <thead>
                 <tr>
-                  <th>Specification Parameter</th>
+                  <th>Feature</th>
                   <th>Launch (MVP)</th>
                   <th style={{ color: "var(--c-accent-cyan)" }}>Build (Pro)</th>
                   <th>Scale (Enterprise)</th>
@@ -497,16 +399,49 @@ flow.compile()`}
               </tbody>
             </table>
           </div>
+
+          {/* Animated Pipeline — PRIMARY architecture visualizer */}
+          <div className="glass-panel" style={{ marginTop: "32px", padding: "32px 40px", borderRadius: "14px", border: "1px solid rgba(0,210,255,0.15)", background: "rgba(0,0,0,0.3)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px", borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: "10px" }}>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: "11px", fontWeight: 800, color: "var(--c-accent-cyan)", textTransform: "uppercase", letterSpacing: "1.5px" }}>
+                HOW IT WORKS
+              </span>
+              <span style={{ fontSize: "10px", fontFamily: "var(--font-mono)", color: "#27c93f", animation: "pulse 2s infinite" }}>LIVE</span>
+            </div>
+            
+            <div className="pipeline-flow active" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", padding: "20px 0" }}>
+              {serviceData.nodes3d.map((node, nIdx) => {
+                const isGlow = activePipeStep === nIdx || activePipeStep === nIdx - 1 || (activePipeStep === 0 && nIdx === 0);
+                return (
+                  <div key={nIdx} style={{ display: "flex", alignItems: "center", width: nIdx === serviceData.nodes3d.length - 1 ? "auto" : "100%" }}>
+                    <div className={`pipe-node ${isGlow ? "active-glow" : ""}`} data-label={node.name.split(" ")[0]} style={{ width: "56px", height: "56px", background: "rgba(255,255,255,0.03)" }}>
+                      <div className="pipe-icon" style={{ fontSize: "22px" }}>{node.icon}</div>
+                    </div>
+                    {nIdx < serviceData.nodes3d.length - 1 && (
+                      <div className={`pipe-arrow ${activePipeStep === nIdx ? "active-flow" : ""}`} style={{ minWidth: "30px", height: "3px" }} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            
+            <div style={{ textAlign: "center", marginTop: "24px", minHeight: "40px" }}>
+              <span style={{ color: "var(--c-accent-cyan)", fontWeight: 600, fontSize: "14px", marginRight: "10px" }}>{serviceData.nodes3d[activePipeStep]?.name}:</span>
+              <span style={{ color: "var(--c-text-secondary)", fontSize: "13px" }}>{serviceData.nodes3d[activePipeStep]?.plain}</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* FAQs Accordion */}
+      {/* ═══════════════════════════════════════════════════════
+          7. FAQ ACCORDION
+          ═══════════════════════════════════════════════════════ */}
       <section id="faq" className="reveal" style={{ padding: "80px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="container" style={{ maxWidth: "800px" }}>
           <div className="section-header text-center" style={{ marginBottom: "36px" }}>
             <span className="overline highlight">Got Questions?</span>
             <h2 className="section-heading text-gradient">Frequently Asked Questions</h2>
-            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>Clear answers regarding deployment timelines, IP, and data privacy.</p>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>Clear answers about our process, timelines, and how we work.</p>
           </div>
 
           <div className="faq-container">
@@ -533,45 +468,60 @@ flow.compile()`}
         </div>
       </section>
 
-      {/* ContactForm */}
-      <ContactForm />
 
-      {/* Internal cross-linking to other Buildlyst services — GEO/SEO */}
-      <section style={{ padding: "60px 0", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="container" style={{ maxWidth: "800px" }}>
-          <div className="section-header text-center" style={{ marginBottom: "24px" }}>
-            <h2 className="section-heading" style={{ color: "#fff", fontSize: "24px" }}>Explore More Buildlyst Services</h2>
-            <p className="subtext text-center mx-auto" style={{ fontSize: "14px" }}>Buildlyst offers a full spectrum of AI, data, and web engineering services.</p>
+
+      {/* ═══════════════════════════════════════════════════════
+          CROSS-LINK NAVIGATION (SEO)
+          ═══════════════════════════════════════════════════════ */}
+      <section className="reveal" style={{ padding: "80px 0", borderTop: "1px solid rgba(255,255,255,0.05)", background: "linear-gradient(180deg, transparent 0%, rgba(0, 210, 255, 0.015) 100%)" }}>
+        <div className="container">
+          <div className="section-header text-center" style={{ marginBottom: "48px" }}>
+            <span className="overline highlight" style={{ fontSize: "11px" }}>Our Capabilities</span>
+            <h2 className="section-heading text-gradient" style={{ fontSize: "32px", marginBottom: "24px" }}>Explore More Solutions</h2>
+            <p className="subtext text-center mx-auto" style={{ fontSize: "14.5px", maxWidth: "600px" }}>
+              Buildlyst offers a full spectrum of AI, data, and engineering services tailored for production.
+            </p>
           </div>
-          <nav style={{ display: "flex", flexWrap: "wrap", gap: "12px", justifyContent: "center" }}>
+          
+          <div className="explore-more-grid">
             {Object.entries({
-              "ai-agents": "AI Agents",
-              "gen-ai": "Generative AI",
-              "machine-learning": "Machine Learning",
-              "data-engineering": "Data Engineering",
-              "web-development": "Web Development",
+              "ai-agents": { name: "AI Agents", icon: <Bot size={22} />, desc: "Autonomous workflows and intelligent assistants." },
+              "gen-ai": { name: "Generative AI", icon: <BrainCircuit size={22} />, desc: "Custom LLMs and private knowledge retrieval." },
+              "machine-learning": { name: "Predictive ML", icon: <Cpu size={22} />, desc: "Forecasting, vision, and real-time inference." },
+              "data-engineering": { name: "Data Engineering", icon: <Database size={22} />, desc: "Cloud pipelines, streaming, and BI." },
+              "ai-product-engineering": { name: "Product Engineering", icon: <Code2 size={22} />, desc: "Full-stack SaaS and enterprise web apps." },
             })
               .filter(([key]) => key !== serviceKey)
-              .map(([key, name]) => (
+              .map(([key, data]) => (
                 <Link
                   key={key}
                   href={`/services/${key}`}
-                  className="btn glass-btn"
-                  style={{ padding: "10px 20px", fontSize: "13px", borderRadius: "8px" }}
+                  className="explore-card"
                 >
-                  {name}
+                  <div className="explore-card-icon">{data.icon}</div>
+                  <h3 className="explore-card-title">{data.name}</h3>
+                  <p className="explore-card-desc">{data.desc}</p>
+                  <div className="explore-card-arrow"><ArrowRight size={18} /></div>
                 </Link>
               ))}
+          </div>
+
+          <div style={{ textAlign: "center", marginTop: "40px" }}>
             <Link
               href="/case-studies"
-              className="btn glass-btn"
-              style={{ padding: "10px 20px", fontSize: "13px", borderRadius: "8px" }}
+              className="btn btn-primary glow-border-btn"
+              style={{ padding: "12px 28px", fontSize: "14px" }}
             >
-              View Case Studies
+              View Client Case Studies
             </Link>
-          </nav>
+          </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          CONTACT FORM
+          ═══════════════════════════════════════════════════════ */}
+      <ContactForm />
     </>
   );
 }

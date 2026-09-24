@@ -4,36 +4,36 @@ import { useState } from "react";
 import Link from "next/link";
 
 interface CapabilityItem {
-  title: string;
+  title: React.ReactNode;
   description: string;
   link: string;
 }
 
 const CAPABILITIES: CapabilityItem[] = [
   {
-    title: "AI Agents",
-    description: "Autonomous systems capable of executing complex multi-step reasoning, integrating with your existing tools, and making autonomous decisions based on real-time data constraints.",
+    title: <>AI Agents <br /> & Automation</>,
+    description: "Build intelligent AI agents that automate sales, customer support, operations, and repetitive business workflows — helping teams save time and scale efficiently. (Use cases: AI Sales Agents · Customer Support Agents · WhatsApp Automation · CRM Automation · Workflow Automation)",
     link: "/services/ai-agents",
   },
   {
-    title: "Gen AI",
-    description: "Custom LLM deployments, fine-tuning, and highly secure RAG architectures tailored entirely to your proprietary enterprise data.",
+    title: "Generative AI & RAG",
+    description: "Build production-ready GenAI solutions that understand your business knowledge, documents, and data to deliver accurate answers, intelligent assistance, and automated workflows. (Use cases: RAG Systems · AI Copilots · Knowledge Bases · Document Intelligence · LLM Applications)",
     link: "/services/gen-ai",
   },
   {
-    title: "Machine & Deep Learning",
-    description: "Advanced predictive modeling, neural networks for computer vision, NLP, and real-time classification systems deployed at scale.",
-    link: "/services/machine-learning",
-  },
-  {
-    title: "Data Engineering",
-    description: "Robust ETL pipelines, data warehousing, and interactive visualization dashboards that turn raw data into strategic assets.",
+    title: <>Data Engineering & <br /> Analytics</>,
+    description: "Build reliable data pipelines and analytics systems that turn scattered business data into clean, accessible, and actionable insights. (Use cases: ETL/ELT Pipelines · Data Warehousing · Data Integration · Business Intelligence · Analytics Dashboards)",
     link: "/services/data-engineering",
   },
   {
-    title: "Website Development",
-    description: "Premium, high-performance web applications and landing pages built with modern frameworks, deeply integrated with custom AI backends.",
-    link: "/services/web-development",
+    title: <>Machine Learning & <br /> Predictive AI</>,
+    description: "Build machine learning systems that use your business data to predict outcomes, identify patterns, and support smarter decisions. (Use cases: Forecasting · Lead Scoring · Churn Prediction · Recommendation Systems · Anomaly Detection)",
+    link: "/services/machine-learning",
+  },
+  {
+    title: <>AI Product Engineering <br /> & Web Development</>,
+    description: "Turn AI ideas into production-ready products with robust applications, APIs, backend systems, integrations, and scalable infrastructure. (Use cases: AI SaaS · AI-Powered Web Apps · APIs · Backend Systems · MVP to Production)",
+    link: "/services/ai-product-engineering",
   },
 ];
 

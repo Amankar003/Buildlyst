@@ -13,48 +13,48 @@ interface MethodCard {
 const PHASES: MethodCard[] = [
   {
     number: "01",
-    title: "Discovery & Architecture",
-    description: "We analyze your data infrastructure and define the technical requirements for success. We architect highly scalable, resilient machine learning pipelines and microservices before writing a single line of code.",
+    title: "Discovery & Planning",
+    description: "We start by understanding your business goals, requirements, existing workflows, data, and technical environment. We define the project scope, identify the right approach, and create a clear roadmap before development begins.",
     features: [
-      "Technical Feasibility Audit",
-      "Cloud Infrastructure Blueprinting",
-      "Security & Compliance Mapping"
+      "Business & Requirement Analysis",
+      "Technical Feasibility & Scope",
+      "Project Roadmap & Planning"
     ],
     imageSrc: "/static/img/method_arch.jpg",
     stickyTop: 100
   },
   {
     number: "02",
-    title: "Rigorous Engineering",
-    description: "Implementation through continuous integration and deployment. We don't just build scripts; we build fault-tolerant, production-ready systems using modern CI/CD pipelines.",
+    title: "Design & Architecture",
+    description: "We design the right technical foundation for your solution — from system architecture and databases to APIs, AI workflows, and user experiences. Every decision is made with reliability, scalability, and maintainability in mind.",
     features: [
-      "Automated Unit & Integration Testing",
-      "Containerization (Docker & Kubernetes)",
-      "Zero-Downtime Deployments"
+      "System & Solution Architecture",
+      "Database & API Design",
+      "AI, Data & Product Workflows"
     ],
     imageSrc: "/static/img/method_eng.jpg",
     stickyTop: 140
   },
   {
     number: "03",
-    title: "Model Training & Tuning",
-    description: "Training neural networks on custom datasets. We fine-tune foundation models to align perfectly with your specific enterprise vocabulary, rules, and business logic constraints.",
+    title: "Development & Testing",
+    description: "We turn the approved design into a working solution through structured development, integration, and testing. Whether it is an AI system, data pipeline, ML model, or digital product, we validate the solution against real-world requirements before release.",
     features: [
-      "Custom Data Ingestion & Cleaning",
-      "RLHF & LoRA Fine-tuning",
-      "Hallucination Mitigation Architecture"
+      "Development & Integration",
+      "Testing & Quality Validation",
+      "Security & Performance Checks"
     ],
     imageSrc: "/static/img/method_ai.jpg",
     stickyTop: 180
   },
   {
     number: "04",
-    title: "Evolution & Scaling",
-    description: "Continuous optimization post-deployment. We monitor model drift, data pipeline throughput, latency constraints, and scale the compute infrastructure seamlessly as demand increases.",
+    title: "Deployment & Evolution",
+    description: "We take the solution into production and continue improving it after launch. We monitor performance, resolve issues, optimize the system, and make it easier to scale as your business and requirements grow.",
     features: [
-      "Model Drift & Telemetry Monitoring",
-      "Pipeline Throughput Optimization",
-      "Compute Auto-scaling Strategies"
+      "Production Deployment",
+      "Monitoring & Optimization",
+      "Continuous Improvements"
     ],
     imageSrc: "/static/img/method_scale.jpg",
     stickyTop: 220
@@ -113,6 +113,7 @@ export default function Methodology() {
                     src={phase.imageSrc}
                     alt={phase.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{
                       objectFit: "cover"
                     }}

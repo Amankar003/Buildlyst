@@ -10,57 +10,57 @@ interface Testimonial {
 
 const ROW1_TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Buildlyst engineered an automated property matching agent that completely eliminated manual lead triage. Unbelievable ROI.",
+    quote: "Buildlyst understood what we needed from the start and turned our idea into a practical solution. The process was smooth, communication was clear, and the final result worked exactly as we expected.",
     author: "Rahul",
-    company: "Shivay Realty",
+    company: "Real Estate",
   },
   {
-    quote: "We needed a robust integration and autonomous lead scoring. Buildlyst deployed a system that scaled our outreach effortlessly.",
+    quote: "We wanted a technology solution that could make our day-to-day work simpler. Buildlyst understood the requirement quickly and delivered a solution that was easy for our team to use.",
     author: "Ankit",
-    company: "Mahadev Properties",
+    company: "Real Estate",
   },
   {
-    quote: "Our latency issues vanished. They didn't just build a solution, they transformed our entire data architecture overnight.",
-    author: "Sarah Jenkins",
-    company: "Nexus AI",
+    quote: "Working with Buildlyst was a smooth experience. They understood the technical requirements well, suggested practical improvements, and delivered a clean solution without making things unnecessarily complicated.",
+    author: "Ritik",
+    company: "Technology",
   },
   {
-    quote: "The speed and quality of their engineering is unmatched. We went from proof of concept to a highly secure production deployment in 6 weeks.",
-    author: "Marcus Thorne",
-    company: "FinScale Ltd",
+    quote: "As a technology-focused team, we had clear expectations around the implementation. Buildlyst handled the requirements professionally and delivered a solution with a clean and well-structured approach.",
+    author: "Arpit",
+    company: "Technology",
   },
   {
-    quote: "They delivered a highly secure, RAG-based LLM that acts as our internal brain. The architectural quality is second to none.",
-    author: "Raman",
-    company: "Azentra Solutions",
+    quote: "Buildlyst helped us turn our idea into something practical and usable. They were easy to communicate with, understood our requirements, and made the entire development process much simpler.",
+    author: "Heba",
+    company: "Startup / Business",
   },
 ];
 
 const ROW2_TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Our legacy data infrastructure was a mess. Buildlyst modernized our entire ETL pipeline in weeks, not months. Highly recommended.",
-    author: "Ritik",
-    company: "Loopsoop",
+    quote: "Buildlyst did a great job understanding the technical requirements and translating them into a working solution. The development process was straightforward, and the team was responsive throughout.",
+    author: "Shabin",
+    company: "Technology",
   },
   {
-    quote: "Buildlyst didn't just build us a wrapper; they completely re-engineered our pipeline and integrated an agent that saves us 40 hours a week.",
-    author: "Elena Rostova",
-    company: "HealthTech Dynamics",
+    quote: "Buildlyst helped us approach our technology requirements in a much more structured way. They understood the business side as well as the technical requirements and delivered a solution that fit our needs.",
+    author: "Ajit",
+    company: "Manufacturing",
   },
   {
-    quote: "As a tech company ourselves, we have high standards. Buildlyst exceeded them with an impeccably designed architecture.",
-    author: "Arpit",
-    company: "Codaris.in",
+    quote: "The team at Buildlyst was quick to understand the requirement and focused on building a practical solution. The communication was clear and the overall experience was simple and professional.",
+    author: "Abhishek",
+    company: "Technology",
   },
   {
-    quote: "Flawless execution from day one. Their understanding of distributed systems and generative AI models is truly world-class.",
-    author: "James Wu",
-    company: "DataCore Systems",
+    quote: "Buildlyst helped us bring our idea to life with a solution that was simple, modern, and easy to use. They understood what we were looking for and made the development process much easier for us.",
+    author: "Sumit",
+    company: "Clothing / Fashion",
   },
   {
-    quote: "An absolute game-changer for our cloud infrastructure. The deployment was seamless and the performance gains are massive.",
-    author: "David Okafor",
-    company: "CloudMatrix",
+    quote: "Buildlyst helped us build an engaging website around our idea while keeping the experience smooth and easy to use. They understood the vision well and turned it into a polished final product.",
+    author: "Aditya",
+    company: "Entertainment",
   },
 ];
 

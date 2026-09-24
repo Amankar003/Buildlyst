@@ -1,12 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
 import Philosophy from "@/components/Philosophy";
 import Capabilities from "@/components/Capabilities";
 import PhilosophyV2 from "@/components/PhilosophyV2";
 import Playground from "@/components/Playground";
-import Architecture from "@/components/Architecture";
+import TechStackMarquee from "@/components/TechStackMarquee";
 import Methodology from "@/components/Methodology";
 import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import Pricing from "@/components/Pricing";
@@ -23,6 +24,9 @@ export default function Home() {
       {/* 1. Hero banner with typewriter headlines and simulated chat */}
       <Hero />
 
+      {/* Trust Signal: Engineering Attributes Marquee */}
+      <TechStackMarquee />
+
       {/* 2. Philosophy section with 3D Stats card stack */}
       <Philosophy />
 
@@ -35,9 +39,6 @@ export default function Home() {
       {/* 5. Live Pipeline developer console playground */}
       <Playground />
 
-      {/* 6. Enterprise tech stack marquee & dynamic step arrows */}
-      <Architecture />
-
       {/* 7. Scroll card methodology stacking phases */}
       <Methodology />
 
@@ -45,7 +46,9 @@ export default function Home() {
       <FeaturedCaseStudies />
 
       {/* 9. Engagement pricing matrix with estimator predictor */}
-      <Pricing />
+      <Suspense fallback={<div style={{ minHeight: "800px" }}></div>}>
+        <Pricing />
+      </Suspense>
 
       {/* 10. Global scale network cobe globe card */}
       <section id="global-scale" className="global-section reveal">
@@ -53,23 +56,31 @@ export default function Home() {
           <div className="global-card">
             {/* Left Content */}
             <div className="global-content">
-              <span className="overline highlight" style={{ marginBottom: "16px", display: "inline-block" }}>Global Reach</span>
-              <h2 className="global-title" style={{ color: "#fff", fontSize: "32px", marginBottom: "16px" }}>Enterprise Data Infrastructure</h2>
+              <span className="overline highlight" style={{ marginBottom: "16px", display: "inline-block" }}>GLOBAL REACH</span>
+              <h2 className="global-title" style={{ color: "#fff", fontSize: "32px", marginBottom: "16px" }}>Built for Today. Ready for What’s Next.</h2>
               <p className="global-desc" style={{ color: "var(--c-text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
-                Buildlyst architects and deploys robust ETL pipelines and intelligent AI agents that process massive datasets seamlessly across global networks. We modernize your legacy systems for scale.
+                From AI automation and GenAI applications to data engineering, machine learning, and digital products, Buildlyst builds technology that helps businesses operate smarter and scale with confidence.
               </p>
 
-              <div className="global-stats" style={{ display: "flex", gap: "24px" }}>
-                <div className="stat-item" style={{ flex: 1 }}>
-                  <h3 className="text-gradient" style={{ fontSize: "28px", fontWeight: "bold" }}>40+ Hrs</h3>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "13px", lineHeight: 1.4, marginTop: "4px" }}>
-                    Saved per week for our clients by automating complex data workflows with custom AI agents.
+              <div className="global-outcomes-grid">
+                <div className="stat-item glass-panel outcome-card">
+                  <h4 className="outcome-title">WORK SMARTER</h4>
+                  <p className="outcome-desc">
+                    Automate work that slows you down.
                   </p>
                 </div>
-                <div className="stat-item" style={{ flex: 1 }}>
-                  <h3 className="text-gradient" style={{ fontSize: "28px", fontWeight: "bold" }}>100%</h3>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "13px", lineHeight: 1.4, marginTop: "4px" }}>
-                    Bespoke architecture designed specifically to handle your unique enterprise data requirements.
+                
+                <div className="stat-item glass-panel outcome-card">
+                  <h4 className="outcome-title">DECIDE BETTER</h4>
+                  <p className="outcome-desc">
+                    Make sense of your business data.
+                  </p>
+                </div>
+                
+                <div className="stat-item glass-panel outcome-card">
+                  <h4 className="outcome-title">SCALE FASTER</h4>
+                  <p className="outcome-desc">
+                    Build systems that grow with your business.
                   </p>
                 </div>
               </div>

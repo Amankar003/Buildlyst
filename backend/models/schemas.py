@@ -27,7 +27,7 @@ class ContactRequest(BaseModel):
     name: str = Field(..., min_length=2, max_length=100, examples=["Jane Doe"])
     email: EmailStr = Field(..., examples=["jane@example.com"])
     company: Optional[str] = Field(None, max_length=200, examples=["Acme Corp"])
-    project_type: ProjectType = Field(..., examples=[ProjectType.AI_AGENTS])
+    project_type: str = Field(..., examples=["Web Development", "AI Agents"])
     message: str = Field(..., min_length=10, max_length=2000, examples=["I need an AI agent for customer support."])
 
 
@@ -73,6 +73,28 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
     conversation_id: str
+
+
+# ── Scope Recommendation ─────────────────────────────────────
+
+class ScopeRequest(BaseModel):
+    business: str = Field(..., min_length=5, max_length=1000)
+    problem: str = Field(..., min_length=5, max_length=1000)
+
+
+class ScopeRecommendation(BaseModel):
+    name: str
+    service: str
+    reason: str
+    features: Optional[list[str]] = Field(default_factory=list)
+    deliverables: Optional[list[str]] = Field(default_factory=list)
+
+
+class ScopeResponse(BaseModel):
+    primaryRecommendation: ScopeRecommendation
+    alternativeRecommendations: list[ScopeRecommendation]
+    complexity: str  # "low" | "medium" | "high"
+    fallback: bool = False
 
 
 # ── Health ───────────────────────────────────────────────────

@@ -2,9 +2,39 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { 
+  Database, 
+  Settings, 
+  Unplug, 
+  GitBranch, 
+  LineChart, 
+  Timer, 
+  BarChart, 
+  ShieldCheck, 
+  Target, 
+  Handshake, 
+  Zap, 
+  TrendingUp,
+  Cpu,
+  Sparkles,
+  ArrowRight
+} from "lucide-react";
+
+interface PipelineItem {
+  id: number;
+  inputTitle: string;
+  inputIcon: React.ReactNode;
+  outputTitle: string;
+  outputIcon: React.ReactNode;
+}
 
 export default function PhilosophyV2() {
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({});
+  const [activePipe, setActivePipe] = useState<number | null>(null);
+
+  const UNIFIED_COLOR = "#00d2ff";
+  const UNIFIED_GLOW = "rgba(0, 210, 255, 0.6)";
+  const UNIFIED_BG = "rgba(0, 210, 255, 0.12)";
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -14,8 +44,8 @@ export default function PhilosophyV2() {
 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
 
     setTiltStyle({
       transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
@@ -28,169 +58,601 @@ export default function PhilosophyV2() {
     });
   };
 
+  const pipelines: PipelineItem[] = [
+    {
+      id: 0,
+      inputTitle: "Scattered Data",
+      inputIcon: <Database size={15} />,
+      outputTitle: "Measurable Business Impact",
+      outputIcon: <LineChart size={15} />,
+    },
+    {
+      id: 1,
+      inputTitle: "Manual Processes",
+      inputIcon: <Settings size={15} />,
+      outputTitle: "Faster Time to Market",
+      outputIcon: <Timer size={15} />,
+    },
+    {
+      id: 2,
+      inputTitle: "Disconnected Systems",
+      inputIcon: <Unplug size={15} />,
+      outputTitle: "Built to Scale",
+      outputIcon: <BarChart size={15} />,
+    },
+    {
+      id: 3,
+      inputTitle: "Complex Workflows",
+      inputIcon: <GitBranch size={15} />,
+      outputTitle: "Reliable by Design",
+      outputIcon: <ShieldCheck size={15} />,
+    },
+  ];
+
+  // Proportional Geometry (Percentage based 0-100%):
+  // Col 1 (Left Nodes): X from 0% to 31% -> Touch Right Edge = X: 31
+  // Col 2 (BUILDLYST Center Core): X from 42.5% to 57.5% -> Hidden Start = X: 48 (Left), X: 52 (Right)
+  // Col 3 (Right Nodes): X from 69% to 100% -> Touch Left Edge = X: 69
+
+  const leftPaths = [
+    { d: "M 48 39 C 39 39, 37 8, 31 8", yNode: 8 },
+    { d: "M 48 46.3 C 39 46.3, 37 36, 31 36", yNode: 36 },
+    { d: "M 48 53.7 C 39 53.7, 37 64, 31 64", yNode: 64 },
+    { d: "M 48 61 C 39 61, 37 92, 31 92", yNode: 92 },
+  ];
+
+  const rightPaths = [
+    { d: "M 52 39 C 61 39, 63 8, 69 8", yNode: 8 },
+    { d: "M 52 46.3 C 61 46.3, 63 36, 69 36", yNode: 36 },
+    { d: "M 52 53.7 C 61 53.7, 63 64, 69 64", yNode: 64 },
+    { d: "M 52 61 C 61 61, 63 92, 69 92", yNode: 92 },
+  ];
+
   return (
     <section
       id="philosophy-v2"
       className="reveal"
       style={{
-        padding: "80px 0",
-        minHeight: "90vh",
+        padding: "90px 0 70px 0",
+        minHeight: "85vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         borderTop: "1px solid rgba(255,255,255,0.05)",
         overflow: "hidden",
-        background: "radial-gradient(circle at left center, rgba(0,210,255,0.02) 0%, transparent 60%)",
+        background: "radial-gradient(circle at 30% 50%, rgba(0, 210, 255, 0.03) 0%, rgba(138, 35, 137, 0.02) 40%, transparent 70%)",
       }}
     >
+      <style>{`
+        .split-layout {
+          display: grid;
+          grid-template-columns: 1.35fr 0.65fr;
+          gap: 36px;
+          align-items: center;
+        }
+        .compact-node span {
+          font-size: 12px;
+          white-space: nowrap;
+        }
+        @media (max-width: 992px) {
+          .split-layout {
+            grid-template-columns: 1fr;
+          }
+          .bridge-viz-container {
+            height: 380px !important;
+          }
+          .compact-node {
+            padding: 6px !important;
+            height: auto !important;
+            min-height: 48px;
+          }
+          .compact-node span {
+            font-size: 9.5px !important;
+            white-space: normal !important;
+            line-height: 1.2;
+          }
+        }
+      `}</style>
       <div className="container" style={{ maxWidth: "1400px" }}>
         {/* UPPER PART: Heading */}
-        <div className="text-center" style={{ marginBottom: "64px" }}>
-          <h2 style={{ fontSize: "clamp(36px, 4.5vw, 54px)", lineHeight: 1.2, fontFamily: "var(--font-display)" }}>
+        <div className="text-center" style={{ marginBottom: "48px" }}>
+          <div 
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: "8px", 
+              padding: "5px 14px", 
+              borderRadius: "20px", 
+              background: "rgba(0, 210, 255, 0.06)", 
+              border: "1px solid rgba(0, 210, 255, 0.2)", 
+              color: "var(--c-accent-cyan)", 
+              fontSize: "11px", 
+              fontWeight: 700, 
+              letterSpacing: "1.5px", 
+              textTransform: "uppercase", 
+              marginBottom: "14px" 
+            }}
+          >
+            <Sparkles size={13} /> AI Pipeline Architecture
+          </div>
+          <h2 style={{ fontSize: "clamp(32px, 4vw, 48px)", lineHeight: 1.2, fontFamily: "var(--font-display)", margin: 0 }}>
             From Messy Reality to <span style={{ color: "var(--c-accent-cyan)", fontWeight: 700 }}>Automated Success</span>
           </h2>
         </div>
 
-        {/* LOWER PART: Split Layout */}
-        <div className="split-layout" style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: "48px", alignItems: "center" }}>
+        {/* LOWER PART: Split Layout (Expanded Viz Area to 1.35fr for Full Text Visibility) */}
+        <div className="split-layout">
           
-          {/* LEFT SIDE: 3-Column Diagram with Realistic 3D SVG Pipes */}
+          {/* LEFT VIZ CONTAINER */}
           <div
             className="bridge-viz-container"
             style={{
               position: "relative",
               width: "100%",
-              height: "420px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "10px 0",
+              height: "410px",
             }}
           >
-            {/* Realistic 3D SVG Pipes */}
-            <svg className="bridge-svg" preserveAspectRatio="none" viewBox="0 0 100 100">
+            {/* SVG OVERLAY - Unified Cyan Energy Lines */}
+            <svg
+              className="bridge-svg"
+              preserveAspectRatio="none"
+              viewBox="0 0 100 100"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                pointerEvents: "none",
+                zIndex: 2,
+                overflow: "visible",
+              }}
+            >
               <defs>
-                <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="rgba(0, 210, 255, 0.2)" />
-                  <stop offset="50%" stopColor="rgba(0, 210, 255, 0.8)" />
-                  <stop offset="100%" stopColor="rgba(138, 35, 137, 0.6)" />
+                <linearGradient id="unifiedPipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor={UNIFIED_COLOR} stopOpacity="0.25" />
+                  <stop offset="50%" stopColor={UNIFIED_COLOR} stopOpacity="1" />
+                  <stop offset="100%" stopColor={UNIFIED_COLOR} stopOpacity="0.35" />
                 </linearGradient>
-                <filter id="pipeGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="1.5" result="blur" />
+
+                <filter id="pipeGlowNormal" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="1" result="blur" />
                   <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                <filter id="pipeGlowActive" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
               </defs>
 
-              {/* Pipe Outer Shells / 3D Tracks */}
-              <path className="real-pipe-track" d="M 20 12 C 35 12, 35 50, 50 50" />
-              <path className="real-pipe-track" d="M 20 37 C 35 37, 35 50, 50 50" />
-              <path className="real-pipe-track" d="M 20 63 C 35 63, 35 50, 50 50" />
-              <path className="real-pipe-track" d="M 20 88 C 35 88, 35 50, 50 50" />
+              {/* 4 LEFT PIPELINES */}
+              {leftPaths.map((path, idx) => {
+                const isActive = activePipe === idx;
+                const isDimmed = activePipe !== null && !isActive;
 
-              <path className="real-pipe-track" d="M 50 50 C 65 50, 65 12, 80 12" />
-              <path className="real-pipe-track" d="M 50 50 C 65 50, 65 37, 80 37" />
-              <path className="real-pipe-track" d="M 50 50 C 65 50, 65 63, 80 63" />
-              <path className="real-pipe-track" d="M 50 50 C 65 50, 65 88, 80 88" />
+                return (
+                  <g key={`left-pipe-${idx}`} style={{ transition: "all 0.3s ease", opacity: isDimmed ? 0.2 : 1 }}>
+                    <path
+                      d={path.d}
+                      fill="none"
+                      stroke={UNIFIED_COLOR}
+                      strokeOpacity={isActive ? "0.55" : "0.2"}
+                      strokeWidth={isActive ? "2.6" : "1.6"}
+                      strokeLinecap="round"
+                    />
 
-              {/* Flowing Liquid Energy Core Inside Pipes */}
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 20 12 C 35 12, 35 50, 50 50" style={{ animationDelay: "0s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 20 37 C 35 37, 35 50, 50 50" style={{ animationDelay: "-1.2s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 20 63 C 35 63, 35 50, 50 50" style={{ animationDelay: "-0.6s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 20 88 C 35 88, 35 50, 50 50" style={{ animationDelay: "-1.8s" }} />
+                    <path
+                      d={path.d}
+                      fill="none"
+                      stroke="url(#unifiedPipeGrad)"
+                      strokeWidth={isActive ? "3" : "1.8"}
+                      strokeLinecap="round"
+                      strokeDasharray="6 14"
+                      filter={isActive ? "url(#pipeGlowActive)" : "url(#pipeGlowNormal)"}
+                      style={{
+                        animation: `pipeLiquid ${isActive ? "0.9s" : "2s"} linear infinite`,
+                        animationDelay: `-${idx * 0.4}s`,
+                      }}
+                    />
 
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 50 50 C 65 50, 65 12, 80 12" style={{ animationDelay: "-0.4s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 50 50 C 65 50, 65 37, 80 37" style={{ animationDelay: "-1.6s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 50 50 C 65 50, 65 63, 80 63" style={{ animationDelay: "-0.9s" }} />
-              <path className="real-pipe-pulse" filter="url(#pipeGlow)" d="M 50 50 C 65 50, 65 88, 80 88" style={{ animationDelay: "-2.1s" }} />
+                    <circle r={isActive ? "1.8" : "1.2"} fill={UNIFIED_COLOR} filter="url(#pipeGlowNormal)">
+                      <animateMotion
+                        path={path.d}
+                        dur={isActive ? "1.1s" : "2.3s"}
+                        repeatCount="indefinite"
+                        begin={`-${idx * 0.5}s`}
+                      />
+                    </circle>
+                  </g>
+                );
+              })}
 
-              {/* Glowing Pipe Valves / Terminal Connectors */}
-              <circle cx="20" cy="12" r="1.2" className="pipe-joint" />
-              <circle cx="20" cy="37" r="1.2" className="pipe-joint" />
-              <circle cx="20" cy="63" r="1.2" className="pipe-joint" />
-              <circle cx="20" cy="88" r="1.2" className="pipe-joint" />
+              {/* 4 RIGHT PIPELINES */}
+              {rightPaths.map((path, idx) => {
+                const isActive = activePipe === idx;
+                const isDimmed = activePipe !== null && !isActive;
 
-              <circle cx="50" cy="50" r="2.0" className="pipe-joint-center" filter="url(#pipeGlow)" />
+                return (
+                  <g key={`right-pipe-${idx}`} style={{ transition: "all 0.3s ease", opacity: isDimmed ? 0.2 : 1 }}>
+                    <path
+                      d={path.d}
+                      fill="none"
+                      stroke={UNIFIED_COLOR}
+                      strokeOpacity={isActive ? "0.55" : "0.2"}
+                      strokeWidth={isActive ? "2.6" : "1.6"}
+                      strokeLinecap="round"
+                    />
 
-              <circle cx="80" cy="12" r="1.2" className="pipe-joint" />
-              <circle cx="80" cy="37" r="1.2" className="pipe-joint" />
-              <circle cx="80" cy="63" r="1.2" className="pipe-joint" />
-              <circle cx="80" cy="88" r="1.2" className="pipe-joint" />
+                    <path
+                      d={path.d}
+                      fill="none"
+                      stroke="url(#unifiedPipeGrad)"
+                      strokeWidth={isActive ? "3" : "1.8"}
+                      strokeLinecap="round"
+                      strokeDasharray="6 14"
+                      filter={isActive ? "url(#pipeGlowActive)" : "url(#pipeGlowNormal)"}
+                      style={{
+                        animation: `pipeLiquid ${isActive ? "0.9s" : "2s"} linear infinite`,
+                        animationDelay: `-${idx * 0.4 + 0.2}s`,
+                      }}
+                    />
+
+                    <circle r={isActive ? "1.8" : "1.2"} fill={UNIFIED_COLOR} filter="url(#pipeGlowNormal)">
+                      <animateMotion
+                        path={path.d}
+                        dur={isActive ? "1.1s" : "2.3s"}
+                        repeatCount="indefinite"
+                        begin={`-${idx * 0.5 + 0.2}s`}
+                      />
+                    </circle>
+                  </g>
+                );
+              })}
             </svg>
 
-            {/* Col 1: Tech Inputs */}
-            <div className="bridge-col">
-              <div className="compact-node"><span className="icon">🧠</span> Complex AI & Code</div>
-              <div className="compact-node"><span className="icon">🗄️</span> Raw Data Lakes</div>
-              <div className="compact-node"><span className="icon">☁️</span> Cloud Infra</div>
-              <div className="compact-node"><span className="icon">🔌</span> Custom APIs</div>
+            {/* COLUMN 1: Tech Inputs (Absolute Position X: 0% to 31%) */}
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: "31%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                zIndex: 3,
+              }}
+            >
+              {pipelines.map((pipe) => {
+                const isActive = activePipe === pipe.id;
+                return (
+                  <div
+                    key={`input-node-${pipe.id}`}
+                    className="compact-node"
+                    onMouseEnter={() => setActivePipe(pipe.id)}
+                    onMouseLeave={() => setActivePipe(null)}
+                    style={{
+                      width: "100%",
+                      height: "52px",
+                      padding: "8px 14px",
+                      background: isActive ? "rgba(16, 24, 40, 0.95)" : "rgba(8, 8, 12, 0.85)",
+                      border: `1px solid ${isActive ? UNIFIED_COLOR : "rgba(255, 255, 255, 0.12)"}`,
+                      boxShadow: isActive ? `0 0 16px ${UNIFIED_GLOW}` : "0 4px 12px rgba(0, 0, 0, 0.5)",
+                      transform: isActive ? "scale(1.02)" : "none",
+                      transition: "all 0.25s ease",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      borderRadius: "8px",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        borderRadius: "6px",
+                        background: UNIFIED_BG,
+                        color: UNIFIED_COLOR,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        border: `1px solid ${UNIFIED_COLOR}40`,
+                      }}
+                    >
+                      {pipe.inputIcon}
+                    </div>
+                    <span 
+                      style={{ 
+                        fontSize: "12px", 
+                        fontWeight: 600, 
+                        color: isActive ? "#ffffff" : "#d0d0d0",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {pipe.inputTitle}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Col 2: Center Node (BUILDLYST) */}
-            <div className="bridge-col" style={{ justifyContent: "center" }}>
+            {/* COLUMN 2: BUILDLYST Core Card (Absolute Position X: 42.5% to 57.5%) */}
+            <div
+              style={{
+                position: "absolute",
+                left: "42.5%",
+                width: "15%",
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: 4,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <div
                 className="bridge-center-node tilt-card"
-                style={{ ...tiltStyle, padding: "24px 32px", textAlign: "center" }}
+                style={{
+                  ...tiltStyle,
+                  width: "100%",
+                  padding: "16px 10px",
+                  textAlign: "center",
+                  background: "rgba(6, 9, 18, 0.96)",
+                  backdropFilter: "blur(16px)",
+                  border: `1px solid ${activePipe !== null ? UNIFIED_COLOR : "var(--c-accent-cyan)"}`,
+                  borderRadius: "14px",
+                  boxShadow: activePipe !== null 
+                    ? `0 0 35px ${UNIFIED_GLOW}` 
+                    : "0 0 30px rgba(0, 210, 255, 0.25), inset 0 0 15px rgba(0, 210, 255, 0.08)",
+                  transition: "all 0.3s ease",
+                  position: "relative",
+                  boxSizing: "border-box",
+                }}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
-                <h3 className="text-gradient" style={{ margin: 0, fontSize: "30px", letterSpacing: "-0.5px" }}>BUILDLYST</h3>
+                {/* Status Badge */}
+                <div
+                  style={{
+                    fontSize: "8.5px",
+                    fontWeight: 700,
+                    letterSpacing: "0.8px",
+                    textTransform: "uppercase",
+                    color: UNIFIED_COLOR,
+                    marginBottom: "4px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "4px",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "50%",
+                      background: UNIFIED_COLOR,
+                      boxShadow: `0 0 6px ${UNIFIED_COLOR}`,
+                    }}
+                  />
+                  {activePipe !== null ? "ACTIVE" : "AI ENGINE"}
+                </div>
+
+                <h3
+                  className="text-gradient"
+                  style={{
+                    margin: 0,
+                    fontSize: "18px",
+                    letterSpacing: "-0.3px",
+                    fontWeight: 800,
+                    fontFamily: "var(--font-display)",
+                  }}
+                >
+                  BUILDLYST
+                </h3>
+
+                <div 
+                  style={{ 
+                    marginTop: "4px", 
+                    fontSize: "9.5px", 
+                    color: "rgba(255,255,255,0.45)", 
+                    display: "flex", 
+                    alignItems: "center", 
+                    justifyContent: "center", 
+                    gap: "4px" 
+                  }}
+                >
+                  <Cpu size={10} /> 4 Pipelines
+                </div>
               </div>
             </div>
 
-            {/* Col 3: Business Outputs */}
-            <div className="bridge-col">
-              <div className="compact-node highlight-green"><span className="icon">📈</span> +240% Revenue ROI</div>
-              <div className="compact-node highlight-cyan"><span className="icon">⏱️</span> 10x Launch Speed</div>
-              <div className="compact-node highlight-gold"><span className="icon">💰</span> Scalable Profit</div>
-              <div className="compact-node highlight-purple"><span className="icon">🔒</span> 99.99% Reliability</div>
+            {/* COLUMN 3: Business Outputs (Absolute Position X: 69% to 100%) */}
+            <div
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                bottom: 0,
+                width: "31%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                zIndex: 3,
+              }}
+            >
+              {pipelines.map((pipe) => {
+                const isActive = activePipe === pipe.id;
+                return (
+                  <div
+                    key={`output-node-${pipe.id}`}
+                    className="compact-node"
+                    onMouseEnter={() => setActivePipe(pipe.id)}
+                    onMouseLeave={() => setActivePipe(null)}
+                    style={{
+                      width: "100%",
+                      height: "52px",
+                      padding: "8px 14px",
+                      background: isActive ? "rgba(16, 24, 40, 0.95)" : "rgba(8, 8, 12, 0.85)",
+                      border: `1px solid ${isActive ? UNIFIED_COLOR : "rgba(0, 210, 255, 0.25)"}`,
+                      boxShadow: isActive ? `0 0 16px ${UNIFIED_GLOW}` : "0 4px 12px rgba(0, 0, 0, 0.5)",
+                      transform: isActive ? "scale(1.02)" : "none",
+                      transition: "all 0.25s ease",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      borderRadius: "8px",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "28px",
+                        height: "28px",
+                        borderRadius: "6px",
+                        background: UNIFIED_BG,
+                        color: UNIFIED_COLOR,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        border: `1px solid ${UNIFIED_COLOR}40`,
+                      }}
+                    >
+                      {pipe.outputIcon}
+                    </div>
+                    <span 
+                      style={{ 
+                        fontSize: "12px", 
+                        fontWeight: 600, 
+                        color: isActive ? "#ffffff" : UNIFIED_COLOR,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {pipe.outputTitle}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* RIGHT SIDE: Content & Pillars */}
           <div className="content-column">
-            <h3 style={{ fontSize: "28px", lineHeight: 1.3, marginBottom: "20px", color: "#fff" }}>
-              You don&apos;t need to be an engineer to dominate your market.
+            <h3 style={{ fontSize: "26px", lineHeight: 1.3, marginBottom: "18px", color: "#fff", fontWeight: 700 }}>
+              You don&apos;t need to be technical to build a smarter business.
             </h3>
-            <p style={{ color: "var(--c-text-secondary)", marginBottom: "32px", lineHeight: 1.6, fontSize: "16px" }}>
-              You just need an elite team to build your engine. We take your scattered data and bold ideas, process them through our custom architecture, and hand you a seamless, automated system that drives real profit.
+            <p style={{ color: "var(--c-text-secondary)", marginBottom: "28px", lineHeight: 1.6, fontSize: "15px" }}>
+              We turn scattered data, manual processes, and ambitious ideas into AI-powered systems that simplify operations, accelerate growth, and scale with your business.
             </p>
 
             {/* 4 Pillars (2x2 Grid) */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-              <div className="glass-panel" style={{ padding: "16px", display: "flex", alignItems: "center", gap: "12px", borderRadius: "var(--radius-sm)" }}>
-                <div style={{ background: "rgba(255,95,86,0.1)", color: "#ff5f56", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>🎯</div>
+              <div 
+                className="glass-panel" 
+                style={{ 
+                  padding: "14px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "12px", 
+                  borderRadius: "10px", 
+                  background: "rgba(255, 255, 255, 0.03)", 
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                <div style={{ background: "rgba(255,95,86,0.12)", color: "#ff5f56", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(255,95,86,0.2)" }}><Target size={18} /></div>
                 <div>
-                  <h4 style={{ marginBottom: "2px", fontSize: "15px", color: "#fff" }}>Zero Jargon</h4>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "12px", margin: 0, lineHeight: 1.3 }}>We speak business.</p>
+                  <h4 style={{ marginBottom: "2px", fontSize: "14px", color: "#fff", fontWeight: 600 }}>Business First</h4>
+                  <p style={{ color: "var(--c-text-secondary)", fontSize: "11px", margin: 0, lineHeight: 1.3 }}>We speak your language.</p>
                 </div>
               </div>
-              <div className="glass-panel" style={{ padding: "16px", display: "flex", alignItems: "center", gap: "12px", borderRadius: "var(--radius-sm)" }}>
-                <div style={{ background: "rgba(39,201,63,0.1)", color: "#27c93f", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>🤝</div>
+
+              <div 
+                className="glass-panel" 
+                style={{ 
+                  padding: "14px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "12px", 
+                  borderRadius: "10px", 
+                  background: "rgba(255, 255, 255, 0.03)", 
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                <div style={{ background: "rgba(39,201,63,0.12)", color: "#27c93f", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(39,201,63,0.2)" }}><Handshake size={18} /></div>
                 <div>
-                  <h4 style={{ marginBottom: "2px", fontSize: "15px", color: "#fff" }}>True Partner</h4>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "12px", margin: 0, lineHeight: 1.3 }}>Idea to launch.</p>
+                  <h4 style={{ marginBottom: "2px", fontSize: "14px", color: "#fff", fontWeight: 600 }}>Built With You</h4>
+                  <p style={{ color: "var(--c-text-secondary)", fontSize: "11px", margin: 0, lineHeight: 1.3 }}>From idea to execution.</p>
                 </div>
               </div>
-              <div className="glass-panel" style={{ padding: "16px", display: "flex", alignItems: "center", gap: "12px", borderRadius: "var(--radius-sm)" }}>
-                <div style={{ background: "rgba(255,189,46,0.1)", color: "#ffbd2e", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>⚡</div>
+
+              <div 
+                className="glass-panel" 
+                style={{ 
+                  padding: "14px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "12px", 
+                  borderRadius: "10px", 
+                  background: "rgba(255, 255, 255, 0.03)", 
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                <div style={{ background: "rgba(255,189,46,0.12)", color: "#ffbd2e", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(255,189,46,0.2)" }}><Zap size={18} /></div>
                 <div>
-                  <h4 style={{ marginBottom: "2px", fontSize: "15px", color: "#fff" }}>Radical Speed</h4>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "12px", margin: 0, lineHeight: 1.3 }}>10x deployment.</p>
+                  <h4 style={{ marginBottom: "2px", fontSize: "14px", color: "#fff", fontWeight: 600 }}>Faster Execution</h4>
+                  <p style={{ color: "var(--c-text-secondary)", fontSize: "11px", margin: 0, lineHeight: 1.3 }}>Move from plan to product faster.</p>
                 </div>
               </div>
-              <div className="glass-panel" style={{ padding: "16px", display: "flex", alignItems: "center", gap: "12px", borderRadius: "var(--radius-sm)" }}>
-                <div style={{ background: "rgba(0,210,255,0.1)", color: "var(--c-accent-cyan)", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>🏆</div>
+
+              <div 
+                className="glass-panel" 
+                style={{ 
+                  padding: "14px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  gap: "12px", 
+                  borderRadius: "10px", 
+                  background: "rgba(255, 255, 255, 0.03)", 
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                <div style={{ background: "rgba(0,210,255,0.12)", color: "var(--c-accent-cyan)", width: "36px", height: "36px", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: "1px solid rgba(0,210,255,0.2)" }}><TrendingUp size={18} /></div>
                 <div>
-                  <h4 style={{ marginBottom: "2px", fontSize: "15px", color: "#fff" }}>Guaranteed ROI</h4>
-                  <p style={{ color: "var(--c-text-secondary)", fontSize: "12px", margin: 0, lineHeight: 1.3 }}>Built to scale.</p>
+                  <h4 style={{ marginBottom: "2px", fontSize: "14px", color: "#fff", fontWeight: 600 }}>Built to Scale</h4>
+                  <p style={{ color: "var(--c-text-secondary)", fontSize: "11px", margin: 0, lineHeight: 1.3 }}>Technology that grows with you.</p>
                 </div>
               </div>
             </div>
-            <Link href="#contact" className="btn btn-primary glow-border-btn w-100" style={{ marginTop: "20px", fontSize: "15px", padding: "14px 24px", textAlign: "center", display: "block" }}>
-              Start Your Transformation →
+
+            <Link
+              href="#contact"
+              className="btn btn-primary glow-border-btn w-100"
+              style={{
+                marginTop: "22px",
+                fontSize: "14px",
+                padding: "12px 20px",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+              }}
+            >
+              Start Your Transformation <ArrowRight size={15} />
             </Link>
           </div>
 
@@ -199,3 +661,5 @@ export default function PhilosophyV2() {
     </section>
   );
 }
+
+

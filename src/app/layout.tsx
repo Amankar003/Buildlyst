@@ -3,7 +3,7 @@ import { Space_Grotesk, DM_Sans, Fira_Code } from "next/font/google";
 import ClientWrapper from "@/components/ClientWrapper";
 import Navbar from "@/components/Navbar";
 import SwarmFooter from "@/components/SwarmFooter";
-import ChatbotWidget from "@/components/ChatbotWidget";
+
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -143,7 +143,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <SwarmFooter />
-          <ChatbotWidget />
+
         </ClientWrapper>
       </body>
     </html>
