@@ -488,15 +488,15 @@ section {
     position: fixed;
     top: 24px;
     left: 50%;
-    transform: translateX(-50%) translateZ(100px); /* Force front in 3D space */
-    background: rgba(8, 8, 12, 0.98); /* Solid enough to prevent text overlap without backdrop-filter */
+    transform: translateX(-50%);
+    background: #08080c; /* Solid dark background */
     border: 1.5px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
     padding: 8px 16px 8px 32px;
     display: flex;
     align-items: center;
     gap: 32px;
-    z-index: 9999;
+    z-index: 2147483647; /* Absolute maximum z-index allowed by CSS */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 210, 255, 0.1);
 }
 

@@ -153,7 +153,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="contact-section reveal" style={{ position: "relative", zIndex: 0, padding: "80px 0", borderTop: "1px solid rgba(255,255,255,0.05)", background: "radial-gradient(circle at bottom center, rgba(0, 210, 255, 0.05) 0%, transparent 70%)" }}>
+    <section id="contact" className="contact-section reveal" style={{ padding: "80px 0", borderTop: "1px solid rgba(255,255,255,0.05)", background: "radial-gradient(circle at bottom center, rgba(0, 210, 255, 0.05) 0%, transparent 70%)" }}>
       <div className="container">
         <div className="section-header text-center" style={{ marginBottom: "24px" }}>
           <h2 className="text-gradient" style={{ fontSize: "clamp(32px, 5vw, 48px)", marginBottom: "16px", lineHeight: 1.1 }}>
