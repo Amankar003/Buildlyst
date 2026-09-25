@@ -15,6 +15,7 @@ if (typeof window !== "undefined") {
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     // Disable browser scroll restoration and force scroll to top on reload/fresh load
@@ -74,8 +75,28 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
     };
     document.addEventListener("click", handleAnchorClick);
 
+    // Scroll Progress Bar + Navbar Frosted Glass
+    const handleScrollProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setScrollProgress(progress);
+
+      // Navbar frosted glass on scroll
+      const nav = document.querySelector('.pill-nav') as HTMLElement;
+      if (nav) {
+        if (scrollTop > 100) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScrollProgress, { passive: true });
+
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      window.removeEventListener('scroll', handleScrollProgress);
       lenis.destroy();
       gsap.ticker.remove(rafTicker);
       (window as any).lenis = undefined;
@@ -152,6 +173,27 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
           }
         );
       });
+
+      // Bento Collage Staggered Reveal
+      const bentoContainer = document.querySelector(".c6-collage");
+      if (bentoContainer) {
+        gsap.fromTo(
+          ".c6-fragment",
+          { y: 50, opacity: 0 },
+          {
+            scrollTrigger: {
+              trigger: bentoContainer,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+          }
+        );
+      }
 
       // Pricing Matrix Cards
       if (document.querySelector(".pricing-card")) {
@@ -247,15 +289,17 @@ export default function ClientWrapper({ children }: { children: React.ReactNode 
       )}
 
 
+      {/* Scroll Progress Bar */}
+      <div
+        className="scroll-progress-bar"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
       {/* Noise Overlay */}
       <div className="noise-overlay"></div>
 
       {/* Main Content Wrapper */}
       <div id="main-content" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Ambient Background Effects */}
-        <div className="ambient-glow glow-1"></div>
-        <div className="ambient-glow glow-2"></div>
-
         <WhatsAppWidget />
         {children}
       </div>

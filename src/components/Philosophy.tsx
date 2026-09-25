@@ -37,7 +37,7 @@ export default function Philosophy() {
               <div className="c6-giant-text">
                 WE BUILD<br />THE SYSTEMS
               </div>
-              <div className="c6-giant-overlay" style={{ bottom: 8 }}>
+              <div className="c6-giant-overlay">
                 that make your business run.
               </div>
             </div>

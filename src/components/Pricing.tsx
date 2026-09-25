@@ -344,13 +344,13 @@ Complexity: ${groqComplexity}
     <section id="pricing" className="pricing-section reveal" style={{ padding: "100px 0", background: "var(--c-bg-dark)" }}>
       <style>{`
         @media (max-width: 600px) {
-          .hide-on-mobile { display: none !important; }
-          .chat-messages-area { padding: 16px !important; gap: 16px !important; }
-          .chat-bubble { max-width: 95% !important; padding: 12px !important; }
-          .editor-header { padding: 10px !important; }
-          .editor-header .editor-title { font-size: 13px !important; margin-left: 8px !important; }
-          .playground-container { height: 600px !important; }
-          .chat-input-area { padding: 12px !important; }
+          #pricing .hide-on-mobile { display: none !important; }
+          #pricing .chat-messages-area { padding: 16px !important; gap: 16px !important; }
+          #pricing .chat-bubble { max-width: 95% !important; padding: 12px !important; }
+          #pricing .editor-header { padding: 10px !important; }
+          #pricing .editor-header .editor-title { font-size: 13px !important; margin-left: 8px !important; }
+          #pricing .playground-container { height: 600px !important; }
+          #pricing .chat-input-area { padding: 12px !important; }
         }
       `}</style>
       <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>

@@ -214,6 +214,10 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero-section reveal" style={{ opacity: 1 }}>
+      {/* Ambient Background Effects (Restricted to Hero) */}
+      <div className="ambient-glow glow-1"></div>
+      <div className="ambient-glow glow-2"></div>
+
       {/* Animated Gradient Waves */}
       <div className="wave-container">
         <svg

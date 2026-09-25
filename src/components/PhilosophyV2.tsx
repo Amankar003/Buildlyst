@@ -155,6 +155,61 @@ export default function PhilosophyV2() {
           #philosophy-v2 {
             padding: 120px 0 60px 0 !important;
           }
+          
+          /* Mobile Overrides for Pipeline Node Columns */
+          .bridge-col-left, .bridge-col-right {
+            width: 34% !important;
+          }
+          .bridge-col-center {
+            width: 30% !important;
+            left: 35% !important;
+          }
+          .bridge-center-node {
+            padding: 12px 6px !important;
+          }
+          .bridge-center-node h2 {
+            font-size: 11px !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 2px !important;
+          }
+          .bridge-center-node span {
+            font-size: 8px !important;
+          }
+        }
+        
+        /* Desktop base styles for Pipeline Node Columns */
+        .bridge-col-left {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 31%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          z-index: 3;
+        }
+        .bridge-col-right {
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 31%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          z-index: 3;
+        }
+        .bridge-col-center {
+          position: absolute;
+          left: 42.5%;
+          width: 15%;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       `}</style>
       <div className="container" style={{ maxWidth: "1400px" }}>
@@ -323,19 +378,7 @@ export default function PhilosophyV2() {
             </svg>
 
             {/* COLUMN 1: Tech Inputs (Absolute Position X: 0% to 31%) */}
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: "31%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                zIndex: 3,
-              }}
-            >
+            <div className="bridge-col-left">
               {pipelines.map((pipe) => {
                 const isActive = activePipe === pipe.id;
                 return (
@@ -393,19 +436,7 @@ export default function PhilosophyV2() {
             </div>
 
             {/* COLUMN 2: BUILDLYST Core Card (Absolute Position X: 42.5% to 57.5%) */}
-            <div
-              style={{
-                position: "absolute",
-                left: "42.5%",
-                width: "15%",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 4,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className="bridge-col-center">
               <div
                 className="bridge-center-node tilt-card"
                 style={{
@@ -484,19 +515,7 @@ export default function PhilosophyV2() {
             </div>
 
             {/* COLUMN 3: Business Outputs (Absolute Position X: 69% to 100%) */}
-            <div
-              style={{
-                position: "absolute",
-                right: 0,
-                top: 0,
-                bottom: 0,
-                width: "31%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                zIndex: 3,
-              }}
-            >
+            <div className="bridge-col-right">
               {pipelines.map((pipe) => {
                 const isActive = activePipe === pipe.id;
                 return (

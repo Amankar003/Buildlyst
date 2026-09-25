@@ -27,28 +27,52 @@ export default function Home() {
       {/* Trust Signal: Engineering Attributes Marquee */}
       <TechStackMarquee />
 
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
+
       {/* 2. Philosophy section with 3D Stats card stack */}
       <Philosophy />
+
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
 
       {/* 3. Capabilities accordion lists */}
       <Capabilities />
 
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
+
       {/* 4. Inputs to outcomes SVG pipeline bridge */}
       <PhilosophyV2 />
+
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
 
       {/* 5. Live Pipeline developer console playground */}
       <Playground />
 
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
+
       {/* 7. Scroll card methodology stacking phases */}
       <Methodology />
 
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
+
       {/* 8. Portfolio case studies (Featured Case Studies teaser) */}
       <FeaturedCaseStudies />
+
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
 
       {/* 9. Engagement pricing matrix with estimator predictor */}
       <Suspense fallback={<div style={{ minHeight: "800px" }}></div>}>
         <Pricing />
       </Suspense>
+
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
 
       {/* 10. Global scale network cobe globe card */}
       <section id="global-scale" className="global-section reveal">
@@ -57,7 +81,7 @@ export default function Home() {
             {/* Left Content */}
             <div className="global-content">
               <span className="overline highlight" style={{ marginBottom: "16px", display: "inline-block" }}>GLOBAL REACH</span>
-              <h2 className="global-title" style={{ color: "#fff", fontSize: "32px", marginBottom: "16px" }}>Built for Today. Ready for What’s Next.</h2>
+              <h2 className="global-title" style={{ color: "#fff", fontSize: "32px", marginBottom: "16px" }}>Built for Today. Ready for What's Next.</h2>
               <p className="global-desc" style={{ color: "var(--c-text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
                 From AI automation and GenAI applications to data engineering, machine learning, and digital products, Buildlyst builds technology that helps businesses operate smarter and scale with confidence.
               </p>
@@ -92,8 +116,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
+
       {/* 11. Client reviews infinite marquee tracks */}
       <Testimonials />
+
+      {/* Glowing Divider */}
+      <div className="section-divider-glow" />
 
       {/* 12. Knowledge base FAQ accordions */}
       <Faq />

@@ -65,17 +65,18 @@
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.05em;
-  color: rgba(255,255,255,0.04);
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fff;
   position: relative;
 }
 .c6-giant-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  margin-top: 16px;
   font-family: var(--font-display, sans-serif);
   font-size: 18px;
   font-weight: 700;
-  color: #fff;
+  color: var(--c-accent-cyan, #00D2FF);
   letter-spacing: -0.01em;
 }
 .c6-fragment {
